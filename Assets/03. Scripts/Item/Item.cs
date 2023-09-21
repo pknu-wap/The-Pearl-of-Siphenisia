@@ -1,14 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : ScriptableObject
+public class Item : MonoBehaviour
 {
-    public Sprite _icon;
-    public Sprite _sprite;
-    public string _name;
-    public string _description;
+    public ItemData itemData;
 
-    public Sprite Icon { get; set; }
-    public Sprite Sprite { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("충돌");
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("인벤토리에 추가");
+            AddToInventory();
+        }
+    }
+
+
+    public void AddToInventory()
+    {
+        Inventory.Instance.AddItem(itemData);
+    }
 }
