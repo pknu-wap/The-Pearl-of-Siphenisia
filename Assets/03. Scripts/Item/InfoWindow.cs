@@ -31,8 +31,8 @@ public class InfoWindow : Singleton<InfoWindow>
             return;
         }
 
-        nameText.text = item.Name;
-        descriptionText.text = item.Description;
+        nameText.text = item.itemName;
+        descriptionText.text = item.description;
     }
 
     /// <summary>

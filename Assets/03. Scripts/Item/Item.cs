@@ -8,15 +8,11 @@ public class Item : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("충돌");
-
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("인벤토리에 추가");
             AddToInventory();
         }
     }
-
 
     public void AddToInventory()
     {

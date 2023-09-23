@@ -35,13 +35,11 @@ public class Inventory : Singleton<Inventory>
         int i = 0;
 
         // 비어있지 않다면 i를 1 증가
-        while (slots[i].isEmpty() == false)
+        while (slots[i].IsEmpty() == false)
         {
             i++;
-            Debug.Log(i + "번째 슬롯 비어있지 않음");
         }
 
-        Debug.Log(i + "번째 슬롯 비어있음");
         return i;
     }
 

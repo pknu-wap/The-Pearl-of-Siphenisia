@@ -8,9 +8,6 @@ public class Slot : MonoBehaviour
     public Image icon;
     public Sprite iconSp;
 
-    TextMeshProUGUI nameText;
-    TextMeshProUGUI descriptionText;
-
     private void Awake()
     {
         AssignObjects();
@@ -32,7 +29,7 @@ public class Slot : MonoBehaviour
     /// <summary>
     /// 아이템 추가
     /// </summary>
-    /// <param name="item"></param>
+    /// <param name="item"></param> 
     public void AddItem(ItemData item)
     {
         itemData = item;
@@ -61,9 +58,9 @@ public class Slot : MonoBehaviour
             return;
         }
 
-        iconSp = itemData.Icon;
-        icon.sprite = itemData.Icon;
-        Debug.Log(itemData.Name);
+        // 아이콘을 변경하고 종료
+        icon.sprite = itemData.icon;
+        // + 주인공 손에 스프라이트 겹치는 로직 생성 예정
         icon.enabled = true;
     }
 
@@ -88,7 +85,7 @@ public class Slot : MonoBehaviour
     /// 비어 있는 슬롯이라면 true 반환
     /// </summary>
     /// <returns></returns>
-    public bool isEmpty()
+    public bool IsEmpty()
     {
         return itemData == null;
     }

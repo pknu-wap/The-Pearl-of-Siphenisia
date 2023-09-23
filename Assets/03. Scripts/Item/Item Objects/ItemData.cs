@@ -2,20 +2,11 @@ using UnityEngine;
 
 public class ItemData : ScriptableObject
 {
-    [SerializeField]
-    private Sprite _icon;
-    public Sprite Icon { get; }
+    public Sprite icon;
+    public Sprite sprite;
 
-    [SerializeField]
-    private Sprite _sprite;
-    public Sprite Sprite { get; }
-
-    [SerializeField]
-    private string _name;
-    public string Name { get; }
-
-    [SerializeField]
-    private string _description;
-    public string Description { get; }
+    // name이 이미 있다...
+    public string itemName;
+    public string description;
 
 }
