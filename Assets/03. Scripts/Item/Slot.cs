@@ -69,6 +69,14 @@ public class Slot : MonoBehaviour
     /// </summary>
     public void FloatInfo()
     {
+        // 아이템이 없다면 띄우지 않는다.
+        if(itemData == null)
+        {
+            return;
+        }
+
+        // 자신의 위치로 상세정보창을 이동
+        InfoWindow.Instance.ChangePosition(transform.position);
         InfoWindow.Instance.UpdateInfo(itemData);
         InfoWindow.Instance.FloatInfoUI();
     }
@@ -78,6 +86,12 @@ public class Slot : MonoBehaviour
     /// </summary>
     public void HideInfo()
     {
+        // 아이템이 없다면 호출하지 않는다.
+        if (itemData == null)
+        {
+            return;
+        }
+
         InfoWindow.Instance.HideInfoUI();
     }
 

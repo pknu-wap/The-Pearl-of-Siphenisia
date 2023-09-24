@@ -1,9 +1,9 @@
 using TMPro;
-
+using UnityEngine;
 
 public class InfoWindow : Singleton<InfoWindow>
 {
-    public TextMeshProUGUI nameText;
+    private TextMeshProUGUI nameText;
     private TextMeshProUGUI descriptionText;
 
     private void Awake()
@@ -33,6 +33,15 @@ public class InfoWindow : Singleton<InfoWindow>
 
         nameText.text = item.itemName;
         descriptionText.text = item.description;
+    }
+
+    /// <summary>
+    /// position으로 위치를 이동한다. (월드 좌표계 기준)
+    /// </summary>
+    /// <param name="position"></param>
+    public void ChangePosition(Vector3 position)
+    {
+        transform.position = position;
     }
 
     /// <summary>
