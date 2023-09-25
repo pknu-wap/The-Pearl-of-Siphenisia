@@ -9,4 +9,6 @@ public class ItemData : ScriptableObject
     public string itemName;
     public string description;
 
+    // 정렬 우선 순위
+    public int priority;
 }

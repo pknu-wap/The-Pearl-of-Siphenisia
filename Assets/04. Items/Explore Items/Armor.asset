@@ -16,3 +16,4 @@ MonoBehaviour:
   sprite: {fileID: 3931004187160125056, guid: 3d1a49a1c66afc14ba9f8b3a9eb76f79, type: 3}
   itemName: "\uAC11\uC637"
   description: "\uBB34\uAC81\uC9C0\uB9CC \uB2E8\uB2E8\uD55C \uAC11\uC637\uC774\uB2E4."
+  priority: 1
