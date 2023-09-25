@@ -27,7 +27,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
-    /*private void Awake()
+/*    private void Awake()
     {
         if (transform.parent != null)
         {

@@ -35,7 +35,7 @@ public class Inventory : Singleton<Inventory>
         int i = 0;
 
         // 비어있지 않다면 i를 1 증가
-        while (slots[i].IsEmpty() == false)
+        while (i < slots.Count && slots[i].IsEmpty() == false)
         {
             i++;
         }
@@ -51,7 +51,15 @@ public class Inventory : Singleton<Inventory>
     {
         int i = SearchFirstEmptySlot();
 
+        // 슬롯이 모두 찼다면 종료
+        if(i == slots.Count)
+        {
+            Debug.Log("슬롯이 모두 찼습니다.");
+            return;
+        }
+
         slots[i].AddItem(item);
+        slots[i].UpdateSlot();
     }
 
     /// <summary>

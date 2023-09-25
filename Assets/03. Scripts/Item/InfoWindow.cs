@@ -47,7 +47,7 @@ public class InfoWindow : Singleton<InfoWindow>
     /// <summary>
     /// 상세정보창 표시
     /// </summary>
-    public void FloatInfoUI()
+    public void ShowInfoUI()
     {
         gameObject.SetActive(true);
     }
