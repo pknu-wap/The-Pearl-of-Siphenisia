@@ -22,7 +22,7 @@ public class Inventory : Singleton<Inventory>
         bg = GetComponent<Image>();
 
         // 자식 오브젝트 slot을 모두 할당
-        foreach(Transform slot in transform)
+        foreach(Transform slot in transform.GetChild(1).transform)
         {
             slots.Add(slot.GetComponent<Slot>());
         }
@@ -76,7 +76,7 @@ public class Inventory : Singleton<Inventory>
     /// <summary>
     /// 인벤토리의 공백을 제거하는 함수, 마지막 인덱스를 반환
     /// </summary>
-    int TrimInventory()
+    public int TrimInventory()
     {
         // 빈 칸 없애기
         int i = -1;
@@ -131,6 +131,20 @@ public class Inventory : Singleton<Inventory>
 
             slots[i].AddItem(items[i]);
         }
+
+        // UI 갱신
+        foreach (Slot slot in slots)
+        {
+            slot.UpdateSlot();
+        }
+    }
+
+    /// <summary>
+    /// 이벤트 등록용 임시 함수
+    /// </summary>
+    public void Trim()
+    {
+        int i = TrimInventory();
 
         // UI 갱신
         foreach (Slot slot in slots)
