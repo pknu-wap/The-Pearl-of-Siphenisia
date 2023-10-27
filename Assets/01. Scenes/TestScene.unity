@@ -373,18 +373,6 @@ PrefabInstance:
       propertyPath: obj
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 4592970190887813898, guid: 3c751054e5d96c44ca28dc4cc991cb7c, type: 3}
-      propertyPath: speed
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 5213405968266211566, guid: 3c751054e5d96c44ca28dc4cc991cb7c, type: 3}
-      propertyPath: obj
-      value: 
-      objectReference: {fileID: 11400000, guid: 7fb255f3c4f27eb4fbbd026faa9cb0a6, type: 2}
-    - target: {fileID: 8045548815370126043, guid: 3c751054e5d96c44ca28dc4cc991cb7c, type: 3}
-      propertyPath: m_LinearDrag
-      value: 4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
