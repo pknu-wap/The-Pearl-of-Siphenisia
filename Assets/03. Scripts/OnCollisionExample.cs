@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -13,25 +14,29 @@ public class OnCollisionExample : MonoBehaviour
     int health;
     int armor;
 
+    public bool isAttacked = false;
+
     public void Start()
     {
         health = obj.health;
         armor = obj.armor;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        playerDamaged();
-    }
-
     private void OnCollisionStay2D(Collision2D collision)
     {
-        Debug.Log("OnCollisionStay " + collision.gameObject.name);
+        if (!isAttacked)
+        {
+            playerDamaged();
+            StartCoroutine(SetInvincible());
+        }
+
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private IEnumerator SetInvincible()
     {
-        Debug.Log("OnCollisionExit " + collision.gameObject.name);
+        isAttacked = true;
+        yield return new WaitForSecondsRealtime(1.0f);
+        isAttacked = false;
     }
 
     public void playerDamaged()

@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 {
     Transform enemyTransform;
     Transform playerTransform;
-    public float enemySpeed = (float)0.02;
+    public float enemySpeed = 0.02f;
     
     // Start is called before the first frame update
     void Start()
@@ -17,6 +17,17 @@ public class Enemy : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        followPlayer();
+        Debug.Log("Stay");
+    }
+
+    public void followPlayer()
     {
         transform.position = Vector3.MoveTowards(enemyTransform.position, playerTransform.position, enemySpeed);
     }
