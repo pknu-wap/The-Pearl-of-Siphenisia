@@ -20,6 +20,16 @@ public class bridge : unityE
     {
         
     }
+
+    /*public void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Ground")
+        {
+            Debug.Log("외나무다리 Static으로 전환");
+            rb2d1.bodyType = RigidbodyType2D.Static;
+        }
+    }*/
+
     public void falldown()
     {
         Debug.Log("외나무다리가 떨어짐");
