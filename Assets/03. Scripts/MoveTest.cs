@@ -10,7 +10,10 @@ public class MoveTest : MonoBehaviour
 
     public void Test()
     {
+        rig2d = GetComponent<Rigidbody2D>();
         
+        gameOver.Invoke();
+        Test();
     }
 
     // Start is called before the first frame update
