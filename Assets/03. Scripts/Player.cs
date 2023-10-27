@@ -8,21 +8,12 @@ public class Player : MonoBehaviour
     public UnityEvent gameOver;
     public float speed;
 
-    public void Test()
-    {
-        rig2d = GetComponent<Rigidbody2D>();
-        
-        gameOver.Invoke();
-        Test();
-    }
-
     // Start is called before the first frame update
     void Start()
     {
         rig2d = GetComponent<Rigidbody2D>();
-        
+
         gameOver.Invoke();
-        Test();
     }
 
     void Update()

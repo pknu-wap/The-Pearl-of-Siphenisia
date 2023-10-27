@@ -10,6 +10,15 @@ public class OnCollisionExample : MonoBehaviour
     public ObjTest obj;
     public UnityEvent gameOver;
 
+    int health;
+    int armor;
+
+    public void Start()
+    {
+        health = obj.health;
+        armor = obj.armor;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         playerDamaged();
@@ -27,21 +36,6 @@ public class OnCollisionExample : MonoBehaviour
 
     public void playerDamaged()
     {
-        int thishealth = obj.health;
-        int thisarmor = obj.armor;
-        int health = 0;
-        int armor = 0;
-
-        for (int i = 0; i < thishealth; i++)
-        {
-            health++;
-        }
-
-        for (int i = 0; i < thisarmor; i++)
-        {
-            armor++;
-        }
-
         if (health == 0 && armor == 0)
         {
             Debug.Log("게임 오버");
