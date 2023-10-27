@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,14 +5,15 @@ using UnityEngine.UI;
 
 public class Inventory : Singleton<Inventory>
 {
-    public Image bg;
-    public List<Slot> slots;
+    public Image bg = null;
+    public List<Slot> slots = null;
 
     private void Awake()
     {
         AssignObjects();
     }
 
+    #region 변수 할당
     /// <summary>
     /// 변수 할당
     /// </summary>
@@ -27,7 +27,9 @@ public class Inventory : Singleton<Inventory>
             slots.Add(slot.GetComponent<Slot>());
         }
     }
+    #endregion 초기화
 
+    #region 아이템 관리
     /// <summary>
     /// 비어 있는 맨 앞 슬롯 인덱스 반환
     /// </summary>
@@ -132,11 +134,7 @@ public class Inventory : Singleton<Inventory>
             slots[i].AddItem(items[i]);
         }
 
-        // UI 갱신
-        foreach (Slot slot in slots)
-        {
-            slot.UpdateSlot();
-        }
+        UpdateAllSlotUI();
     }
 
     /// <summary>
@@ -146,10 +144,37 @@ public class Inventory : Singleton<Inventory>
     {
         int i = TrimInventory();
 
-        // UI 갱신
+        UpdateAllSlotUI();
+    }
+
+    /// <summary>
+    /// 모든 탐험 아이템(Explore Item)을 삭제
+    /// </summary>
+    public void DropAllExploreItems()
+    {
+        for(int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].itemData.tag == ItemTag.Explore)
+            {
+                RemoveItem(i);
+            }
+        }
+
+        UpdateAllSlotUI();
+    }
+    #endregion 아이템 관리
+
+    #region UI 관리
+    /// <summary>
+    /// 모든 슬롯의 UI를 갱신한다.
+    /// </summary>
+    void UpdateAllSlotUI()
+    {
         foreach (Slot slot in slots)
         {
             slot.UpdateSlot();
         }
     }
+
+    #endregion UI 관리
 }

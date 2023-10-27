@@ -8,11 +8,10 @@ public class DragSlot : Singleton<DragSlot>
     Image icon;
     public ItemData dragItem;
 
-    private void Start()
+    private void Awake()
     {
         icon = GetComponent<Image>();
 
-        // 싱글톤 instance 할당(비활성화로 인한 검색 불가)
         instance = this;
 
         HideImage();
