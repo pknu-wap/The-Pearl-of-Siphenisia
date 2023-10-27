@@ -86,11 +86,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0247255513811774ab2027b7c53d755c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
   gameOver:
     m_PersistentCalls:
       m_Calls: []
-  obj: {fileID: 11400000, guid: 956add10782ac724f8a116345df264ac, type: 2}
+  speed: 12
 --- !u!61 &6617223295448948155
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -149,7 +148,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 10
+  m_LinearDrag: 4
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -175,3 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 928f86dac6001864096e45ac1b0f41a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obj: {fileID: 11400000, guid: 7fb255f3c4f27eb4fbbd026faa9cb0a6, type: 2}
+  gameOver:
+    m_PersistentCalls:
+      m_Calls: []

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class MoveTest : MonoBehaviour
+public class Player : MonoBehaviour
 {
     Rigidbody2D rig2d;
 
