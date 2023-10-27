@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
         gameOver.Invoke();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.A))
         {
