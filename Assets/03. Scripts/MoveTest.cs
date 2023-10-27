@@ -26,28 +26,27 @@ public class MoveTest : MonoBehaviour
         Test();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.W))
         {
             //transform.position += new Vector3(-1 * speed * Time.deltaTime, 0, 0);
             rig2d.AddForce(new Vector2(-1 * speed, 0), ForceMode2D.Force);
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.S))
         {
             //transform.position += new Vector3(1 * speed * Time.deltaTime, 0, 0);
             rig2d.AddForce(new Vector2(1 * speed, 0), ForceMode2D.Force);
         }
 
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.A))
         {
             //transform.position += new Vector3(0, 1 * speed * Time.deltaTime, 0);
             rig2d.AddForce(new Vector2(0, 1 * speed), ForceMode2D.Force);
         }
 
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.D))
         {
             //transform.position += new Vector3(0, -1 * speed * Time.deltaTime, 0);
             rig2d.AddForce(new Vector2(0, -1 * speed), ForceMode2D.Force);
