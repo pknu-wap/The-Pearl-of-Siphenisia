@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: -2253911629886400664, guid: 56e003ae7ad6610408ca38e4d5b3f0c3, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 56e003ae7ad6610408ca38e4d5b3f0c3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.71
@@ -178,3 +182,4 @@ MonoBehaviour:
   gameOver:
     m_PersistentCalls:
       m_Calls: []
+  isAttacked: 0
