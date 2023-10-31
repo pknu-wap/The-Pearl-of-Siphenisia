@@ -8,10 +8,9 @@ public class pushableTile : MonoBehaviour
     Transform player; // 플레이어의 Transform 컴포넌트
     Transform myTransform; // 오브젝트의 Transform 컴포넌트
 
-
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && collision.rigidbody.mass > 0) 
         {
             Vector2 normal = collision.contacts[0].normal;  
 
@@ -47,7 +46,7 @@ public class pushableTile : MonoBehaviour
     private void MoveObject(Vector2 direction)
     {
         // 오브젝트의 위치를 원하는 방향으로 이동합니다.
-        float moveDistance = 0.05f; // 이동 거리 설정
+        float moveDistance = 0.01f; // 이동 거리 설정
         transform.Translate(direction * moveDistance);
     }
 
