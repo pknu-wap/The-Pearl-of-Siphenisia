@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8c14a1f325d246c43af0b87b6f4b09e8
+guid: 5969a7c92c9c61c499ccbfc7e4be3512
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Knight_Swim_Down_0
+      name: Knight_Swim_Idle_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,20 +118,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11d09306357c5a54fb696897f7561882
-      internalID: -2038954614
+      spriteID: e067c2d8155a815458375ccc7ec8c26d
+      internalID: 922557761
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swim_Down_1
+      name: Knight_Swim_Idle_1
       rect:
         serializedVersion: 2
         x: 16
@@ -139,20 +139,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 557d757a26ad5c446bb129dfb4831749
-      internalID: 161633638
+      spriteID: 48a526f7e3f89c54e815d56cb2f6165a
+      internalID: -1615889353
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swim_Down_2
+      name: Knight_Swim_Idle_2
       rect:
         serializedVersion: 2
         x: 32
@@ -160,20 +160,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e65df2c6f44beb4d8e460e3abd23405
-      internalID: -1634968271
+      spriteID: ab90fc9166784c34bb956093cfb130a3
+      internalID: 575841231
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swim_Down_3
+      name: Knight_Swim_Idle_3
       rect:
         serializedVersion: 2
         x: 48
@@ -181,20 +181,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b5cf3c12b63b8e4d9859989bc262ce5
-      internalID: -14584557
+      spriteID: 7882dd9f0535a164280e1a694a4a9c6a
+      internalID: -1198123763
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swim_Down_4
+      name: Knight_Swim_Idle_4
       rect:
         serializedVersion: 2
         x: 64
@@ -202,20 +202,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7066bae3a8b06bc4d9a727da3498f35f
-      internalID: -981295293
+      spriteID: 0b604b97372703747892636224333646
+      internalID: -1279099550
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swim_Down_5
+      name: Knight_Swim_Idle_5
       rect:
         serializedVersion: 2
         x: 80
@@ -223,20 +223,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb8cbe912cc50dd4c947b1bc105b6061
-      internalID: 1672991680
+      spriteID: 9c44fff3479e41248a3fd72e4f959cce
+      internalID: 703346901
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swim_Down_6
+      name: Knight_Swim_Idle_6
       rect:
         serializedVersion: 2
         x: 96
@@ -244,20 +244,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c7b532117cc3494180d00f43640231c
-      internalID: 1944891934
+      spriteID: b46196b8910ebe54fbe587fc2aa4988b
+      internalID: -684330161
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swim_Down_7
+      name: Knight_Swim_Idle_7
       rect:
         serializedVersion: 2
         x: 112
@@ -265,14 +265,14 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e64898f690af4104b9266e1a85471f13
-      internalID: 617373744
+      spriteID: 1c6184ad85d5fbe468c2cb48459871cc
+      internalID: -215481601
       vertices: []
       indices: 
       edges: []
@@ -288,14 +288,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Knight_Swim_Down_0: -2038954614
-      Knight_Swim_Down_1: 161633638
-      Knight_Swim_Down_2: -1634968271
-      Knight_Swim_Down_3: -14584557
-      Knight_Swim_Down_4: -981295293
-      Knight_Swim_Down_5: 1672991680
-      Knight_Swim_Down_6: 1944891934
-      Knight_Swim_Down_7: 617373744
+      Knight_Swim_Idle_0: 922557761
+      Knight_Swim_Idle_1: -1615889353
+      Knight_Swim_Idle_2: 575841231
+      Knight_Swim_Idle_3: -1198123763
+      Knight_Swim_Idle_4: -1279099550
+      Knight_Swim_Idle_5: 703346901
+      Knight_Swim_Idle_6: -684330161
+      Knight_Swim_Idle_7: -215481601
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
