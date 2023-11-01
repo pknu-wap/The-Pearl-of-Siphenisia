@@ -46,7 +46,7 @@ public class pushableTile : MonoBehaviour
     private void MoveObject(Vector2 direction)
     {
         // 오브젝트의 위치를 원하는 방향으로 이동합니다.
-        float moveDistance = 0.1f; // 이동 거리 설정
+        float moveDistance = 0.05f; // 이동 거리 설정
         transform.Translate(direction * moveDistance);
     }
 
