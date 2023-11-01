@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 
     public UnityEvent gameOver;
     public float speed = 30f;
-    public float minimumStop = 0.3f;
+    public float minimumStop = 0.15f;
     public bool isMovingLeft = false;
     public bool isMovingRight = false;
     public bool isMovingUp = false;

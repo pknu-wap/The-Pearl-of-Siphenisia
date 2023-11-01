@@ -109,7 +109,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   speed: 30
-  minimumStop: 0.3
+  minimumStop: 0.15
   isMovingLeft: 0
   isMovingRight: 0
   isMovingUp: 0
