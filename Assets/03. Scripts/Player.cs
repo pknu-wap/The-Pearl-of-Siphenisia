@@ -8,8 +8,8 @@ public class Player : MonoBehaviour
     SpriteRenderer spriteRenderer;
 
     public UnityEvent gameOver;
-    public float speed;
-    public float minimumStop = 1f;
+    public float speed = 30f;
+    public float minimumStop = 0.3f;
     public bool isMovingLeft = false;
     public bool isMovingRight = false;
     public bool isMovingUp = false;
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
         gameOver.Invoke();
     }
 
-    void FixedUpdate()
+    void FixedUpdate()  
     {
         //if (Input.GetKeyDown(KeyCode.A)) { isMovingLeft = true; Debug.Log("Left ON"); }
         //if (Input.GetKeyDown(KeyCode.D)) { isMovingRight = true; Debug.Log("Right ON"); }
