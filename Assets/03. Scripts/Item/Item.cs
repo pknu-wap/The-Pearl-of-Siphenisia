@@ -18,11 +18,24 @@ public class Item : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             AddToInventory();
+            DestroyItem();
         }
     }
 
+    /// <summary>
+    /// 자신을 인벤토리에 추가한다.
+    /// </summary>
     public void AddToInventory()
     {
         inventory.AddItem(itemData);
+    }
+
+    /// <summary>
+    /// 아이템 획득 후 자기 자신을 삭제하는 함수
+    /// 우선 비활성화로 해두었다.
+    /// </summary>
+    void DestroyItem()
+    {
+        gameObject.SetActive(false);
     }
 }
