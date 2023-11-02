@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Inventory : Singleton<Inventory>
+public class Inventory : MonoBehaviour
 {
     public Image bg;
     public List<Slot> slots;
