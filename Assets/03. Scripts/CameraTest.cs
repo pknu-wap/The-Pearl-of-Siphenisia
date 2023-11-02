@@ -5,6 +5,9 @@ using UnityEngine;
 public class CameraTest : MonoBehaviour
 {
     Transform playerTr;
+    Rigidbody2D rigid;
+
+    Vector3 offset = new Vector3(0f, -0.5f, 0f);
 
     private void Start()
     {
@@ -13,6 +16,6 @@ public class CameraTest : MonoBehaviour
 
     private void LateUpdate()
     {
-        transform.position = new Vector3(playerTr.position.x, playerTr.position.y, -10);
+        transform.position = new Vector3(playerTr.position.x, playerTr.position.y, -10) + offset;
     }
 }

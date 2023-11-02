@@ -8,10 +8,10 @@ public class Player : MonoBehaviour
     public SpriteRenderer spriteRenderer;
 
     public UnityEvent gameOver;
-
+    
     public bool isSwimming = true;
-    public float speed;
-    public float minimumStop = 1f;
+    public float speed = 30f;
+    public float minimumStop = 0.15f;
     public bool isMovingLeft = false;
     public bool isMovingRight = false;
     public bool isMovingUp = false;
