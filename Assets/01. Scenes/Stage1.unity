@@ -135,6 +135,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: ItemInfoWindow
       objectReference: {fileID: 0}
+    - target: {fileID: 3669362773895528873, guid: 61756dfca4a663b41a1cdeef594aede8, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 3fa4336cb91d001408eca8e1adcf3f76, type: 2}
+    - target: {fileID: 3669362773895528873, guid: 61756dfca4a663b41a1cdeef594aede8, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8353421904392536504, guid: 3fa4336cb91d001408eca8e1adcf3f76, type: 2}
+    - target: {fileID: 3669362773895528873, guid: 61756dfca4a663b41a1cdeef594aede8, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5840355859369806291, guid: 61756dfca4a663b41a1cdeef594aede8, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4282742452
+      objectReference: {fileID: 0}
+    - target: {fileID: 5840355859369806291, guid: 61756dfca4a663b41a1cdeef594aede8, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6218350704424572119, guid: 61756dfca4a663b41a1cdeef594aede8, type: 3}
       propertyPath: m_Pivot.x
       value: 0

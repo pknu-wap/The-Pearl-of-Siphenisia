@@ -170,8 +170,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: It can let you see what in the dark.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c24fa76b4742d6c4f9714e41294193f1, type: 2}
-  m_sharedMaterial: {fileID: 275562648501216173, guid: c24fa76b4742d6c4f9714e41294193f1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3fa4336cb91d001408eca8e1adcf3f76, type: 2}
+  m_sharedMaterial: {fileID: 8353421904392536504, guid: 3fa4336cb91d001408eca8e1adcf3f76, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -304,15 +304,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: FlashLight
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c24fa76b4742d6c4f9714e41294193f1, type: 2}
-  m_sharedMaterial: {fileID: 275562648501216173, guid: c24fa76b4742d6c4f9714e41294193f1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3fa4336cb91d001408eca8e1adcf3f76, type: 2}
+  m_sharedMaterial: {fileID: 8353421904392536504, guid: 3fa4336cb91d001408eca8e1adcf3f76, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4282807988
-  m_fontColor: {r: 0.7058824, g: 0.46274513, b: 0.27450982, a: 1}
+  m_fontColor: {r: 0.7058824, g: 0.46274513, b: 0.27058825, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
