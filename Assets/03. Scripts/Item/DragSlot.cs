@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DragSlot : Singleton<DragSlot>
+public class DragSlot : MonoBehaviour
 {
     Image icon;
     public ItemData dragItem;
@@ -11,9 +11,6 @@ public class DragSlot : Singleton<DragSlot>
     private void Start()
     {
         icon = GetComponent<Image>();
-
-        // 싱글톤 instance 할당(비활성화로 인한 검색 불가)
-        instance = this;
 
         HideImage();
     }
