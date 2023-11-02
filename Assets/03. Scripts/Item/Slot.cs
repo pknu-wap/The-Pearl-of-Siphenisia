@@ -6,7 +6,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 {
     public ItemData itemData;
     public Image icon;
-    public Sprite iconSp;
+    public DragSlot dragSlot;
+    public ItemInfoWindow infoWindow;
 
     private void Awake()
     {
@@ -15,6 +16,17 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         // 세이브 파일에서 아이템을 받아온 후
         
         UpdateSlot();
+    }
+
+    /// <summary>
+    /// 변수 할당
+    /// </summary>
+    void AssignObjects()
+    {
+        // 자식 오브젝트 Slot Item의 이미지
+        icon = transform.GetChild(0).GetComponent<Image>();
+        dragSlot = GameObject.Find("DragSlot").GetComponent<DragSlot>();
+        infoWindow = GameObject.Find("ItemInfoWindow").GetComponent<ItemInfoWindow>();
     }
 
     #region 마우스 이벤트
@@ -59,8 +71,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             return;
         }
 
-        DragSlot.Instance.SetItem(itemData);
-        DragSlot.Instance.ShowImage();
+        dragSlot.SetItem(itemData);
+        dragSlot.ShowImage();
     }
 
     /// <summary>
@@ -75,7 +87,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         }
 
         // 드래그 슬롯이 마우스를 따라간다.
-        DragSlot.Instance.transform.position = eventData.position;
+        dragSlot.transform.position = eventData.position;
     }
 
     /// <summary>
@@ -89,8 +101,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             return;
         }
 
-        DragSlot.Instance.HideImage();
-        AddItem(DragSlot.Instance.dragItem);
+        dragSlot.HideImage();
+        AddItem(dragSlot.dragItem);
         UpdateSlot();
     }
 
@@ -99,7 +111,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     /// </summary>
     public void OnDrop(PointerEventData eventData)
     {
-        if(DragSlot.Instance.dragItem == null)
+        if(dragSlot.dragItem == null)
         {
             return;
         }
@@ -115,27 +127,18 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     {
         ItemData temp = itemData;
 
-        AddItem(DragSlot.Instance.dragItem);
+        AddItem(dragSlot.dragItem);
         UpdateSlot();
 
         if (temp == null)
         {
-            DragSlot.Instance.ClearItem();
+            dragSlot.ClearItem();
         }
         else
         {
             // 현재 슬롯에 아이템이 있었다면, 다른 슬롯에 추가하기 위해 dragItem에 temp를 넣어둔다.
-            DragSlot.Instance.SetItem(temp);
+            dragSlot.SetItem(temp);
         }
-    }
-
-    /// <summary>
-    /// 변수 할당
-    /// </summary>
-    void AssignObjects()
-    {
-        // 자식 오브젝트 Slot Item의 이미지
-        icon = transform.GetChild(0).GetComponent<Image>();
     }
 
     /// <summary>
@@ -186,9 +189,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         }
 
         // 자신의 위치로 상세정보창을 이동
-        InfoWindow.Instance.ChangePosition(transform.position);
-        InfoWindow.Instance.UpdateInfo(itemData);
-        InfoWindow.Instance.ShowInfoUI();
+        infoWindow.ChangePosition(transform.position);
+        infoWindow.UpdateInfo(itemData);
+        infoWindow.ShowInfoUI();
     }
 
     /// <summary>
@@ -202,7 +205,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             return;
         }
 
-        InfoWindow.Instance.HideInfoUI();
+        infoWindow.HideInfoUI();
     }
 
     /// <summary>

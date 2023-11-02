@@ -1,16 +1,18 @@
 using TMPro;
 using UnityEngine;
 
-public class InfoWindow : Singleton<InfoWindow>
+public class ItemInfoWindow : MonoBehaviour
 {
     private TextMeshProUGUI nameText;
     private TextMeshProUGUI descriptionText;
 
     private void Awake()
     {
-        InfoWindow.instance = this;
-
         AssignObjects();
+    }
+
+    private void Start()
+    {
         HideInfoUI();
     }
 

@@ -6,6 +6,11 @@ public class GameUIManager : Singleton<GameUIManager>
 {
     GameObject inventoryObj;
 
+    public void Test()
+    {
+        Debug.Log("레이캐스트 문제 없음");
+    }
+
     private void Awake()
     {
         AssignObjects();
@@ -18,7 +23,7 @@ public class GameUIManager : Singleton<GameUIManager>
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B))
         {
             SwitchActiveInventoryUI();
         }
@@ -31,7 +36,7 @@ public class GameUIManager : Singleton<GameUIManager>
 
     public void SwitchActiveInventoryUI()
     {
-        if(inventoryObj.activeSelf == true)
+        if (inventoryObj.activeSelf == true)
         {
             inventoryObj.SetActive(false);
         }
