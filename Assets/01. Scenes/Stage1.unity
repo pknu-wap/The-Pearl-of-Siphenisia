@@ -136,14 +136,6 @@ PrefabInstance:
       value: ItemInfoWindow
       objectReference: {fileID: 0}
     - target: {fileID: 3669362773895528873, guid: 61756dfca4a663b41a1cdeef594aede8, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 3fa4336cb91d001408eca8e1adcf3f76, type: 2}
-    - target: {fileID: 3669362773895528873, guid: 61756dfca4a663b41a1cdeef594aede8, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 8353421904392536504, guid: 3fa4336cb91d001408eca8e1adcf3f76, type: 2}
-    - target: {fileID: 3669362773895528873, guid: 61756dfca4a663b41a1cdeef594aede8, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
@@ -1797,6 +1789,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2236024319205489345, guid: e2910b991c3d6e14fa8b8dea9d75647f, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5771422919744013155, guid: e2910b991c3d6e14fa8b8dea9d75647f, type: 3}
       propertyPath: m_Name
       value: Armor
