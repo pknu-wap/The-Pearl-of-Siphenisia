@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public UnityEvent gameOver;
     
     public bool isSwimming = true;
+    public bool isWalking = true;
     public float speed = 30f;
     public float minimumStop = 0.15f;
     public bool isMovingLeft = false;
@@ -28,30 +29,50 @@ public class Player : MonoBehaviour
 
         gameOver.Invoke();
     }
-    
-    void FixedUpdate()
+
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isSwimming) { Swim(); }
-        else { }
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isWalking = true;
+            animator.SetBool("isWalking", true);
+        }
     }
 
-    void Swim()
+    void OnTriggerExit2D(Collider2D collision)
     {
-        isMovingLeft = rig2d.velocity.normalized.x < -minimumStop;
-        isMovingRight = rig2d.velocity.normalized.x > minimumStop;
-        isMovingUp = rig2d.velocity.normalized.y > minimumStop;
-        isMovingDown = rig2d.velocity.normalized.y < -minimumStop;
 
-        animator.SetBool("isMovingLeft", isMovingLeft);
-        animator.SetBool("isMovingRight", isMovingRight);
-        animator.SetBool("isMovingUp", isMovingUp);
-        animator.SetBool("isMovingDown", isMovingDown);
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isWalking = false;
+            animator.SetBool("isWalking", false);
+        }
+    }
 
-        if (isMovingRight) { spriteRenderer.flipX = true; }
-        else { spriteRenderer.flipX = false; }
+    void FixedUpdate()
+    {
+        if (!isWalking)
+        {
 
-        if (!isMovingLeft && !isMovingRight && isMovingDown) { spriteRenderer.flipY = true; }
-        else { spriteRenderer.flipY = false; }
+        }
+        else
+        {
+            isMovingLeft = rig2d.velocity.normalized.x < -minimumStop;
+            isMovingRight = rig2d.velocity.normalized.x > minimumStop;
+            isMovingUp = rig2d.velocity.normalized.y > minimumStop;
+            isMovingDown = rig2d.velocity.normalized.y < -minimumStop;
+
+            animator.SetBool("isMovingLeft", isMovingLeft);
+            animator.SetBool("isMovingRight", isMovingRight);
+            animator.SetBool("isMovingUp", isMovingUp);
+            animator.SetBool("isMovingDown", isMovingDown);
+
+            if (isMovingRight) { spriteRenderer.flipX = true; }
+            else { spriteRenderer.flipX = false; }
+
+            if (!isMovingLeft && !isMovingRight && isMovingDown) { spriteRenderer.flipY = true; }
+            else { spriteRenderer.flipY = false; }
+        }
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -76,10 +97,5 @@ public class Player : MonoBehaviour
             //transform.position += new Vector3(0, -1 * speed * Time.deltaTime, 0);
             rig2d.AddForce(new Vector2(0, -1 * speed), ForceMode2D.Force);
         }
-    }
-
-    void Walk()
-    {
-
     }
 }
