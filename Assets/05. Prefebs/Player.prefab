@@ -112,9 +112,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   isSwimming: 1
-  isWalking: 1
+  isWalking: 0
   speed: 30
-  minimumStop: 0.15
+  gravityScale: 30
   isMovingLeft: 0
   isMovingRight: 0
   isMovingUp: 0
@@ -162,7 +162,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4375, y: 1}
+  m_Size: {x: 0.5, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &8045548815370126043
 Rigidbody2D:
