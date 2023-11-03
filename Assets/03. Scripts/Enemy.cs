@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class Enemy : MonoBehaviour
 {
     Transform playerTransform;
+    public SpriteRenderer spriteRenderer;
     public float enemySpeed = 2f;
     public float rotateSpeed = 10f;
 
@@ -13,11 +14,13 @@ public class Enemy : MonoBehaviour
     void Awake()
     {
         playerTransform = GameObject.FindWithTag("Player").transform;
+        spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         FollowPlayer();
+        FlipYSprite();
         Move();
     }
 
@@ -38,5 +41,19 @@ public class Enemy : MonoBehaviour
     private void Move()
     {
         transform.Translate(enemySpeed * Time.deltaTime * Vector2.down, Space.Self);
+    }
+
+
+    private void FlipYSprite()
+    {
+        Debug.Log(transform.rotation.z);
+        if (transform.rotation.z > 0)
+        {
+            spriteRenderer.flipY = true;
+        }
+        else
+        {
+            spriteRenderer.flipY = false;
+        }
     }
 }
