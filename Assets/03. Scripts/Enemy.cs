@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Enemy : MonoBehaviour
 {
     Transform playerTransform;
     public SpriteRenderer spriteRenderer;
-    public float enemySpeed = 2f;
+    public float enemySpeed = 3f;
     public float rotateSpeed = 10f;
 
     // Start is called before the first frame update
@@ -19,9 +16,12 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        FollowPlayer();
-        FlipYSprite();
-        Move();
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            FollowPlayer();
+            FlipYSprite();
+            Move();
+        }
     }
 
     public void FollowPlayer()

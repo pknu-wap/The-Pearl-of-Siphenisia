@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 0}
-  enemySpeed: 2
+  enemySpeed: 3
   rotateSpeed: 10
 --- !u!58 &2601108546463679844
 CircleCollider2D:
