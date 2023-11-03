@@ -11,7 +11,8 @@ public class Player : MonoBehaviour
     
     public bool isSwimming = true;
     public bool isWalking = false;
-    public float speed = 30f;
+    public float speed = 30f; 
+    public float gravityScale = 2f;
     public bool isMovingLeft = false;
     public bool isMovingRight = false;
     public bool isMovingUp = false;
@@ -59,7 +60,8 @@ public class Player : MonoBehaviour
         {
             animator.SetBool("isMovingLeft", isMovingLeft);
             animator.SetBool("isMovingRight", isMovingRight);
-            animator.SetBool("isMoving", isMovingLeft && isMovingRight);
+            animator.SetBool("isMoving", isMovingLeft || isMovingRight);
+            rig2d.gravityScale = gravityScale;
 
             if (isMovingRight) { spriteRenderer.flipX = true; }
             else { spriteRenderer.flipX = false; }
@@ -70,7 +72,8 @@ public class Player : MonoBehaviour
             animator.SetBool("isMovingRight", isMovingRight);
             animator.SetBool("isMovingUp", isMovingUp);
             animator.SetBool("isMovingDown", isMovingDown);
-            animator.SetBool("isMoving", isMovingLeft && isMovingRight && isMovingUp && isMovingDown);
+            animator.SetBool("isMoving", isMovingLeft || isMovingRight || isMovingUp || isMovingDown);
+            rig2d.gravityScale = 0;
 
             if (isMovingRight) { spriteRenderer.flipX = true; }
             else { spriteRenderer.flipX = false; }
