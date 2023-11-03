@@ -22,11 +22,11 @@ PrefabInstance:
       objectReference: {fileID: 922557761, guid: 5969a7c92c9c61c499ccbfc7e4be3512, type: 3}
     - target: {fileID: 7878350319992209165, guid: 56e003ae7ad6610408ca38e4d5b3f0c3, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 56e003ae7ad6610408ca38e4d5b3f0c3, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 56e003ae7ad6610408ca38e4d5b3f0c3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -105,9 +105,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0247255513811774ab2027b7c53d755c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rig2d: {fileID: 0}
+  animator: {fileID: 0}
+  spriteRenderer: {fileID: 0}
   gameOver:
     m_PersistentCalls:
       m_Calls: []
+  isSwimming: 1
+  isWalking: 1
   speed: 30
   minimumStop: 0.15
   isMovingLeft: 0
