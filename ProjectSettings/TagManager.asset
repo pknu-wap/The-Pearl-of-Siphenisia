@@ -8,6 +8,7 @@ TagManager:
   - testBall
   - Enemy
   - Ground
+  - RotatingTerrain
   layers:
   - Default
   - TransparentFX
