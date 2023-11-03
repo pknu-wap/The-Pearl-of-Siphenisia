@@ -8,7 +8,7 @@ public class Stage1_RotationTerrain_Button : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            GameObject.Find("side1").GetComponent<Stage1_Rotation>().RotateTerrain();
+            GameObject.FindWithTag("RotatingTerrain").GetComponent<Stage1_Rotation>().RotateTerrain();
         }
     }
 }

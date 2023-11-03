@@ -5,7 +5,7 @@ using UnityEngine;
 public class Stage1_Rotation : MonoBehaviour
 {
     public float targetRotation = 30f; // 목표 회전 각도
-    public float totalRotation = 0f;   // 변한 회전 각도의 총합
+    private float totalRotation = 0f;   // 변한 회전 각도의 총합
     public float rotationSpeed = 5f;   // 회전 속도
 
     private Quaternion initialRotation;
