@@ -10,9 +10,8 @@ public class Player : MonoBehaviour
     public UnityEvent gameOver;
     
     public bool isSwimming = true;
-    public bool isWalking = true;
+    public bool isWalking = false;
     public float speed = 30f;
-    public float minimumStop = 0.15f;
     public bool isMovingLeft = false;
     public bool isMovingRight = false;
     public bool isMovingUp = false;
@@ -26,76 +25,58 @@ public class Player : MonoBehaviour
         rig2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        gameOver.Invoke();
+        animator.SetBool("isWalking", false);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            isWalking = true;
             animator.SetBool("isWalking", true);
         }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-
         if (collision.gameObject.CompareTag("Ground"))
         {
-            isWalking = false;
             animator.SetBool("isWalking", false);
         }
     }
 
     void FixedUpdate()
     {
-        if (!isWalking)
-        {
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        rig2d.AddForce(new Vector2(horizontal * speed, vertical * speed), ForceMode2D.Force);
 
+        isMovingLeft = horizontal < 0;
+        isMovingRight = horizontal > 0;
+        isMovingUp = vertical > 0;
+        isMovingDown = vertical < 0;
+
+        if (animator.GetBool("isWalking"))
+        {
+            animator.SetBool("isMovingLeft", isMovingLeft);
+            animator.SetBool("isMovingRight", isMovingRight);
+            animator.SetBool("isMoving", isMovingLeft && isMovingRight);
+
+            if (isMovingRight) { spriteRenderer.flipX = true; }
+            else { spriteRenderer.flipX = false; }
         }
         else
         {
-            isMovingLeft = rig2d.velocity.normalized.x < -minimumStop;
-            isMovingRight = rig2d.velocity.normalized.x > minimumStop;
-            isMovingUp = rig2d.velocity.normalized.y > minimumStop;
-            isMovingDown = rig2d.velocity.normalized.y < -minimumStop;
-
             animator.SetBool("isMovingLeft", isMovingLeft);
             animator.SetBool("isMovingRight", isMovingRight);
             animator.SetBool("isMovingUp", isMovingUp);
             animator.SetBool("isMovingDown", isMovingDown);
+            animator.SetBool("isMoving", isMovingLeft && isMovingRight && isMovingUp && isMovingDown);
 
             if (isMovingRight) { spriteRenderer.flipX = true; }
             else { spriteRenderer.flipX = false; }
 
             if (!isMovingLeft && !isMovingRight && isMovingDown) { spriteRenderer.flipY = true; }
             else { spriteRenderer.flipY = false; }
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            //transform.position += new Vector3(-1 * speed * Time.deltaTime, 0, 0);
-            rig2d.AddForce(new Vector2(-1 * speed, 0), ForceMode2D.Force);
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            //transform.position += new Vector3(1 * speed * Time.deltaTime, 0, 0);
-            rig2d.AddForce(new Vector2(1 * speed, 0), ForceMode2D.Force);
-        }
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            //transform.position += new Vector3(0, 1 * speed * Time.deltaTime, 0);
-            rig2d.AddForce(new Vector2(0, 1 * speed), ForceMode2D.Force);
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            //transform.position += new Vector3(0, -1 * speed * Time.deltaTime, 0);
-            rig2d.AddForce(new Vector2(0, -1 * speed), ForceMode2D.Force);
         }
     }
 }
