@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -34,8 +32,13 @@ public class Item : MonoBehaviour
     /// 아이템 획득 후 자기 자신을 삭제하는 함수
     /// 우선 비활성화로 해두었다.
     /// </summary>
-    void DestroyItem()
+    public void DestroyItem()
     {
         gameObject.SetActive(false);
+    }
+
+    public void UseItem()
+    {
+
     }
 }
