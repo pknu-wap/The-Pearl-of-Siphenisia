@@ -51,10 +51,15 @@ public class Player : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         rig2d.AddForce(new Vector2(horizontal * speed, vertical * speed), ForceMode2D.Force);
 
-        isMovingLeft = horizontal < 0;
-        isMovingRight = horizontal > 0;
-        isMovingUp = vertical > 0;
-        isMovingDown = vertical < 0;
+        /*isMovingLeft = rig2d.velocity.normalized.x < -0.15f;
+        isMovingRight = rig2d.velocity.normalized.x > 0.15f;
+        isMovingUp = rig2d.velocity.normalized.y > 0.15f;
+        isMovingDown = rig2d.velocity.normalized.y < -0.15f;*/
+
+        isMovingLeft = horizontal < -0.15f;
+        isMovingRight = horizontal > 0.15f;
+        isMovingUp = vertical > 0.15f;
+        isMovingDown = vertical < -0.15f;
 
         if (animator.GetBool("isWalking"))
         {
