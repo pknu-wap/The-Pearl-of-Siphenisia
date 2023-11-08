@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 3597843227135518226}
   - component: {fileID: 2183492194641768370}
   - component: {fileID: 6196973761778576297}
-  - component: {fileID: 6743962189656699294}
+  - component: {fileID: 2238494006707515868}
   m_Layer: 0
   m_Name: Key
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,7 +118,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03, y: 0.32}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -129,9 +129,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.35, y: 0.65}
+  m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
---- !u!114 &6743962189656699294
+--- !u!114 &2238494006707515868
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8738732425565865825}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a905e0d44155f6947afe1b1e695413cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 69e91fcd790d98d4bb85ab22742e6426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: e90e58bfeecd60a4ca5e72d080d13ef2, type: 2}

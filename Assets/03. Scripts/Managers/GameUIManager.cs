@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameUIManager : Singleton<GameUIManager>
 {
-    GameObject inventoryObj;
+    GameObject inventoryUIObj;
+    GameObject interactionUIObj;
 
     public void Test()
     {
@@ -19,6 +20,7 @@ public class GameUIManager : Singleton<GameUIManager>
     private void Start()
     {
         CloseInventoryUI();
+        CloseInteractionUI();
     }
 
     private void Update()
@@ -31,29 +33,49 @@ public class GameUIManager : Singleton<GameUIManager>
 
     private void AssignObjects()
     {
-        inventoryObj = GameObject.Find("Inventory");
+        inventoryUIObj = GameObject.Find("Inventory");
+        interactionUIObj = GameObject.Find("Interaction Button");
     }
 
+    #region Inventory
     public void SwitchActiveInventoryUI()
     {
-        if (inventoryObj.activeSelf == true)
+        if (inventoryUIObj.activeSelf == true)
         {
-            inventoryObj.SetActive(false);
+            inventoryUIObj.SetActive(false);
         }
 
         else
         {
-            inventoryObj.SetActive(true);
+            inventoryUIObj.SetActive(true);
         }
     }
 
     public void OpenInventoryUI()
     {
-        inventoryObj.SetActive(true);
+        inventoryUIObj.SetActive(true);
     }
 
     public void CloseInventoryUI()
     {
-        inventoryObj.SetActive(false);
+        inventoryUIObj.SetActive(false);
     }
+    #endregion Inventory
+
+    #region Interaction UI
+    public void FloatInteractionUI()
+    {
+        interactionUIObj.SetActive(true);
+    }
+
+    public void CloseInteractionUI()
+    {
+        interactionUIObj.SetActive(false);
+    }
+
+    public void MoveInteractionUI(Transform transform)
+    {
+
+    }
+    #endregion Interaction UI
 }

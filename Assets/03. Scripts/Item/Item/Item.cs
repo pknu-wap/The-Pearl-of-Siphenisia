@@ -15,9 +15,24 @@ public class Item : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            AddToInventory();
-            DestroyItem();
+            GameUIManager.Instance.FloatInteractionUI();
         }
+    }
+
+    // 아이템 획득 조건을 임시로 플레이어와 부딪혔을 떄로 설정
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            GameUIManager.Instance.CloseInteractionUI();
+        }
+    }
+
+    public void GetItem()
+    {
+        AddToInventory();
+        DestroyItem();
+        Debug.Log("아이템 획득");
     }
 
     /// <summary>
@@ -30,14 +45,17 @@ public class Item : MonoBehaviour
 
     /// <summary>
     /// 아이템 획득 후 자기 자신을 삭제하는 함수
-    /// 우선 비활성화로 해두었다.
+    /// 우선 비활성화로 구현해두었다.
     /// </summary>
     public void DestroyItem()
     {
         gameObject.SetActive(false);
     }
 
-    public void UseItem()
+    /// <summary>
+    /// 아이템을 사용한다.
+    /// </summary>
+    public virtual void UseItem()
     {
 
     }

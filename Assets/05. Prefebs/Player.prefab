@@ -20,6 +20,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 922557761, guid: 5969a7c92c9c61c499ccbfc7e4be3512, type: 3}
+    - target: {fileID: 3626916397498700004, guid: 56e003ae7ad6610408ca38e4d5b3f0c3, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3626916397498700004, guid: 56e003ae7ad6610408ca38e4d5b3f0c3, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1598425641
+      objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 56e003ae7ad6610408ca38e4d5b3f0c3, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -119,6 +127,8 @@ MonoBehaviour:
   isMovingRight: 0
   isMovingUp: 0
   isMovingDown: 0
+  equipedItem: {fileID: 0}
+  currentFocusedItem: {fileID: 0}
 --- !u!61 &6617223295448948155
 BoxCollider2D:
   m_ObjectHideFlags: 0

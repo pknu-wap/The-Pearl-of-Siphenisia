@@ -18,6 +18,9 @@ public class Player : MonoBehaviour
     public bool isMovingUp = false;
     public bool isMovingDown = false;
 
+    public Item equipedItem = null;    // 현재 장착 중인 아이템
+    public Item currentFocusedItem = null; // 현재 주목 중인 아이템 (근처에 다가간 아이템)
+
 
 
     // Start is called before the first frame update
@@ -35,6 +38,12 @@ public class Player : MonoBehaviour
         {
             animator.SetBool("isWalking", true);
         }
+
+        // 아이템에 닿을 시 해당 아이템을 캐싱해둔다.
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            currentFocusedItem = collision.GetComponent<Item>();
+        }
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -42,6 +51,12 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             animator.SetBool("isWalking", false);
+        }
+
+        // 아이템에서 벗어나면 주목 중인 아이템을 비운다.
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            currentFocusedItem = null;
         }
     }
 
@@ -85,6 +100,17 @@ public class Player : MonoBehaviour
 
             if (!isMovingLeft && !isMovingRight && isMovingDown) { spriteRenderer.flipY = true; }
             else { spriteRenderer.flipY = false; }
+        }
+    }
+
+    private void Update()
+    {
+        // 인터렉션 키 입력 (E)
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            // 아이템 획득
+            currentFocusedItem.GetItem();
+            Debug.Log("E키 입력");
         }
     }
 }
