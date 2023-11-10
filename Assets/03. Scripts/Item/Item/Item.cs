@@ -15,7 +15,7 @@ public class Item : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             // 플레이어와 닿으면 자신의 위에 인터렉션 버튼 UI를 띄운다.
-            GameUIManager.Instance.FloatInteractionUI(transform);
+            GameUIManager.Instance.ShowInteractionUI(transform);
         }
     }
 
@@ -24,7 +24,7 @@ public class Item : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             // 플레이어와 닿으면 자신 위의 인터렉션 버튼 UI를 제거한다.
-            GameUIManager.Instance.CloseInteractionUI();
+            GameUIManager.Instance.HideInteractionUI();
         }
     }
 

@@ -6,7 +6,7 @@ public class GameUIManager : Singleton<GameUIManager>
 {
     private GameObject inventoryUIObj;
     private GameObject interactionUIObj;
-    public Vector3 interactOffset = new(0f, 1f, 0f);
+    private Vector3 interactOffset = new(0f, 1f, 0f);
 
     public void Test()
     {
@@ -20,15 +20,15 @@ public class GameUIManager : Singleton<GameUIManager>
 
     private void Start()
     {
-        CloseInventoryUI();
-        CloseInteractionUI();
+        HideInventoryUI();
+        HideInteractionUI();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            SwitchActiveInventoryUI();
+            ToggleInventoryUI();
         }
     }
 
@@ -39,7 +39,8 @@ public class GameUIManager : Singleton<GameUIManager>
     }
 
     #region Inventory
-    public void SwitchActiveInventoryUI()
+    // 인벤토리 UI가 켜져 있으면 끄고, 꺼져 있으면 켜는 함수
+    public void ToggleInventoryUI()
     {
         if (inventoryUIObj.activeSelf == true)
         {
@@ -52,25 +53,25 @@ public class GameUIManager : Singleton<GameUIManager>
         }
     }
 
-    public void OpenInventoryUI()
+    public void ShowInventoryUI()
     {
         inventoryUIObj.SetActive(true);
     }
 
-    public void CloseInventoryUI()
+    public void HideInventoryUI()
     {
         inventoryUIObj.SetActive(false);
     }
     #endregion Inventory
 
     #region Interaction UI
-    public void FloatInteractionUI(Transform targetTransform)
+    public void ShowInteractionUI(Transform targetTransform)
     {
         interactionUIObj.transform.position = Camera.main.WorldToScreenPoint(targetTransform.position + interactOffset);
         interactionUIObj.SetActive(true);
     }
 
-    public void CloseInteractionUI()
+    public void HideInteractionUI()
     {
         interactionUIObj.SetActive(false);
     }
