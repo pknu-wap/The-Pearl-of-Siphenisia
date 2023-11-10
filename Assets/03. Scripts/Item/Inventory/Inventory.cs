@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -50,7 +48,7 @@ public class Inventory : MonoBehaviour
     /// 비어있는 맨 앞 슬롯에 아이템 추가
     /// </summary>
     /// <param name="item"></param>
-    public void AddItem(ItemData item)
+    public void AddItem(ItemData itemData)
     {
         int i = SearchFirstEmptySlot();
 
@@ -61,7 +59,7 @@ public class Inventory : MonoBehaviour
             return;
         }
 
-        slots[i].AddItem(item);
+        slots[i].AddItem(itemData);
         slots[i].UpdateSlot();
     }
 
@@ -113,7 +111,7 @@ public class Inventory : MonoBehaviour
         int n = TrimInventory();
 
         // 정렬(좀 고치고 싶지만...)
-        List<ItemData> items = new List<ItemData>();
+        List<ItemData> items = new();
 
         for(int i = 0; i <= n; i++)
         {
@@ -153,4 +151,21 @@ public class Inventory : MonoBehaviour
             slot.UpdateSlot();
         }
     }
+
+    #region UI
+    public void ShowInventoryUI()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void HideInventoryUI()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public bool isInventoryShowed()
+    {
+        return gameObject.activeSelf;
+    }
+    #endregion UI
 }

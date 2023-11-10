@@ -4,11 +4,14 @@ using UnityEngine.UI;
 
 public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
+    #region 변수
     public ItemData itemData;
     public Image icon;
     public DragSlot dragSlot;
     public ItemInfoWindow infoWindow;
+    #endregion 변수
 
+    #region 초기 설정
     private void Awake()
     {
         AssignObjects();
@@ -28,17 +31,19 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         dragSlot = GameObject.Find("DragSlot").GetComponent<DragSlot>();
         infoWindow = GameObject.Find("ItemInfoWindow").GetComponent<ItemInfoWindow>();
     }
+    #endregion 초기 설정
 
     #region 마우스 이벤트
     /// <summary>
-    /// 클릭 시 이벤트, 현재 비어있음
+    /// 클릭 시 이벤트
     /// </summary>
     /// <param name="eventData"></param>
     public void OnPointerClick(PointerEventData eventData)
     {
+        // 우클릭 시
         if(eventData.button == PointerEventData.InputButton.Right)
         {
-
+            UseItem();
         }
     }
 
@@ -147,7 +152,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     /// <param name="item"></param> 
     public void AddItem(ItemData item)
     {
-        itemData = item;
+        this.itemData = item;
     }
 
     /// <summary>
@@ -158,6 +163,22 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         itemData = null;
 
         UpdateSlot();
+    }
+
+    /// <summary>
+    /// 아이템을 사용한다.
+    /// itemData의 useItemEvent 동작
+    /// </summary>
+    void UseItem()
+    {
+        if (itemData == null)
+        {
+            return;
+        }
+
+        itemData.useItemEvent.Invoke();
+        RemoveItem();
+        HideInfo();
     }
 
     /// <summary>

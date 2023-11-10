@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ItemData : ScriptableObject
 {
@@ -11,4 +12,6 @@ public class ItemData : ScriptableObject
 
     // 정렬 우선 순위
     public int priority;
+
+    public UnityEvent useItemEvent;
 }
