@@ -55,7 +55,6 @@ public class Player : MonoBehaviour
             // 아이템 등록
             currentFocusedItem = collision.GetComponent<Item>();
             currentCollision = collision;
-            //GameUIManager.Instance.FloatInteractionUI(collision.transform);
         }
     }
 
@@ -77,7 +76,6 @@ public class Player : MonoBehaviour
             }
 
             currentFocusedItem = null;
-           // GameUIManager.Instance.CloseInteractionUI();
         }
     }
 

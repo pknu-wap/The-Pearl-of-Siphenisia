@@ -10,20 +10,20 @@ public class Item : MonoBehaviour
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
     }
 
-    // 아이템 획득 조건을 임시로 플레이어와 부딪혔을 떄로 설정
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            // 플레이어와 닿으면 자신의 위에 인터렉션 버튼 UI를 띄운다.
             GameUIManager.Instance.FloatInteractionUI(transform);
         }
     }
 
-    // 아이템 획득 조건을 임시로 플레이어와 부딪혔을 떄로 설정
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            // 플레이어와 닿으면 자신 위의 인터렉션 버튼 UI를 제거한다.
             GameUIManager.Instance.CloseInteractionUI();
         }
     }
@@ -40,7 +40,7 @@ public class Item : MonoBehaviour
     /// </summary>
     public void AddToInventory()
     {
-        inventory.AddItem(itemData);
+        inventory.AddItem(this);
     }
 
     /// <summary>

@@ -50,7 +50,7 @@ public class Inventory : MonoBehaviour
     /// 비어있는 맨 앞 슬롯에 아이템 추가
     /// </summary>
     /// <param name="item"></param>
-    public void AddItem(ItemData item)
+    public void AddItem(Item item)
     {
         int i = SearchFirstEmptySlot();
 
@@ -81,7 +81,7 @@ public class Inventory : MonoBehaviour
     {
         // 빈 칸 없애기
         int i = -1;
-        while (++i < slots.Count && slots[i].itemData != null) ;
+        while (++i < slots.Count && slots[i].item != null) ;
 
         if(i == slots.Count)
         {
@@ -92,15 +92,15 @@ public class Inventory : MonoBehaviour
 
         while (true)
         {
-            while (++j < slots.Count && slots[j].itemData == null) ;
+            while (++j < slots.Count && slots[j].item == null) ;
 
             if (j == slots.Count)
             {
                 return i - 1;
             }
 
-            slots[i].itemData = slots[j].itemData;
-            slots[j].itemData = null;
+            slots[i].item = slots[j].item;
+            slots[j].item = null;
             i++;
         }
     }
@@ -113,14 +113,14 @@ public class Inventory : MonoBehaviour
         int n = TrimInventory();
 
         // 정렬(좀 고치고 싶지만...)
-        List<ItemData> items = new List<ItemData>();
+        List<Item> items = new List<Item>();
 
         for(int i = 0; i <= n; i++)
         {
-            items.Add(slots[i].itemData);
+            items.Add(slots[i].item);
         }
 
-        items = items.OrderBy(x => x.priority).ToList();
+        items = items.OrderBy(x => x.itemData.priority).ToList();
 
         for(int i = 0; i < slots.Count; i++)
         {
