@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameUIManager : Singleton<GameUIManager>
 {
-    private GameObject inventoryUIObj;
+    private Inventory inventory;
+    private ItemInfoWindow itemInfoWindow;
     private GameObject interactionUIObj;
     private Vector3 interactOffset = new(0f, 1f, 0f);
 
@@ -13,6 +14,7 @@ public class GameUIManager : Singleton<GameUIManager>
         Debug.Log("레이캐스트 문제 없음");
     }
 
+    #region 초기 설정
     private void Awake()
     {
         AssignObjects();
@@ -34,40 +36,44 @@ public class GameUIManager : Singleton<GameUIManager>
 
     private void AssignObjects()
     {
-        inventoryUIObj = GameObject.Find("Inventory");
+        inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
         interactionUIObj = GameObject.Find("Interaction Button");
+        itemInfoWindow = GameObject.Find("ItemInfoWindow").GetComponent<ItemInfoWindow>();
     }
+    #endregion 초기 설정
 
     #region Inventory
     // 인벤토리 UI가 켜져 있으면 끄고, 꺼져 있으면 켜는 함수
     public void ToggleInventoryUI()
     {
-        if (inventoryUIObj.activeSelf == true)
+        if (inventory.isInventoryShowed() == true)
         {
-            inventoryUIObj.SetActive(false);
+            inventory.ShowInventoryUI();
         }
 
         else
         {
-            inventoryUIObj.SetActive(true);
+            inventory.HideInventoryUI();
+            itemInfoWindow.HideInfoUI();
         }
     }
 
     public void ShowInventoryUI()
     {
-        inventoryUIObj.SetActive(true);
+        inventory.HideInventoryUI();
     }
 
     public void HideInventoryUI()
     {
-        inventoryUIObj.SetActive(false);
+        inventory.HideInventoryUI();
+        itemInfoWindow.HideInfoUI();
     }
     #endregion Inventory
 
     #region Interaction UI
     public void ShowInteractionUI(Transform targetTransform)
     {
-        interactionUIObj.transform.position = Camera.main.WorldToScreenPoint(targetTransform.position + interactOffset);
+        MoveInteractionUI(targetTransform);
         interactionUIObj.SetActive(true);
     }
 
@@ -76,9 +82,9 @@ public class GameUIManager : Singleton<GameUIManager>
         interactionUIObj.SetActive(false);
     }
 
-    public void MoveInteractionUI(Transform transform)
+    public void MoveInteractionUI(Transform targetTransform)
     {
-
+        interactionUIObj.transform.position = Camera.main.WorldToScreenPoint(targetTransform.position + interactOffset);
     }
     #endregion Interaction UI
 }

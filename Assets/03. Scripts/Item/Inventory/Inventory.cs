@@ -151,4 +151,21 @@ public class Inventory : MonoBehaviour
             slot.UpdateSlot();
         }
     }
+
+    #region UI
+    public void ShowInventoryUI()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void HideInventoryUI()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public bool isInventoryShowed()
+    {
+        return gameObject.activeSelf;
+    }
+    #endregion UI
 }
