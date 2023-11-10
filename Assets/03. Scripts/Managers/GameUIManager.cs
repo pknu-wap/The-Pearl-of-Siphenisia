@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class GameUIManager : Singleton<GameUIManager>
 {
-    GameObject inventoryUIObj;
-    GameObject interactionUIObj;
+    private GameObject inventoryUIObj;
+    private GameObject interactionUIObj;
+    public Vector3 interactOffset = new(0f, 1f, 0f);
 
     public void Test()
     {
@@ -63,8 +64,9 @@ public class GameUIManager : Singleton<GameUIManager>
     #endregion Inventory
 
     #region Interaction UI
-    public void FloatInteractionUI()
+    public void FloatInteractionUI(Transform targetTransform)
     {
+        interactionUIObj.transform.position = Camera.main.WorldToScreenPoint(targetTransform.position + interactOffset);
         interactionUIObj.SetActive(true);
     }
 

@@ -11,11 +11,11 @@ public class Item : MonoBehaviour
     }
 
     // 아이템 획득 조건을 임시로 플레이어와 부딪혔을 떄로 설정
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            GameUIManager.Instance.FloatInteractionUI();
+            GameUIManager.Instance.FloatInteractionUI(transform);
         }
     }
 

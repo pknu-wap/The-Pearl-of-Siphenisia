@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
 
     public Item equipedItem = null;    // 현재 장착 중인 아이템
     public Item currentFocusedItem = null; // 현재 주목 중인 아이템 (근처에 다가간 아이템)
+    public Collider2D currentCollision = null;
 
 
 
@@ -38,11 +39,23 @@ public class Player : MonoBehaviour
         {
             animator.SetBool("isWalking", true);
         }
+    }
 
+    void OnTriggerStay2D(Collider2D collision)
+    {
         // 아이템에 닿을 시 해당 아이템을 캐싱해둔다.
         if (collision.gameObject.CompareTag("Item"))
         {
+            if(collision == currentCollision)
+            {
+                // 이미 등록한 콜리젼이라면 리턴
+                return;
+            }
+
+            // 아이템 등록
             currentFocusedItem = collision.GetComponent<Item>();
+            currentCollision = collision;
+            //GameUIManager.Instance.FloatInteractionUI(collision.transform);
         }
     }
 
@@ -56,9 +69,19 @@ public class Player : MonoBehaviour
         // 아이템에서 벗어나면 주목 중인 아이템을 비운다.
         if (collision.gameObject.CompareTag("Item"))
         {
+            // 등록된 아이템을 벗어난 게 아니라면
+            if (collision != currentCollision)
+            {
+                // 비우지 않는다.
+                return;
+            }
+
             currentFocusedItem = null;
+           // GameUIManager.Instance.CloseInteractionUI();
         }
     }
+
+
 
     void FixedUpdate()
     {
@@ -108,9 +131,22 @@ public class Player : MonoBehaviour
         // 인터렉션 키 입력 (E)
         if (Input.GetKeyDown(KeyCode.E))
         {
-            // 아이템 획득
-            currentFocusedItem.GetItem();
-            Debug.Log("E키 입력");
+            GetItem();
         }
+    }
+
+    /// <summary>
+    /// currentFocusedItem을 획득한다.
+    /// </summary>
+    private void GetItem()
+    {
+        if (currentFocusedItem == null)
+        {
+            return;
+        }
+
+        // 아이템 획득
+        currentFocusedItem.GetItem();
+        Debug.Log("E키 입력");
     }
 }
