@@ -15,8 +15,6 @@ public class bridge : unityE
 
     public void falldown()
     {
-        Debug.Log("외나무다리가 떨어짐");
         rb2d1.bodyType = RigidbodyType2D.Dynamic;
     }
-    
 }
