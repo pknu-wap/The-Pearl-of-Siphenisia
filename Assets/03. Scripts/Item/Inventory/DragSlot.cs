@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class DragSlot : MonoBehaviour
 {
     Image icon;
-    public Item dragItem;
+    public ItemData dragItem;
 
     private void Start()
     {
@@ -19,10 +19,10 @@ public class DragSlot : MonoBehaviour
     /// 드래그 슬롯의 아이템(현재 선택된 아이템)을 item으로 변경한다.
     /// </summary>
     /// <param name="item"></param>
-    public void SetItem(Item item)
+    public void SetItem(ItemData itemData)
     {
-        dragItem = item;
-        icon.sprite = item.itemData.sprite;
+        dragItem = itemData;
+        icon.sprite = itemData.sprite;
     }
 
     /// <summary>

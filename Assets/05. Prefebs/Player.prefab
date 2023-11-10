@@ -129,6 +129,7 @@ MonoBehaviour:
   isMovingDown: 0
   equipedItem: {fileID: 0}
   currentFocusedItem: {fileID: 0}
+  currentCollision: {fileID: 0}
 --- !u!61 &6617223295448948155
 BoxCollider2D:
   m_ObjectHideFlags: 0

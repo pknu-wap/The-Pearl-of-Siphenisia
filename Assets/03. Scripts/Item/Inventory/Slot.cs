@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     #region 변수
-    public Item item;
+    public ItemData itemData;
     public Image icon;
     public DragSlot dragSlot;
     public ItemInfoWindow infoWindow;
@@ -43,8 +43,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         // 우클릭 시
         if(eventData.button == PointerEventData.InputButton.Right)
         {
-            // 아이템을 사용한다.
-            item.UseItem();
+            UseItem();
         }
     }
 
@@ -72,12 +71,12 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     /// <param name="eventData"></param>
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if(item == null)
+        if(itemData == null)
         {
             return;
         }
 
-        dragSlot.SetItem(item);
+        dragSlot.SetItem(itemData);
         dragSlot.ShowImage();
     }
 
@@ -87,7 +86,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     /// <param name="eventData"></param>
     public void OnDrag(PointerEventData eventData)
     {
-        if (item == null)
+        if (itemData == null)
         {
             return;
         }
@@ -102,7 +101,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     /// <param name="eventData"></param>
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (item == null)
+        if (itemData == null)
         {
             return;
         }
@@ -131,7 +130,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     /// </summary>
     void ChangeSlot()
     {
-        Item temp = item;
+        ItemData temp = itemData;
 
         AddItem(dragSlot.dragItem);
         UpdateSlot();
@@ -151,9 +150,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     /// 아이템 추가
     /// </summary>
     /// <param name="item"></param> 
-    public void AddItem(Item item)
+    public void AddItem(ItemData item)
     {
-        this.item = item;
+        this.itemData = item;
     }
 
     /// <summary>
@@ -161,9 +160,25 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     /// </summary>
     public void RemoveItem()
     {
-        item = null;
+        itemData = null;
 
         UpdateSlot();
+    }
+
+    /// <summary>
+    /// 아이템을 사용한다.
+    /// itemData의 useItemEvent 동작
+    /// </summary>
+    void UseItem()
+    {
+        if (itemData == null)
+        {
+            return;
+        }
+
+        itemData.useItemEvent.Invoke();
+        RemoveItem();
+        HideInfo();
     }
 
     /// <summary>
@@ -171,14 +186,14 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     /// </summary>
     public void UpdateSlot()
     {
-        if(item == null)
+        if(itemData == null)
         {
             icon.enabled = false;
             return;
         }
 
         // 아이콘을 변경하고 종료
-        icon.sprite = item.itemData.icon;
+        icon.sprite = itemData.icon;
         // + 주인공 손에 스프라이트 겹치는 로직 생성 예정
         icon.enabled = true;
     }
@@ -189,14 +204,14 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public void ShowInfo()
     {
         // 아이템이 없다면 띄우지 않는다.
-        if(item == null)
+        if(itemData == null)
         {
             return;
         }
 
         // 자신의 위치로 상세정보창을 이동
         infoWindow.ChangePosition(transform.position);
-        infoWindow.UpdateInfo(item.itemData);
+        infoWindow.UpdateInfo(itemData);
         infoWindow.ShowInfoUI();
     }
 
@@ -206,7 +221,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public void HideInfo()
     {
         // 아이템이 없다면 호출하지 않는다.
-        if (item == null)
+        if (itemData == null)
         {
             return;
         }
@@ -220,6 +235,6 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     /// <returns></returns>
     public bool IsEmpty()
     {
-        return item == null;
+        return itemData == null;
     }
 }

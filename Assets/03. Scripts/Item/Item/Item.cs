@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Item : MonoBehaviour
 {
     public ItemData itemData;
     private Inventory inventory;
+    public UnityEvent useItemEvent;
 
     private void Awake()
     {
@@ -40,7 +42,7 @@ public class Item : MonoBehaviour
     /// </summary>
     public void AddToInventory()
     {
-        inventory.AddItem(this);
+        inventory.AddItem(itemData);
     }
 
     /// <summary>
@@ -55,8 +57,8 @@ public class Item : MonoBehaviour
     /// <summary>
     /// 아이템을 사용한다.
     /// </summary>
-    public virtual void UseItem()
+    public void UseItem()
     {
-
+        useItemEvent.Invoke();
     }
 }

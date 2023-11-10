@@ -145,6 +145,7 @@ public class Player : MonoBehaviour
 
         // æ∆¿Ã≈€ »πµÊ
         currentFocusedItem.GetItem();
+        currentFocusedItem = null;
         Debug.Log("E≈∞ ¿‘∑¬");
     }
 }

@@ -144,3 +144,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: cbc391766fb9ad54bb9bf74530f8f071, type: 2}
+  lamp: {fileID: 0}
