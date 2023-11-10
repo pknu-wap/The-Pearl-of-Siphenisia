@@ -1003,6 +1003,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ItemInfoWindow
       objectReference: {fileID: 0}
+    - target: {fileID: 3669362773895528873, guid: 61756dfca4a663b41a1cdeef594aede8, type: 3}
+      propertyPath: m_text
+      value: It can let you see\nwhat in the dark.
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669362773895528873, guid: 61756dfca4a663b41a1cdeef594aede8, type: 3}
+      propertyPath: m_isRightToLeft
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5840355859369806291, guid: 61756dfca4a663b41a1cdeef594aede8, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4282742452

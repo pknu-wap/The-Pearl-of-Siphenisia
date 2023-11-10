@@ -5,7 +5,6 @@ public class Item : MonoBehaviour
 {
     public ItemData itemData;
     private Inventory inventory;
-    public UnityEvent useItemEvent;
 
     private void Awake()
     {
@@ -59,6 +58,6 @@ public class Item : MonoBehaviour
     /// </summary>
     public void UseItem()
     {
-        useItemEvent.Invoke();
+        itemData.useItemEvent.Invoke();
     }
 }

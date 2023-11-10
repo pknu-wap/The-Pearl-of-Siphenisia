@@ -143,5 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67e98b51fc37a746b9b99283383f8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: cbc391766fb9ad54bb9bf74530f8f071, type: 2}
-  lamp: {fileID: 0}
+  itemData: {fileID: 11400000, guid: 3a370ca31beb7a641998957be89d561b, type: 2}
+  useItemEvent:
+    m_PersistentCalls:
+      m_Calls: []
