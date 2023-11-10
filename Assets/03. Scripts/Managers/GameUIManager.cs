@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameUIManager : Singleton<GameUIManager>
@@ -46,7 +44,7 @@ public class GameUIManager : Singleton<GameUIManager>
     // 인벤토리 UI가 켜져 있으면 끄고, 꺼져 있으면 켜는 함수
     public void ToggleInventoryUI()
     {
-        if (inventory.isInventoryShowed() == true)
+        if (inventory.isInventoryShowed() == false)
         {
             inventory.ShowInventoryUI();
         }
