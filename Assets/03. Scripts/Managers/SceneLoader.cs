@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -77,16 +78,10 @@ public class SceneLoader : Singleton<SceneLoader>
     {
         fadeObject.SetActive(true);
 
-        float timer = 0f;
-        Color color = new Color(0, 0, 0, 1);
+        fadeBG.color = new(0, 0, 0, 1);
 
-        while (timer <= seconds)
-        {
-            yield return null;
-            timer += Time.unscaledDeltaTime;
-            color.a = Mathf.Lerp(1, 0, timer);
-            fadeBG.color = color;
-        }
+        var tween = fadeBG.DOFade(0.0f, seconds);
+        yield return tween.WaitForCompletion();
 
         fadeObject.SetActive(false);
     }
@@ -95,15 +90,9 @@ public class SceneLoader : Singleton<SceneLoader>
     {
         fadeObject.SetActive(true);
 
-        float timer = 0f;
-        Color color = new Color(0, 0, 0, 0);
+        fadeBG.color = new(0, 0, 0, 0);
 
-        while (timer <= seconds)
-        {
-            yield return null;
-            timer += Time.unscaledDeltaTime;
-            color.a = Mathf.Lerp(0, 1, timer);
-            fadeBG.color = color;
-        }
+        var tween = fadeBG.DOFade(1.0f, seconds);
+        yield return tween.WaitForCompletion();
     }
 }
