@@ -17,13 +17,6 @@ public class UIMoveOnFirst : MonoBehaviour
 
     private void Start()
     {
-        /*rect = GetComponent<RectTransform>();
-
-        rect.anchoredPosition = firstPosition;
-
-        rect.DOAnchorPos(targetPosition, duration)
-            .SetEase(Ease.OutQuad);*/
-
         StartCoroutine(MoveWithStartTime(startTime));
     }
 
@@ -35,6 +28,6 @@ public class UIMoveOnFirst : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         rect.DOAnchorPos(targetPosition, duration)
-            .SetEase(Ease.OutQuad);
+            .SetEase(Ease.OutCubic);
     }
 }
