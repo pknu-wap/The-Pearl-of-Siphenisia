@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -9,16 +10,19 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public Image icon;
     public DragSlot dragSlot;
     public ItemInfoWindow infoWindow;
+
+    public UnityEvent[] useItemEvent = new UnityEvent[3];
     #endregion 변수
 
     #region 초기 설정
     private void Awake()
     {
         AssignObjects();
+        AddEvent();
 
-        // 세이브 파일에서 아이템을 받아온 후
-        
-        UpdateSlot();
+        // TODO: 세이브 파일에서 아이템을 받아온다.
+
+        UpdateSlotUI();
     }
 
     /// <summary>
@@ -31,6 +35,24 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         dragSlot = GameObject.Find("DragSlot").GetComponent<DragSlot>();
         infoWindow = GameObject.Find("ItemInfoWindow").GetComponent<ItemInfoWindow>();
     }
+
+    void AddEvent()
+    {
+        // 장비 아이템 사용 시
+        useItemEvent[(int)UseTag.Equip].AddListener(UseItem);
+        useItemEvent[(int)UseTag.Equip].AddListener(EquipItem);
+        useItemEvent[(int)UseTag.Equip].AddListener(HideInfo);
+
+        // 핸드 아이템 사용 시
+        useItemEvent[(int)UseTag.Hand].AddListener(HandItem);
+        useItemEvent[(int)UseTag.Hand].AddListener(HideInfo);
+
+        // 소비 아이템 사용 시
+        useItemEvent[(int)UseTag.Consume].AddListener(UseItem);
+        useItemEvent[(int)UseTag.Consume].AddListener(DecreaseItemCount);
+        useItemEvent[(int)UseTag.Consume].AddListener(HideInfo);
+    }
+
     #endregion 초기 설정
 
     #region 마우스 이벤트
@@ -43,7 +65,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         // 우클릭 시
         if(eventData.button == PointerEventData.InputButton.Right)
         {
-            UseItem();
+            ClickItem();
         }
     }
 
@@ -108,7 +130,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
         dragSlot.HideImage();
         AddItem(dragSlot.dragItem);
-        UpdateSlot();
+        UpdateSlotUI();
     }
 
     /// <summary>
@@ -125,6 +147,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     }
     #endregion 마우스 이벤트
 
+    #region 아이템 상호작용
     /// <summary>
     /// 슬롯을 서로 변경하는 함수.
     /// </summary>
@@ -133,7 +156,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         ItemData temp = itemData;
 
         AddItem(dragSlot.dragItem);
-        UpdateSlot();
+        UpdateSlotUI();
 
         if (temp == null)
         {
@@ -158,16 +181,25 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     /// <summary>
     /// 아이템 삭제
     /// </summary>
-    public void RemoveItem()
+    public void DecreaseItemCount()
     {
-        itemData = null;
+        if(itemData == null)
+        {
+            return;
+        }
 
-        UpdateSlot();
+        itemData.count--;
+
+        if(itemData.count <= 0)
+        {
+            itemData = null;
+        }
+
+        UpdateSlotUI();
     }
 
     /// <summary>
-    /// 아이템을 사용한다.
-    /// itemData의 useItemEvent 동작
+    /// 슬롯에 등록된 아이템을 사용한다. 해당 아이템의 useItemEvent가 실행된다.
     /// </summary>
     void UseItem()
     {
@@ -177,14 +209,40 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         }
 
         itemData.useItemEvent.Invoke();
-        RemoveItem();
-        HideInfo();
     }
 
     /// <summary>
+    /// 슬롯을 클릭했을 때 실행되는 함수. 아이템 종류에 따라 3가지 이벤트 중 하나가 실행된다.
+    /// </summary>
+    void ClickItem()
+    {
+        if (itemData == null)
+        {
+            return;
+        }
+
+        // UseTag에 맞는 이벤트 실행
+        useItemEvent[(int)itemData.useTag].Invoke();
+    }
+
+    void EquipItem()
+    {
+        // TODO: 슬롯에 E 표시를 한다.
+    }
+
+    // 퀵슬롯에 아이템을 등록한다. 즉, 손에 든다.
+    void HandItem()
+    {
+        // TODO: 슬롯에 S 표시를 한다.
+        // TODO: 퀵슬롯에 등록한다.
+    }
+    #endregion 아이템 상호작용
+
+    #region UI
+    /// <summary>
     /// 현재 아이템으로 UI 갱신
     /// </summary>
-    public void UpdateSlot()
+    public void UpdateSlotUI()
     {
         if(itemData == null)
         {
@@ -228,6 +286,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
         infoWindow.HideInfoUI();
     }
+    #endregion UI
 
     /// <summary>
     /// 비어 있는 슬롯이라면 true 반환

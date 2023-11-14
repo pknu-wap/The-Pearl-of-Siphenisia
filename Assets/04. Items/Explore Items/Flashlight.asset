@@ -16,7 +16,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 8f79c5ad2a684e6468601849c66516d8, type: 3}
   itemName: "\uB7A8\uD504"
   description: "\uC5B4\uB450\uC6B4 \uBC14\uB2E4\uB97C \uBC1D\uAC8C \uBE44\uCDB0\uC900\uB2E4."
-  priority: 0
+  priority: 2
   useItemEvent:
     m_PersistentCalls:
       m_Calls:
@@ -33,3 +33,4 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   itemTag: 1
+  useTag: 0

@@ -21,3 +21,4 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   itemTag: 0
+  useTag: 1

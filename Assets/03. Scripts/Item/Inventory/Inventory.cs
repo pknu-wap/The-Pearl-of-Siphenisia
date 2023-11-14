@@ -5,9 +5,13 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    public Image bg;
+    #region 변수
+    private Image bg;
     public List<Slot> slots;
+    private ItemInfoWindow infoWindow;
+    #endregion 변수
 
+    #region 초기 설정
     private void Awake()
     {
         AssignObjects();
@@ -19,14 +23,17 @@ public class Inventory : MonoBehaviour
     void AssignObjects()
     {
         bg = GetComponent<Image>();
+        infoWindow = GameObject.Find("ItemInfoWindow").GetComponent<ItemInfoWindow>();
 
         // 자식 오브젝트 slot을 모두 할당
-        foreach(Transform slot in transform.GetChild(1).transform)
+        foreach (Transform slot in transform.GetChild(1).transform)
         {
             slots.Add(slot.GetComponent<Slot>());
         }
     }
+    #endregion 초기 설정
 
+    #region 아이템 상호작용
     /// <summary>
     /// 비어 있는 맨 앞 슬롯 인덱스 반환
     /// </summary>
@@ -60,7 +67,7 @@ public class Inventory : MonoBehaviour
         }
 
         slots[i].AddItem(itemData);
-        slots[i].UpdateSlot();
+        slots[i].UpdateSlotUI();
     }
 
     /// <summary>
@@ -69,9 +76,11 @@ public class Inventory : MonoBehaviour
     /// <param name="i"></param>
     public void RemoveItem(int i)
     {
-        slots[i].RemoveItem();
+        slots[i].DecreaseItemCount();
     }
+    #endregion 아이템 상호작용
 
+    #region 정렬
     /// <summary>
     /// 인벤토리의 공백을 제거하는 함수, 마지막 인덱스를 반환
     /// </summary>
@@ -134,7 +143,7 @@ public class Inventory : MonoBehaviour
         // UI 갱신
         foreach (Slot slot in slots)
         {
-            slot.UpdateSlot();
+            slot.UpdateSlotUI();
         }
     }
 
@@ -148,9 +157,10 @@ public class Inventory : MonoBehaviour
         // UI 갱신
         foreach (Slot slot in slots)
         {
-            slot.UpdateSlot();
+            slot.UpdateSlotUI();
         }
     }
+    #endregion 정렬
 
     #region UI
     public void ShowInventoryUI()
@@ -161,9 +171,10 @@ public class Inventory : MonoBehaviour
     public void HideInventoryUI()
     {
         gameObject.SetActive(false);
+        infoWindow.HideInfoUI();
     }
 
-    public bool isInventoryShowed()
+    public bool IsInventoryShowed()
     {
         return gameObject.activeSelf;
     }
