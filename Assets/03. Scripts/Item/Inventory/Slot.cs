@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -12,6 +13,12 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public ItemInfoWindow infoWindow;
 
     public UnityEvent[] useItemEvent = new UnityEvent[3];
+
+    public UseTag slotTag;
+    [SerializeField]
+    private GameObject itemStatus;  // E 마크, Q 마크, 숫자 등을 나타낸다.
+    [SerializeField]
+    private TextMeshProUGUI countText;
     #endregion 변수
 
     #region 초기 설정
@@ -34,6 +41,14 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         icon = transform.GetChild(0).GetComponent<Image>();
         dragSlot = GameObject.Find("DragSlot").GetComponent<DragSlot>();
         infoWindow = GameObject.Find("ItemInfoWindow").GetComponent<ItemInfoWindow>();
+
+        itemStatus = transform.GetChild(1).gameObject;
+
+        // 소비 슬롯이라면 텍스트도 받아온다.
+        if(slotTag == UseTag.Consume)
+        {
+            countText = itemStatus.GetComponent<TextMeshProUGUI>();
+        }
     }
 
     void AddEvent()
@@ -172,14 +187,19 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     /// <summary>
     /// 아이템 추가
     /// </summary>
-    /// <param name="item"></param> 
-    public void AddItem(ItemData item)
+    /// <param name="itemData"></param> 
+    public void AddItem(ItemData itemData)
     {
-        this.itemData = item;
+        if(itemData != null && itemData.useTag == UseTag.Consume)
+        {
+            itemData.count++;
+        }
+
+        this.itemData = itemData;
     }
 
     /// <summary>
-    /// 아이템 삭제
+    /// 아이템 개수를 1 줄인다.
     /// </summary>
     public void DecreaseItemCount()
     {
@@ -188,9 +208,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             return;
         }
 
-        itemData.count--;
-
-        if(itemData.count <= 0)
+        // 소비 아이템이 아니거나, 소비 아이템의 개수를 1 줄인 후 0 이하일 때 비운다.
+        if(itemData.useTag != UseTag.Consume || --itemData.count <= 0)
         {
             itemData = null;
         }
@@ -227,13 +246,13 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
     void EquipItem()
     {
-        // TODO: 슬롯에 E 표시를 한다.
+        itemStatus.SetActive(true);
     }
 
     // 퀵슬롯에 아이템을 등록한다. 즉, 손에 든다.
     void HandItem()
     {
-        // TODO: 슬롯에 S 표시를 한다.
+        itemStatus.SetActive(true);
         // TODO: 퀵슬롯에 등록한다.
     }
     #endregion 아이템 상호작용
@@ -247,13 +266,21 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         if(itemData == null)
         {
             icon.enabled = false;
+            itemStatus.SetActive(false);
             return;
         }
 
         // 아이콘을 변경하고 종료
         icon.sprite = itemData.icon;
-        // + 주인공 손에 스프라이트 겹치는 로직 생성 예정
+        // TODO: 주인공 손에 아이템 스프라이트를 겹친다.
         icon.enabled = true;
+
+        // 소비 아이템일 경우 개수도 최신화
+        if(itemData.useTag == UseTag.Consume)
+        {
+            itemStatus.SetActive(true);
+            countText.text = itemData.count.ToString();
+        }
     }
 
     /// <summary>

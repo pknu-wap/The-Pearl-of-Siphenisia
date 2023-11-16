@@ -17,8 +17,10 @@ MonoBehaviour:
   itemName: "\uAC11\uC637"
   description: "\uBB34\uAC81\uC9C0\uB9CC \uB2E8\uB2E8\uD55C \uAC11\uC637\uC774\uB2E4\\n\uD53C\uD574\uB97C
     1\uD68C \uB9C9\uC544\uC900\uB2E4."
+  count: 78
   priority: 1
   useItemEvent:
     m_PersistentCalls:
       m_Calls: []
   itemTag: 1
+  useTag: 2

@@ -15,7 +15,7 @@ public class Item : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            // 플레이어와 닿으면 자신의 위에 인터렉션 버튼 UI를 띄운다.
+            // 플레이어가 범위 내에 들어오면 자신의 위에 인터렉션 버튼 UI를 띄운다.
             GameUIManager.Instance.ShowInteractionUI(transform);
         }
     }
@@ -24,7 +24,7 @@ public class Item : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            // 플레이어와 닿으면 자신 위의 인터렉션 버튼 UI를 제거한다.
+            // 플레이어가 감지 범위에서 벗어나면 자신 위의 인터렉션 버튼 UI를 제거한다.
             GameUIManager.Instance.HideInteractionUI();
         }
     }
@@ -33,7 +33,6 @@ public class Item : MonoBehaviour
     {
         AddToInventory();
         DestroyItem();
-        Debug.Log("아이템 획득");
     }
 
     /// <summary>
