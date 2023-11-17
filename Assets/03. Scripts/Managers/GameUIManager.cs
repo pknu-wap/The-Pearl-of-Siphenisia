@@ -36,7 +36,7 @@ public class GameUIManager : Singleton<GameUIManager>
     {
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
         interactionUIObj = GameObject.Find("Interaction Button");
-        itemInfoWindow = GameObject.Find("ItemInfoWindow").GetComponent<ItemInfoWindow>();
+        itemInfoWindow = GameObject.Find("Item Info Window").GetComponent<ItemInfoWindow>();
     }
     #endregion 초기 설정
 
@@ -44,7 +44,7 @@ public class GameUIManager : Singleton<GameUIManager>
     // 인벤토리 UI가 켜져 있으면 끄고, 꺼져 있으면 켜는 함수
     public void ToggleInventoryUI()
     {
-        if (inventory.isInventoryShowed() == false)
+        if (inventory.IsInventoryShowed() == false)
         {
             inventory.ShowInventoryUI();
         }

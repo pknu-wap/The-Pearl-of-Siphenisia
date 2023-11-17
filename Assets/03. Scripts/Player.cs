@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     public bool isMovingDown = false;
 
     public Item equipedItem = null;    // 현재 장착 중인 아이템
-    public Item currentFocusedItem = null; // 현재 주목 중인 아이템 (근처에 다가간 아이템)
+    public ItemTrigger currentFocusedItem = null; // 현재 주목 중인 아이템 (근처에 다가간 아이템)    // inventory changed this
     public Collider2D currentCollision = null;
 
 
@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
             }
 
             // 아이템 등록
-            currentFocusedItem = collision.GetComponent<Item>();
+            currentFocusedItem = collision.GetComponent<ItemTrigger>();    // inventory changed this
             currentCollision = collision;
         }
     }
