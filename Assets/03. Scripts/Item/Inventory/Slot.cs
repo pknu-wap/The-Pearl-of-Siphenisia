@@ -11,6 +11,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public Image icon;
     public DragSlot dragSlot;
     public ItemInfoWindow infoWindow;
+    private QuickSlot quickSlot;
 
     public UnityEvent[] clickEvent = new UnityEvent[3];
 
@@ -42,7 +43,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         // 자식 오브젝트 Slot Item의 이미지
         icon = transform.GetChild(0).GetComponent<Image>();
         dragSlot = GameObject.Find("DragSlot").GetComponent<DragSlot>();
-        infoWindow = GameObject.Find("ItemInfoWindow").GetComponent<ItemInfoWindow>();
+        infoWindow = GameObject.Find("Item Info Window").GetComponent<ItemInfoWindow>();
+        quickSlot = GameObject.Find("Quick Slot").GetComponent<QuickSlot>();
 
         itemStatus = transform.GetChild(1).gameObject;
 
@@ -318,6 +320,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         itemStatus.SetActive(true);
         slotItem.isEquiped = true;
         // TODO: 퀵슬롯에 등록한다.
+        quickSlot.SetItem(slotItem);
     }
     
     /// <summary>
@@ -328,6 +331,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         itemStatus.SetActive(false);
         slotItem.isEquiped = false;
         // TODO: 퀵슬롯에서 해제한다.
+        quickSlot.ClearSlot();
     }
     #endregion 아이템 상호작용
 

@@ -36,7 +36,7 @@ public class GameUIManager : Singleton<GameUIManager>
     {
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
         interactionUIObj = GameObject.Find("Interaction Button");
-        itemInfoWindow = GameObject.Find("ItemInfoWindow").GetComponent<ItemInfoWindow>();
+        itemInfoWindow = GameObject.Find("Item Info Window").GetComponent<ItemInfoWindow>();
     }
     #endregion 초기 설정
 

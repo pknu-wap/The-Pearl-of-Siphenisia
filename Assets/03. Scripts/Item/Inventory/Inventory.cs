@@ -28,7 +28,7 @@ public class Inventory : MonoBehaviour
     void AssignObjects()
     {
         bg = GetComponent<Image>();
-        infoWindow = GameObject.Find("ItemInfoWindow").GetComponent<ItemInfoWindow>();
+        infoWindow = GameObject.Find("Item Info Window").GetComponent<ItemInfoWindow>();
         slots = new List<Slot>[3];
         inventoryTab = new GameObject[3];
 
