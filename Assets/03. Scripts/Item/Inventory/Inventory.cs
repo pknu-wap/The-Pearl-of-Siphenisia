@@ -80,7 +80,7 @@ public class Inventory : MonoBehaviour
         int i = 0;
 
         // 비어있지 않다면 i를 1 증가
-        while (i < slots[(int)itemData.useTag].Count && slots[(int)itemData.useTag][i].itemData == itemData)
+        while (i < slots[(int)itemData.useTag].Count && slots[(int)itemData.useTag][i].slotItem == itemData)
         {
             i++;
         }
@@ -92,35 +92,35 @@ public class Inventory : MonoBehaviour
     /// 비어있는 맨 앞 슬롯에 아이템 추가
     /// </summary>
     /// <param name="itemData"></param>
-    public void AddItem(ItemData itemData)
+    public void AddItem(Item item)
     {
         int i;
 
         // 소비 아이템이라면 이미 존재하는지 검사한다.
-        if (itemData.useTag == UseTag.Consume)
+        if (item.itemData.useTag == UseTag.Consume)
         {
-            i = SearchSlotIndex(itemData);
+            i = SearchSlotIndex(item.itemData);
 
             // 아이템이 존재하지 않으면 빈 슬롯을 찾는다.
-            if(i >= slots[(int)itemData.useTag].Count)
+            if(i >= slots[(int)item.itemData.useTag].Count)
             {
-                i = SearchFirstEmptySlot((int)itemData.useTag);
+                i = SearchFirstEmptySlot((int)item.itemData.useTag);
             }
         }
         else
         {
-            i = SearchFirstEmptySlot((int)itemData.useTag);
+            i = SearchFirstEmptySlot((int)item.itemData.useTag);
         }
 
         // 슬롯이 모두 찼다면 종료
-        if(i == slots[(int)itemData.useTag].Count)
+        if(i == slots[(int)item.itemData.useTag].Count)
         {
             Debug.Log("슬롯이 모두 찼습니다.");
             return;
         }
 
-        slots[(int)itemData.useTag][i].AddItem(itemData);
-        slots[(int)itemData.useTag][i].UpdateSlotUI();
+        slots[(int)item.itemData.useTag][i].AddItem(item);
+        slots[(int)item.itemData.useTag][i].UpdateSlotUI();
     }
 
     /// <summary>
@@ -155,7 +155,7 @@ public class Inventory : MonoBehaviour
     {
         // 첫번째 공백 찾기
         int i = -1;
-        while (++i < slots[index].Count && slots[index][i].itemData != null) ;
+        while (++i < slots[index].Count && slots[index][i].slotItem != null) ;
 
         if(i == slots[index].Count)
         {
@@ -167,7 +167,7 @@ public class Inventory : MonoBehaviour
         while (true)
         {
             // 공백이 아닌 칸까지 j를 전진시킨다.
-            while (++j < slots[index].Count && slots[index][j].itemData == null) ;
+            while (++j < slots[index].Count && slots[index][j].slotItem == null) ;
 
             if (j == slots[index].Count)
             {
@@ -176,8 +176,8 @@ public class Inventory : MonoBehaviour
             }
 
             // 현재 공백인 i에 다음 아이템을 넣고, i를 한 칸 전진시킨다. 반복
-            slots[index][i].itemData = slots[index][j].itemData;
-            slots[index][j].itemData = null;
+            slots[index][i].slotItem = slots[index][j].slotItem;
+            slots[index][j].slotItem = null;
             i++;
         }
     }
@@ -199,16 +199,16 @@ public class Inventory : MonoBehaviour
         int n = TrimInventory(index);
 
         // 정렬(좀 고치고 싶지만...)
-        List<ItemData> items = new();
+        List<Item> items = new();
 
         // 인벤토리의 아이템 복사
         for(int i = 0; i <= n; i++)
         {
-            items.Add(slots[index][i].itemData);
+            items.Add(slots[index][i].slotItem);
         }
 
         // 아이템 정렬
-        items = items.OrderBy(x => x.priority).ToList();
+        items = items.OrderBy(x => x.itemData.priority).ToList();
 
         // 슬롯에 정렬된 아이템을 덮어씌운다.
         for(int i = 0; i < slots[index].Count; i++)

@@ -27,12 +27,9 @@ public class ItemData : ScriptableObject
     // name이 이미 있다.
     public string itemName = null;
     public string description = null;
-    public int count = 0;
+    public int count = 1;
     // 정렬 우선 순위
     public int priority = 0;
-
-    [Header("사용 시 효과")]
-    public UnityEvent useItemEvent;
 
     [Header("아이템 분류")]
     public PurposeTag itemTag;
