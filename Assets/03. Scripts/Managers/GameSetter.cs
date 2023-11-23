@@ -4,12 +4,17 @@ using UnityEngine.UI;
 
 public class GameSetter : MonoBehaviour
 {
-    [Header("옵션")]
+    [Header("그래픽")]
     [SerializeField] private int targetFPS = 60;
+    [SerializeField] private int vSyncCount = 0;
+
+    [Header("소리")]
     [SerializeField] private float soundVolume = 1;
-    private Slider volumeSlider;
+    [SerializeField]  private Slider volumeSlider;
+    [SerializeField] AudioSource audioSource;
 
     Dictionary<int, int> frameDict;
+
     private void Awake()
     {
         AssignObjects();
@@ -21,8 +26,8 @@ public class GameSetter : MonoBehaviour
 
     private void AssignObjects()
     {
-        settingPanel = GameObject.Find("Setting Panel");
-        volumeSlider = GameObject.Find("Sound Slider").GetComponent <Slider>();
+        volumeSlider = GameObject.Find("Volume Slider").GetComponent <Slider>();
+        audioSource = GameObject.Find("BGM").GetComponent<AudioSource>();
     }
 
     #region 값 설정
@@ -37,13 +42,9 @@ public class GameSetter : MonoBehaviour
 
     private void SetDefaultValues()
     {
-
         Application.targetFrameRate = targetFPS;
-    }
-
-    public void SetVolume()
-    {
-        soundVolume = volumeSlider.value;
+        audioSource.volume = 0;
+        QualitySettings.vSyncCount = vSyncCount;
     }
 
     public void SetFrameRate(int value)
@@ -51,19 +52,17 @@ public class GameSetter : MonoBehaviour
         targetFPS = frameDict[value];
         Application.targetFrameRate = targetFPS;
     }
+
+    public void SetVSyncCount(int value)
+    {
+        vSyncCount = value;
+        QualitySettings.vSyncCount = vSyncCount;
+    }
+
+    public void SetVolume()
+    {
+        soundVolume = (float)volumeSlider.value / volumeSlider.maxValue;
+        audioSource.volume = soundVolume;
+    }
     #endregion 값 설정
-
-    #region UI
-    private GameObject settingPanel;
-
-    private void ShowSettingPanel()
-    {
-        settingPanel.SetActive(true);
-    }
-
-    private void HideSettingPanel()
-    {
-        settingPanel.SetActive(false);
-    }
-    #endregion UI
 }
