@@ -11,18 +11,15 @@ public class portal : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Player")
-        {
-            TeleportPlayer(other.gameObject);
-        }
+        TeleportObject(other.gameObject);
     }
 
-    void TeleportPlayer(GameObject player)  // 텔레포트 함수
+    void TeleportObject(GameObject _objact)  // 텔레포트 함수
     {
         if (destinationPortal != null)      // 다른 포탈을 지정했다면 그 포탈의 (x, y + 오프셋) 으로 순간이동
         {
             Vector3 destinationPosition = destinationPortal.position + (destinationPortal.up * teleportOffset);
-            player.transform.position = destinationPosition;
+            _objact.transform.position = destinationPosition;
         }
         else                                // 포탈 지정이 되지 않았다면 에러메시지
         {
