@@ -1,14 +1,10 @@
-using JetBrains.Annotations;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class OnCollisionExample : MonoBehaviour
+public class PlayerCollision : MonoBehaviour
 {
-    public ObjTest obj;
+    public PlayerData obj;
     public Player player;
     public UnityEvent gameOver;
 
