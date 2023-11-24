@@ -319,19 +319,18 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     {
         itemStatus.SetActive(true);
         slotItem.isEquiped = true;
-        // TODO: 퀵슬롯에 등록한다.
+        quickSlot.SetInventorySlot(this);
         quickSlot.SetItem(slotItem);
     }
     
     /// <summary>
     /// 아이템을 퀵슬롯에서 해제한다.
     /// </summary>
-    void UnhandItem()
+    public void UnhandItem()
     {
         itemStatus.SetActive(false);
         slotItem.isEquiped = false;
-        // TODO: 퀵슬롯에서 해제한다.
-        quickSlot.ClearSlot();
+        quickSlot.ClearQuickSlot();
     }
     #endregion 아이템 상호작용
 
