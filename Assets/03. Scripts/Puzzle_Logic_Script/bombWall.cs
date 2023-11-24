@@ -12,13 +12,15 @@ public class bombWall : MonoBehaviour
     Color color;
     Renderer wallRenderer;
     public UnityEvent onBombed;
+    public float power;
+
+    Vector2 direction;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         color = GetComponent<bombWall>().color;
         wallRenderer = GetComponent<Renderer>();
-        wallBreakDown();
 
         onBombed.AddListener(wallBreakDown);
     }
@@ -49,13 +51,24 @@ public class bombWall : MonoBehaviour
     private IEnumerator BreakObject(Quaternion targetRotation)
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.AddForce(direction * power);
 
-        for (int i = 0; i < 500; i++)
+        for (int i = 0; i < 100; i++)
         {
             transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, targetRotation, 0.02f);
             yield return null;
         }
 
         StartCoroutine(wallFadeOut());
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bomb"))
+        {
+            direction = transform.position - collision.transform.position;
+            direction.Normalize();
+            wallBreakDown();
+        }
     }
 }
