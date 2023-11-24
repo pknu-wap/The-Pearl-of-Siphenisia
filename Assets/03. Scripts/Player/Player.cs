@@ -27,8 +27,8 @@ public class Player : MonoBehaviour
     public bool isJumpAble = false;
     public float movingConstant = (float)(Math.Sqrt(2) / 2);
 
-    public Item equipedItem = null;    // ���� ���� ���� ������
-    public ItemTrigger currentFocusedItem = null; // ���� �ָ� ���� ������ (��ó�� �ٰ��� ������)    // inventory changed this
+    public Item equipedItem = null;
+    public ItemTrigger currentFocusedItem = null;
     public Collider2D currentCollision = null;
 
 
@@ -112,7 +112,6 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        // ���ͷ��� Ű �Է� (E)
         if (Input.GetKeyDown(KeyCode.E))
         {
             GetItem();
@@ -120,7 +119,7 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// currentFocusedItem�� ȹ���Ѵ�.
+    /// currentFocusedItem을 획득한다.
     /// </summary>
     private void GetItem()
     {
@@ -129,9 +128,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        // ������ ȹ��
         currentFocusedItem.GetItem();
         currentFocusedItem = null;
-        Debug.Log("EŰ �Է�");
     }
 }

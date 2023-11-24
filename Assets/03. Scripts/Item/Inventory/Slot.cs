@@ -12,13 +12,12 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     private DragSlot dragSlot;
     private ItemInfoWindow infoWindow;
     private QuickSlot quickSlot;
-    [SerializeField]
     private PlayerHand playerHand;
 
     public UnityEvent[] clickEvent = new UnityEvent[3];
 
     // 현재 슬롯이 장비/장착/소비 슬롯 중 어떤 것인가?
-    private UseTag slotTag;
+    public UseTag slotTag;
 
     private GameObject itemStatus;  // E 마크, Q 마크, 숫자 등 상태를 나타내는 오브젝트
     private TextMeshProUGUI countText;
