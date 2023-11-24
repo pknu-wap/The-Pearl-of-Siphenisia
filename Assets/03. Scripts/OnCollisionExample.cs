@@ -9,6 +9,7 @@ using UnityEngine.Events;
 public class OnCollisionExample : MonoBehaviour
 {
     public ObjTest obj;
+    public Player player;
     public UnityEvent gameOver;
 
     int health;
@@ -26,10 +27,12 @@ public class OnCollisionExample : MonoBehaviour
     {
         if (!isAttacked)
         {
-            playerDamaged();
-            StartCoroutine(SetInvincible());
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                playerDamaged();
+                StartCoroutine(SetInvincible());
+            }
         }
-
     }
 
     private IEnumerator SetInvincible()

@@ -9,7 +9,7 @@ public class flypaper : MonoBehaviour
 
     private void Start()
     {
-        originalSpeed = GameObject.Find("Player").GetComponent<Player>().speed;
+        originalSpeed = GameObject.Find("Player").GetComponent<Player>().swimmingSpeed;
     }
     
     void OnTriggerEnter2D (Collider2D other)
@@ -17,7 +17,7 @@ public class flypaper : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             Debug.Log("끈끈이 발동");
-            GameObject.Find("Player").GetComponent<Player>().speed = 0.7f;
+            GameObject.Find("Player").GetComponent<Player>().swimmingSpeed *= 0.7f;
             // 플레이어 스크립트에서 끈끈이가 붙었을때의 함수 발동
         }
     }
@@ -27,7 +27,7 @@ public class flypaper : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             Debug.Log("끈끈이 해제");
-            GameObject.Find("Player").GetComponent<Player>().speed = originalSpeed;
+            GameObject.Find("Player").GetComponent<Player>().swimmingSpeed = originalSpeed;
             // 플레이어 스크립트에서 끈끈이가 해제되었을때의 함수 발동
         }
     }

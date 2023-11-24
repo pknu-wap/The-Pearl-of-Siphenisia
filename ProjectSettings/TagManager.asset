@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Ground
   - RotatingTerrain
+  - Land
   layers:
   - Default
   - TransparentFX
