@@ -146,7 +146,7 @@ MonoBehaviour:
   isEquiped: 0
   distance: 10
   isCrashed: 0
-  speed: 0.2
+  speed: 0.6
 --- !u!212 &1220626806128208674
 SpriteRenderer:
   m_ObjectHideFlags: 0
