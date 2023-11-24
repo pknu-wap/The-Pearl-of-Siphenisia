@@ -18,6 +18,10 @@ public class Player : MonoBehaviour
     public bool isMovingUp = false;
     public bool isMovingDown = false;
 
+    public Item equipedItem = null;    // 현재 장착 중인 아이템
+    public ItemTrigger currentFocusedItem = null; // 현재 주목 중인 아이템 (근처에 다가간 아이템)    // inventory changed this
+    public Collider2D currentCollision = null;
+
 
 
     // Start is called before the first frame update
@@ -37,13 +41,45 @@ public class Player : MonoBehaviour
         }
     }
 
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        // 아이템에 닿을 시 해당 아이템을 캐싱해둔다.
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            if(collision == currentCollision)
+            {
+                // 이미 등록한 콜리젼이라면 리턴
+                return;
+            }
+
+            // 아이템 등록
+            currentFocusedItem = collision.GetComponent<ItemTrigger>();    // inventory changed this
+            currentCollision = collision;
+        }
+    }
+
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
             animator.SetBool("isWalking", false);
         }
+
+        // 아이템에서 벗어나면 주목 중인 아이템을 비운다.
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            // 등록된 아이템을 벗어난 게 아니라면
+            if (collision != currentCollision)
+            {
+                // 비우지 않는다.
+                return;
+            }
+
+            currentFocusedItem = null;
+        }
     }
+
+
 
     void FixedUpdate()
     {
@@ -86,5 +122,30 @@ public class Player : MonoBehaviour
             if (!isMovingLeft && !isMovingRight && isMovingDown) { spriteRenderer.flipY = true; }
             else { spriteRenderer.flipY = false; }
         }
+    }
+
+    private void Update()
+    {
+        // 인터렉션 키 입력 (E)
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            GetItem();
+        }
+    }
+
+    /// <summary>
+    /// currentFocusedItem을 획득한다.
+    /// </summary>
+    private void GetItem()
+    {
+        if (currentFocusedItem == null)
+        {
+            return;
+        }
+
+        // 아이템 획득
+        currentFocusedItem.GetItem();
+        currentFocusedItem = null;
+        Debug.Log("E키 입력");
     }
 }

@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Ground
   - RotatingTerrain
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -45,6 +46,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 2696541655
     locked: 0
   - name: Float UI
     uniqueID: 2752862127

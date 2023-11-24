@@ -1,16 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameUIManager : Singleton<GameUIManager>
 {
-    GameObject inventoryObj;
+    private Inventory inventory;
+    private ItemInfoWindow itemInfoWindow;
+    private GameObject interactionUIObj;
+    private Vector3 interactOffset = new(0f, 1f, 0f);
 
     public void Test()
     {
         Debug.Log("레이캐스트 문제 없음");
     }
 
+    #region 초기 설정
     private void Awake()
     {
         AssignObjects();
@@ -18,42 +20,69 @@ public class GameUIManager : Singleton<GameUIManager>
 
     private void Start()
     {
-        CloseInventoryUI();
+        HideInventoryUI();
+        HideInteractionUI();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            SwitchActiveInventoryUI();
+            ToggleInventoryUI();
         }
     }
 
     private void AssignObjects()
     {
-        inventoryObj = GameObject.Find("Inventory");
+        inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
+        interactionUIObj = GameObject.Find("Interaction Button");
+        itemInfoWindow = GameObject.Find("Item Info Window").GetComponent<ItemInfoWindow>();
     }
+    #endregion 초기 설정
 
-    public void SwitchActiveInventoryUI()
+    #region Inventory
+    // 인벤토리 UI가 켜져 있으면 끄고, 꺼져 있으면 켜는 함수
+    public void ToggleInventoryUI()
     {
-        if (inventoryObj.activeSelf == true)
+        if (inventory.IsInventoryShowed() == false)
         {
-            inventoryObj.SetActive(false);
+            inventory.ShowInventoryUI();
         }
 
         else
         {
-            inventoryObj.SetActive(true);
+            inventory.HideInventoryUI();
+            itemInfoWindow.HideInfoUI();
         }
     }
 
-    public void OpenInventoryUI()
+    public void ShowInventoryUI()
     {
-        inventoryObj.SetActive(true);
+        inventory.HideInventoryUI();
     }
 
-    public void CloseInventoryUI()
+    public void HideInventoryUI()
     {
-        inventoryObj.SetActive(false);
+        inventory.HideInventoryUI();
+        itemInfoWindow.HideInfoUI();
     }
+    #endregion Inventory
+
+    #region Interaction UI
+    public void ShowInteractionUI(Transform targetTransform)
+    {
+        MoveInteractionUI(targetTransform);
+        interactionUIObj.SetActive(true);
+    }
+
+    public void HideInteractionUI()
+    {
+        interactionUIObj.SetActive(false);
+    }
+
+    public void MoveInteractionUI(Transform targetTransform)
+    {
+        interactionUIObj.transform.position = Camera.main.WorldToScreenPoint(targetTransform.position + interactOffset);
+    }
+    #endregion Interaction UI
 }

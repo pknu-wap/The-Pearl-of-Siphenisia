@@ -1,0 +1,17 @@
+using UnityEngine;
+
+public class ArmorItem : Item
+{
+    public override void ActivateItem()
+    {
+        // ∞©ø ¿ª «√∑π¿ÃæÓø°∞‘ √ﬂ∞°«—¥Ÿ.
+        Debug.Log("∞©ø  ¿Â¬¯");
+    }
+
+
+    public override void DeactivateItem()
+    {
+        // ∞©ø ¿ª ªË¡¶«—¥Ÿ.
+        Debug.Log("∞©ø  «ÿ¡¶");
+    }
+}
