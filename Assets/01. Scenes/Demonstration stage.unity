@@ -3913,6 +3913,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ada92ee5dd2d89544bb5e15d4d7be843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onBombed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &865186201
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4755,6 +4758,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ada92ee5dd2d89544bb5e15d4d7be843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onBombed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1355544162 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4944515815616786834, guid: 1499f63ec6463594487e5924088cf672, type: 3}
@@ -5174,11 +5180,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3446487379515955040, guid: 3c751054e5d96c44ca28dc4cc991cb7c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.94
+      value: 2.01
       objectReference: {fileID: 0}
     - target: {fileID: 3446487379515955040, guid: 3c751054e5d96c44ca28dc4cc991cb7c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.62
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3446487379515955040, guid: 3c751054e5d96c44ca28dc4cc991cb7c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5493,6 +5499,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ada92ee5dd2d89544bb5e15d4d7be843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onBombed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1716531625
 GameObject:
   m_ObjectHideFlags: 0
@@ -6295,6 +6304,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ada92ee5dd2d89544bb5e15d4d7be843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onBombed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
