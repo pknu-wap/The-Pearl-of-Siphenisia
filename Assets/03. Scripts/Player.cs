@@ -1,5 +1,8 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
+using System;
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
@@ -11,15 +14,21 @@ public class Player : MonoBehaviour
     
     public bool isSwimming = true;
     public bool isWalking = false;
-    public float speed = 30f; 
+    public float walkingSpeed = 55f;
+    public float swimmingSpeed = 30f;
     public float gravityScale = 2f;
+    public float jumpPower = 500f;
+    public float horizontal;
+    public float vertical;
     public bool isMovingLeft = false;
     public bool isMovingRight = false;
     public bool isMovingUp = false;
     public bool isMovingDown = false;
+    public bool isJumpAble = false;
+    public float movingConstant = (float)(Math.Sqrt(2) / 2);
 
-    public Item equipedItem = null;    // ÇöÀç ÀåÂø ÁßÀÎ ¾ÆÀÌÅÛ
-    public ItemTrigger currentFocusedItem = null; // ÇöÀç ÁÖ¸ñ ÁßÀÎ ¾ÆÀÌÅÛ (±ÙÃ³¿¡ ´Ù°¡°£ ¾ÆÀÌÅÛ)    // inventory changed this
+    public Item equipedItem = null;    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public ItemTrigger currentFocusedItem = null; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½Ù°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)    // inventory changed this
     public Collider2D currentCollision = null;
 
 
@@ -33,59 +42,18 @@ public class Player : MonoBehaviour
         animator.SetBool("isWalking", false);
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            animator.SetBool("isWalking", true);
-        }
-    }
+    void OnTriggerEnter2D(Collider2D collision) { if (collision.gameObject.CompareTag("Ground")) { animator.SetBool("isWalking", true); } }
 
-    void OnTriggerStay2D(Collider2D collision)
-    {
-        // ¾ÆÀÌÅÛ¿¡ ´êÀ» ½Ã ÇØ´ç ¾ÆÀÌÅÛÀ» Ä³½ÌÇØµÐ´Ù.
-        if (collision.gameObject.CompareTag("Item"))
-        {
-            if(collision == currentCollision)
-            {
-                // ÀÌ¹Ì µî·ÏÇÑ ÄÝ¸®Á¯ÀÌ¶ó¸é ¸®ÅÏ
-                return;
-            }
+    void OnTriggerExit2D(Collider2D collision) { if (collision.gameObject.CompareTag("Ground")) { animator.SetBool("isWalking", false); } }
 
-            // ¾ÆÀÌÅÛ µî·Ï
-            currentFocusedItem = collision.GetComponent<ItemTrigger>();    // inventory changed this
-            currentCollision = collision;
-        }
-    }
+    void OnCollisionEnter2D(Collision2D collision) { if (collision.gameObject.CompareTag("Land")) { isJumpAble = true; } }
 
-    void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            animator.SetBool("isWalking", false);
-        }
-
-        // ¾ÆÀÌÅÛ¿¡¼­ ¹þ¾î³ª¸é ÁÖ¸ñ ÁßÀÎ ¾ÆÀÌÅÛÀ» ºñ¿î´Ù.
-        if (collision.gameObject.CompareTag("Item"))
-        {
-            // µî·ÏµÈ ¾ÆÀÌÅÛÀ» ¹þ¾î³­ °Ô ¾Æ´Ï¶ó¸é
-            if (collision != currentCollision)
-            {
-                // ºñ¿ìÁö ¾Ê´Â´Ù.
-                return;
-            }
-
-            currentFocusedItem = null;
-        }
-    }
-
-
+    void OnCollisionExit2D(Collision2D collision) { if (collision.gameObject.CompareTag("Land")) { isJumpAble = false; } }
 
     void FixedUpdate()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        rig2d.AddForce(new Vector2(horizontal * speed, vertical * speed), ForceMode2D.Force);
+        horizontal = Input.GetAxisRaw("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");
 
         /*isMovingLeft = rig2d.velocity.normalized.x < -0.15f;
         isMovingRight = rig2d.velocity.normalized.x > 0.15f;
@@ -97,36 +65,43 @@ public class Player : MonoBehaviour
         isMovingUp = vertical > 0.15f;
         isMovingDown = vertical < -0.15f;
 
-        if (animator.GetBool("isWalking"))
-        {
-            animator.SetBool("isMovingLeft", isMovingLeft);
-            animator.SetBool("isMovingRight", isMovingRight);
-            animator.SetBool("isMoving", isMovingLeft || isMovingRight);
-            rig2d.gravityScale = gravityScale;
+        if (animator.GetBool("isWalking")) { Walk(); }
+        else { Swim(); }
+    }
 
-            if (isMovingRight) { spriteRenderer.flipX = true; }
-            else { spriteRenderer.flipX = false; }
-        }
-        else
-        {
-            animator.SetBool("isMovingLeft", isMovingLeft);
-            animator.SetBool("isMovingRight", isMovingRight);
-            animator.SetBool("isMovingUp", isMovingUp);
-            animator.SetBool("isMovingDown", isMovingDown);
-            animator.SetBool("isMoving", isMovingLeft || isMovingRight || isMovingUp || isMovingDown);
-            rig2d.gravityScale = 0;
+    void Walk()
+    {
+        if (horizontal != 0) { rig2d.AddForce(new Vector2(horizontal * walkingSpeed, 0), ForceMode2D.Force); }
+        if (vertical == 1 && isJumpAble) { rig2d.AddForce(new Vector2(0, jumpPower), ForceMode2D.Force); }
 
-            if (isMovingRight) { spriteRenderer.flipX = true; }
-            else { spriteRenderer.flipX = false; }
+        animator.SetBool("isMovingLeft", isMovingLeft);
+        animator.SetBool("isMovingRight", isMovingRight);
+        animator.SetBool("isMoving", isMovingLeft || isMovingRight);
+        rig2d.gravityScale = gravityScale;
 
-            if (!isMovingLeft && !isMovingRight && isMovingDown) { spriteRenderer.flipY = true; }
-            else { spriteRenderer.flipY = false; }
-        }
+        if (isMovingLeft) { spriteRenderer.flipX = false; }
+        if (isMovingRight) { spriteRenderer.flipX = true; }
+    }
+
+    void Swim()
+    {
+        if (horizontal != 0 && vertical != 0) { rig2d.AddForce(new Vector2(movingConstant * horizontal * swimmingSpeed, movingConstant * vertical * swimmingSpeed), ForceMode2D.Force); }
+        else { rig2d.AddForce(new Vector2(horizontal * swimmingSpeed, vertical * swimmingSpeed), ForceMode2D.Force); }
+
+        animator.SetBool("isMovingLeft", isMovingLeft);
+        animator.SetBool("isMovingRight", isMovingRight);
+        animator.SetBool("isMovingUp", isMovingUp);
+        animator.SetBool("isMovingDown", isMovingDown);
+        animator.SetBool("isMoving", isMovingLeft || isMovingRight || isMovingUp || isMovingDown);
+        rig2d.gravityScale = 0;
+
+        if (isMovingRight) { spriteRenderer.flipX = true; }
+        else { spriteRenderer.flipX = false; }
     }
 
     private void Update()
     {
-        // ÀÎÅÍ·º¼Ç Å° ÀÔ·Â (E)
+        // ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ Å° ï¿½Ô·ï¿½ (E)
         if (Input.GetKeyDown(KeyCode.E))
         {
             GetItem();
@@ -134,7 +109,7 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// currentFocusedItemÀ» È¹µæÇÑ´Ù.
+    /// currentFocusedItemï¿½ï¿½ È¹ï¿½ï¿½ï¿½Ñ´ï¿½.
     /// </summary>
     private void GetItem()
     {
@@ -143,9 +118,9 @@ public class Player : MonoBehaviour
             return;
         }
 
-        // ¾ÆÀÌÅÛ È¹µæ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½
         currentFocusedItem.GetItem();
         currentFocusedItem = null;
-        Debug.Log("EÅ° ÀÔ·Â");
+        Debug.Log("EÅ° ï¿½Ô·ï¿½");
     }
 }
