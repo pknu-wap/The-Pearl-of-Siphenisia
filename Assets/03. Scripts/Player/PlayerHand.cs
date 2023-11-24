@@ -17,4 +17,9 @@ public class PlayerHand : MonoBehaviour
         currentItem = item;
         spriteRenderer.sprite = item.itemData.sprite;
     }
+
+    public void DrawAimLine()
+    {
+
+    }
 }
