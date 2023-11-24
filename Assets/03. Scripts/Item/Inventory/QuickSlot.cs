@@ -19,7 +19,7 @@ public class QuickSlot : MonoBehaviour
     // 플레이어로 옮길 예정
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
+        if(Input.GetKeyDown(KeyCode.LeftShift))
         {
             ActivateItem();
         }

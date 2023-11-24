@@ -1,8 +1,21 @@
+using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 
 public class BombItem : Item
 {
-    bool isHanded = false;
+    private LineRenderer lineRenderer;
+    private CircleCollider2D bombRange;
+
+    private bool isHanded = false;
+    private bool canAim = true;
+    private Vector3 startPosition;
+    private Vector3 endPosition;
+    public float distance = 10f;
+
+    public bool isCrashed = false;
+
+    public float speed = 10f;
 
     public override void ActivateItem()
     {
@@ -14,6 +27,27 @@ public class BombItem : Item
         isHanded = false;
     }
 
+    private void Awake()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
+        bombRange = GetComponent<CircleCollider2D>();
+        bombRange.enabled = false;
+
+        EraseAimLine();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log(collision.name);
+
+        if (collision.gameObject.CompareTag("Ground")
+            || collision.gameObject.CompareTag("Land")
+            || collision.gameObject.CompareTag("Enemy"))
+        {
+            isCrashed = true;
+        }
+    }
+
     private void Update()
     {
         if(isHanded == false)
@@ -21,35 +55,81 @@ public class BombItem : Item
             return;
         }
 
-        if(Input.GetKey(KeyCode.Q))
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            canAim = true;
+        }
+
+        if(canAim == true)
         {
             AimBomb();
 
             if(Input.GetMouseButtonDown(1))
             {
-                Unaim();
+                EraseAimLine();
+                canAim = false;
             }
 
             else if(Input.GetMouseButtonDown(0))
             {
-                ThrowBomb();
-                Destroy(this);
+                EraseAimLine();
+                canAim = false;
+                StartCoroutine(ThrowBomb());
             }
         }
     }
 
     private void AimBomb()
     {
-        Debug.Log("Aimed");
+        GetLineTransform();
+        DrawAimLine();
     }
 
-    private void Unaim()
+    private IEnumerator ThrowBomb()
     {
-        Debug.Log("Unaimed");
+        transform.SetParent(null);
+
+        Vector2 direction = endPosition - startPosition;
+        direction = direction.normalized * distance;
+
+
+        while(isCrashed == false && Vector3.Magnitude(transform.position - startPosition) < distance)
+        {
+            transform.Translate(speed * Time.deltaTime * direction);
+            yield return null;
+        }
+
+        StartCoroutine(Bomb());
     }
 
-    private void ThrowBomb()
+    private IEnumerator Bomb()
     {
-        Debug.Log("Throwed");
+        Debug.Log("Bomb!");
+        bombRange.enabled = true;
+
+        // 충돌 감지를 위한 1프레임 대기
+        yield return null;
+        // TODO: 폭발 이펙트
+        Destroy(gameObject);
+    }
+
+    public void DrawAimLine()
+    {
+        lineRenderer.positionCount = 2;
+        lineRenderer.SetPosition(0, startPosition);
+        lineRenderer.SetPosition(1, endPosition);
+    }
+
+    public void EraseAimLine()
+    {
+        lineRenderer.positionCount = 0;
+    }
+
+    // Start: 손 위치, End: 마우스 커서 위치
+    private void GetLineTransform()
+    {
+        startPosition = transform.position;
+        endPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
+        endPosition.z = 0;
     }
 }

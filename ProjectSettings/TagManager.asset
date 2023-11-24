@@ -11,6 +11,7 @@ TagManager:
   - RotatingTerrain
   - Land
   - Item
+  - Bomb
   layers:
   - Default
   - TransparentFX
