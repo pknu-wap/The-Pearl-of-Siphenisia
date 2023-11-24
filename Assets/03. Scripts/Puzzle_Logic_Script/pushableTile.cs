@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class pushableTile : MonoBehaviour
 {
-    public float raycastDistance = .1f; // 물체가 있는지 빔을 쏴서 확인할때 빔의 길이
+    public float raycastDistance = 5f; // 물체가 있는지 빔을 쏴서 확인할때 빔의 길이
     float moveSpeed = 0.03f;             // (0 < movespeed < 1)
     bool isMove = false;
 
@@ -68,13 +68,12 @@ public class pushableTile : MonoBehaviour
         transform.position = new Vector2((int)posx, (int)posy);
     }
 
-    bool isCollision(Vector2 direction) // 수정예정 (왜 안댐;;)
+    bool isCollision(Vector2 direction) // 수정예정
     {
-        RaycastHit2D hit;
-
         // Raycast를 사용하여 특정 방향으로 레이를 쏴서 충돌을 감지합니다.
-        hit = Physics2D.Raycast(transform.position, direction, raycastDistance);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, raycastDistance);
 
+        Debug.Log(hit.collider);
         // 만약 충돌이 감지되면, 여기에서 원하는 동작을 수행할 수 있습니다.
         if (hit.collider != null)
         {
