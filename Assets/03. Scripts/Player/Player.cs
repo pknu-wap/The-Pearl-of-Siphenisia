@@ -42,7 +42,18 @@ public class Player : MonoBehaviour
         animator.SetBool("isWalking", false);
     }
 
-    void OnTriggerEnter2D(Collider2D collision) { if (collision.gameObject.CompareTag("Ground")) { animator.SetBool("isWalking", true); } }
+    void OnTriggerEnter2D(Collider2D collision)
+    { 
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            animator.SetBool("isWalking", true); 
+        } 
+
+        if(collision.gameObject.CompareTag("Item"))
+        {
+            currentFocusedItem = collision.GetComponent<ItemTrigger>();
+        }
+    }
 
     void OnTriggerExit2D(Collider2D collision) { if (collision.gameObject.CompareTag("Ground")) { animator.SetBool("isWalking", false); } }
 
