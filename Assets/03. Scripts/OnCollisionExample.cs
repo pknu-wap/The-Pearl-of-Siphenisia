@@ -25,7 +25,7 @@ public class OnCollisionExample : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (!isAttacked)
+        if (collision.gameObject.CompareTag("Enemy") && !isAttacked)
         {
             if (collision.gameObject.CompareTag("Enemy"))
             {

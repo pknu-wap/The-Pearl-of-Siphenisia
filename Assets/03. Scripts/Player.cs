@@ -27,6 +27,10 @@ public class Player : MonoBehaviour
     public bool isJumpAble = false;
     public float movingConstant = (float)(Math.Sqrt(2) / 2);
 
+    public Item equipedItem = null;    // ���� ���� ���� ������
+    public ItemTrigger currentFocusedItem = null; // ���� �ָ� ���� ������ (��ó�� �ٰ��� ������)    // inventory changed this
+    public Collider2D currentCollision = null;
+
 
 
     // Start is called before the first frame update
@@ -51,10 +55,15 @@ public class Player : MonoBehaviour
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
 
-        isMovingLeft = horizontal < 0;
-        isMovingRight = horizontal > 0;
-        isMovingUp = vertical > 0;
-        isMovingDown = vertical < 0;
+        /*isMovingLeft = rig2d.velocity.normalized.x < -0.15f;
+        isMovingRight = rig2d.velocity.normalized.x > 0.15f;
+        isMovingUp = rig2d.velocity.normalized.y > 0.15f;
+        isMovingDown = rig2d.velocity.normalized.y < -0.15f;*/
+
+        isMovingLeft = horizontal < -0.15f;
+        isMovingRight = horizontal > 0.15f;
+        isMovingUp = vertical > 0.15f;
+        isMovingDown = vertical < -0.15f;
 
         if (animator.GetBool("isWalking")) { Walk(); }
         else { Swim(); }
@@ -88,5 +97,30 @@ public class Player : MonoBehaviour
 
         if (isMovingRight) { spriteRenderer.flipX = true; }
         else { spriteRenderer.flipX = false; }
+    }
+
+    private void Update()
+    {
+        // ���ͷ��� Ű �Է� (E)
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            GetItem();
+        }
+    }
+
+    /// <summary>
+    /// currentFocusedItem�� ȹ���Ѵ�.
+    /// </summary>
+    private void GetItem()
+    {
+        if (currentFocusedItem == null)
+        {
+            return;
+        }
+
+        // ������ ȹ��
+        currentFocusedItem.GetItem();
+        currentFocusedItem = null;
+        Debug.Log("EŰ �Է�");
     }
 }

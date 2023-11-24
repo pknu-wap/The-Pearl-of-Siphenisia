@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameUIManager : Singleton<GameUIManager>
 {
-    GameObject inventoryObj;
-
     public void Test()
     {
         Debug.Log("레이캐스트 문제 없음");
     }
 
+    #region 초기 설정
     private void Awake()
     {
         AssignObjects();
@@ -18,42 +15,128 @@ public class GameUIManager : Singleton<GameUIManager>
 
     private void Start()
     {
-        CloseInventoryUI();
+        HideInventoryUI();
+        HideInteractionUI();
+        HidePausePanelUI();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            SwitchActiveInventoryUI();
+            ToggleInventoryUI();
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePauseState();
         }
     }
 
     private void AssignObjects()
     {
-        inventoryObj = GameObject.Find("Inventory");
+        inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
+        interactionUIObj = GameObject.Find("Interaction Button");
+        itemInfoWindow = GameObject.Find("Item Info Window").GetComponent<ItemInfoWindow>();
+        PausePanel = GameObject.Find("Pause Panel");
     }
+    #endregion 초기 설정
 
-    public void SwitchActiveInventoryUI()
+    #region Inventory
+    [Header("인벤토리")]
+    private Inventory inventory;
+    private ItemInfoWindow itemInfoWindow;
+
+    // 인벤토리 UI가 켜져 있으면 끄고, 꺼져 있으면 켜는 함수
+    public void ToggleInventoryUI()
     {
-        if (inventoryObj.activeSelf == true)
+        if (inventory.IsInventoryShowed() == false)
         {
-            inventoryObj.SetActive(false);
+            inventory.ShowInventoryUI();
         }
 
         else
         {
-            inventoryObj.SetActive(true);
+            inventory.HideInventoryUI();
+            itemInfoWindow.HideInfoUI();
         }
     }
 
-    public void OpenInventoryUI()
+    public void ShowInventoryUI()
     {
-        inventoryObj.SetActive(true);
+        inventory.HideInventoryUI();
     }
 
-    public void CloseInventoryUI()
+    public void HideInventoryUI()
     {
-        inventoryObj.SetActive(false);
+        inventory.HideInventoryUI();
+        itemInfoWindow.HideInfoUI();
     }
+    #endregion Inventory
+
+    #region Interaction UI
+    [Header("상호 작용")]
+    private GameObject interactionUIObj;
+    private Vector3 interactOffset = new(0f, 1f, 0f);
+
+    public void ShowInteractionUI(Transform targetTransform)
+    {
+        MoveInteractionUI(targetTransform);
+        interactionUIObj.SetActive(true);
+    }
+
+    public void HideInteractionUI()
+    {
+        interactionUIObj.SetActive(false);
+    }
+
+    public void MoveInteractionUI(Transform targetTransform)
+    {
+        interactionUIObj.transform.position = Camera.main.WorldToScreenPoint(targetTransform.position + interactOffset);
+    }
+    #endregion Interaction UI
+
+    #region 일시정지
+    [Header("일시 정지")]
+    private GameObject PausePanel;
+    private bool isPaused = false;
+
+    public void TogglePauseState()
+    {
+        if(isPaused)
+        {
+            ResumeGame();
+        }
+
+        else
+        {
+            PauseGame();
+        }
+    }
+    
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+        ShowPausePanelUI();
+        isPaused = true;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        HidePausePanelUI();
+        isPaused = false;
+    }
+
+    public void ShowPausePanelUI()
+    {
+        PausePanel.SetActive(true);
+    }
+
+    public void HidePausePanelUI()
+    {
+        PausePanel.SetActive(false);
+    }
+    #endregion 일시정지
 }
