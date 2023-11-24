@@ -50,6 +50,9 @@ TagManager:
   - name: Player
     uniqueID: 2696541655
     locked: 0
+  - name: Item
+    uniqueID: 1708700585
+    locked: 0
   - name: Float UI
     uniqueID: 2752862127
     locked: 0

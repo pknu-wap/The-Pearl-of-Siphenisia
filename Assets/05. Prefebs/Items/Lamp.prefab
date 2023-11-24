@@ -192,6 +192,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 4739162229831291415}
-  useItemEvent:
-    m_PersistentCalls:
-      m_Calls: []
