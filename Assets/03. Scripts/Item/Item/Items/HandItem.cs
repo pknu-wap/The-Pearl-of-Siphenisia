@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class HandItem : Item
 {
+    [SerializeField]
     protected QuickSlot quickSlot;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         quickSlot = GameObject.Find("Quick Slot").GetComponent<QuickSlot>();
     }

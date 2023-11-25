@@ -28,8 +28,10 @@ public class BombItem : HandItem
         isHanded = false;
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         lineRenderer = GetComponent<LineRenderer>();
         bombBody = GetComponent<BoxCollider2D>();
         bombRange = GetComponent<CircleCollider2D>();
