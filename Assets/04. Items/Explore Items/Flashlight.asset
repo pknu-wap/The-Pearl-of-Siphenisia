@@ -18,20 +18,5 @@ MonoBehaviour:
   description: "\uC5B4\uB450\uC6B4 \uBC14\uB2E4\uB97C \uBC1D\uAC8C \uBE44\uCDB0\uC900\uB2E4."
   count: 1
   priority: 2
-  useItemEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2003766445664713525, guid: abb96e1d2de6f0a449ac65318548158b, type: 3}
-        m_TargetAssemblyTypeName: LampSetter, Assembly-CSharp
-        m_MethodName: CreateLamp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  itemTag: 1
+  purposeTag: 1
   useTag: 0

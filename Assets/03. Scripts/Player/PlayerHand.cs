@@ -12,5 +12,6 @@ public class PlayerHand : MonoBehaviour
     public void HandItem(Item item)
     {
         currentItem = item;
+        item.gameObject.SetActive(true);
     }
 }

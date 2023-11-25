@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -55,6 +53,7 @@ public class QuickSlot : MonoBehaviour
     public void ClearQuickSlot()
     {
         currentItem = null;
+        currentSlot = null;
         itemImage.sprite = null;
         itemImage.gameObject.SetActive(false);
     }
