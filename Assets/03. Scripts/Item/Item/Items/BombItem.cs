@@ -2,7 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
-public class BombItem : Item
+public class BombItem : HandItem
 {
     private LineRenderer lineRenderer;
     private BoxCollider2D bombBody;
@@ -111,7 +111,7 @@ public class BombItem : Item
         // 충돌 감지를 위한 1프레임 대기
         yield return null;
         // TODO: 폭발 이펙트
-        Destroy(gameObject);
+        DestroyItem();
     }
 
     public void DrawAimLine()

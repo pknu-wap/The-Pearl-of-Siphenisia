@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class QuickSlot : MonoBehaviour
 {
     private Item currentItem;
-    private Slot currentSlot;
+    public Slot currentSlot;
     private Image itemImage;
 
     private void Awake()

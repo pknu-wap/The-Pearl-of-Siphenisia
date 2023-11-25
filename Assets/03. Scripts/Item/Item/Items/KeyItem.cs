@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class KeyItem : Item
+public class KeyItem : HandItem
 {
     public override void ActivateItem()
     {
