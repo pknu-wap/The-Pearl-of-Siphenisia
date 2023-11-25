@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -129,7 +128,7 @@ public class Inventory : MonoBehaviour
     /// <param name="i"></param>
     public void RemoveItem(int useTag, int i)
     {
-        slots[useTag][i].DecreaseItemCount();
+        slots[useTag][i].ClearSlot();
     }
     #endregion 아이템 상호작용
 
@@ -226,6 +225,40 @@ public class Inventory : MonoBehaviour
         foreach (Slot slot in slots[index])
         {
             slot.UpdateSlotUI();
+        }
+    }
+    
+    /// <summary>
+    /// 모든 Explore Item을 삭제한다.
+    /// </summary>
+    public void DropExploreItems()
+    {
+        for(int i = 0; i < slots.Length; i++)
+        {
+            for (int j = 0; j < slots[i].Count; j++)
+            {
+                // Explore Item에만 동작
+                if (slots[i][j].slotItem == null || slots[i][j].slotItem.itemData.purposeTag != PurposeTag.Explore)
+                {
+                    continue;
+                }
+
+                // 장착 중이라면 해제
+                if (slots[i][j].isEquiped)
+                {
+                    if (slots[i][j].slotItem.itemData.useTag == UseTag.Equip)
+                    {
+                        slots[i][j].UnequipItem();
+                    }
+
+                    else if(slots[i][j].slotItem.itemData.useTag == UseTag.Hand)
+                    {
+                        slots[i][j].UnhandItem();
+                    }
+                }
+
+                slots[i][j].ClearSlot();
+            }
         }
     }
     #endregion 정렬

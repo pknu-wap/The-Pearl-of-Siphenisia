@@ -1272,7 +1272,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: d34b6c9c7b462be419b1fee6f33fcc98, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -3201,7 +3201,7 @@ Transform:
   m_GameObject: {fileID: 1911206120}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.21, y: -0.21, z: 0}
+  m_LocalPosition: {x: -0.25, y: -0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3835,10 +3835,6 @@ PrefabInstance:
     - target: {fileID: 1198271769506091560, guid: 9878e0d0a0321a44b81e425c584adc61, type: 3}
       propertyPath: m_Name
       value: Bomb
-      objectReference: {fileID: 0}
-    - target: {fileID: 4642828439658819771, guid: 9878e0d0a0321a44b81e425c584adc61, type: 3}
-      propertyPath: m_Radius
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

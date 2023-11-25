@@ -2023,7 +2023,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1501488476279655239}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
-        m_MethodName: SortInventory
+        m_MethodName: DropExploreItems
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

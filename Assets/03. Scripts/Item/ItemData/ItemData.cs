@@ -32,6 +32,6 @@ public class ItemData : ScriptableObject
     public int priority = 0;
 
     [Header("아이템 분류")]
-    public PurposeTag itemTag;
+    public PurposeTag purposeTag;
     public UseTag useTag;
 }

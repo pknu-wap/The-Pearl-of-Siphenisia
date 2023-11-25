@@ -143,7 +143,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: cc5380d0a95e897489ceda1078d4b843, type: 2}
   count: 1
-  isEquiped: 0
   distance: 10
   isCrashed: 0
   speed: 0.6
@@ -382,7 +381,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 3
 --- !u!50 &5275613512160364165
 Rigidbody2D:
   serializedVersion: 4
