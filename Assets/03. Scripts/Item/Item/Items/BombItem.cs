@@ -5,6 +5,7 @@ using UnityEngine;
 public class BombItem : Item
 {
     private LineRenderer lineRenderer;
+    private BoxCollider2D bombBody;
     private CircleCollider2D bombRange;
 
     private bool isHanded = false;
@@ -30,7 +31,9 @@ public class BombItem : Item
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
+        bombBody = GetComponent<BoxCollider2D>();
         bombRange = GetComponent<CircleCollider2D>();
+        bombBody.enabled = false;
         bombRange.enabled = false;
 
         EraseAimLine();
@@ -88,10 +91,9 @@ public class BombItem : Item
     private IEnumerator ThrowBomb()
     {
         transform.SetParent(null);
+        bombBody.enabled = true;
 
         Vector2 direction = endPosition - startPosition;
-        direction = direction.normalized * distance;
-
 
         while(isCrashed == false && Vector3.Magnitude(transform.position - startPosition) < distance)
         {
@@ -104,7 +106,6 @@ public class BombItem : Item
 
     private IEnumerator Bomb()
     {
-        Debug.Log("Bomb!");
         bombRange.enabled = true;
 
         // 충돌 감지를 위한 1프레임 대기
@@ -129,7 +130,14 @@ public class BombItem : Item
     private void GetLineTransform()
     {
         startPosition = transform.position;
+
+        // 마우스 위치를 받아온다.
         endPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
         endPosition.z = 0;
+
+        // 조준선의 길이를 고정
+        Vector3 direction = endPosition - startPosition;
+        direction = direction.normalized * distance;
+        endPosition = direction + startPosition;
     }
 }
