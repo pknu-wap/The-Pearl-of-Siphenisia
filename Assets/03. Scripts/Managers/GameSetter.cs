@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameSetter : MonoBehaviour
+public class GameSetter : Singleton<GameSetter>
 {
     [Header("그래픽")]
     [SerializeField] private int targetFPS = 60;
@@ -15,13 +17,25 @@ public class GameSetter : MonoBehaviour
 
     Dictionary<int, int> frameDict;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         AssignObjects();
 
         // TODO: SaveManager로부터 저장된 설정값 받아오기
         SetDictionaries();
         SetDefaultValues();
+    }
+
+    private void Start()
+    {
+        SceneManager.activeSceneChanged += OnSceneChanged;
+    }
+
+    private void OnSceneChanged(Scene current, Scene next)
+    {
+        AssignObjects();
     }
 
     private void AssignObjects()

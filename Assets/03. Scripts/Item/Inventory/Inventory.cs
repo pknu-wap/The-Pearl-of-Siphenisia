@@ -17,13 +17,16 @@ public class Inventory : MonoBehaviour
     private void Awake()
     {
         AssignObjects();
+        AddEvents();
         // 처음엔 장비 탭을 열어둔다.
         SwitchInventoryTab(0);
     }
 
-    /// <summary>
-    /// 변수 할당
-    /// </summary>
+    private void Start()
+    {
+        LoadInventory();
+    }
+
     void AssignObjects()
     {
         bg = GetComponent<Image>();
@@ -46,8 +49,11 @@ public class Inventory : MonoBehaviour
                 slots[i].Add(slot.GetComponent<Slot>());
             }
         }
+    }
 
-
+    void AddEvents()
+    {
+        SaveManager.Instance.SaveAll.AddListener(SaveInventory);
     }
     #endregion 초기 설정
 
@@ -219,12 +225,7 @@ public class Inventory : MonoBehaviour
             }
 
             slots[index][i].AddItem(null);
-        }
-
-        // UI 갱신
-        foreach (Slot slot in slots[index])
-        {
-            slot.UpdateSlotUI();
+            slots[index][i].UpdateSlotUI();
         }
     }
     
@@ -300,4 +301,27 @@ public class Inventory : MonoBehaviour
         }
     }
     #endregion UI
+
+    #region 저장
+    private void SaveInventory()
+    {
+        SaveManager.Instance.SaveInventory(slots);
+    }
+
+    private void LoadInventory()
+    {
+        List<Item>[] items = SaveManager.Instance.LoadInventory();
+
+        Debug.Log("Inventory: " + slots.Length + ", " + slots[0].Count + ", SaveData: " + items.Length + ", " + items[0].Count);
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            for (int j = 0; j < slots[i].Count; j++)
+            {
+                slots[i][j].slotItem = items[i][j];
+                slots[i][j].UpdateSlotUI();
+            }
+        }
+    }
+    #endregion 저장
 }

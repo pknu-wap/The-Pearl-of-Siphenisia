@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,16 +14,9 @@ public class SceneLoader : Singleton<SceneLoader>
     [SerializeField]
     private Image fadeBG;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (transform.parent != null)
-        {
-            DontDestroyOnLoad(transform.root.gameObject);
-        }
-        else
-        {
-            DontDestroyOnLoad(gameObject);
-        }
+        base.Awake();
 
         AssignObjects();
         fadeObject.SetActive(false);

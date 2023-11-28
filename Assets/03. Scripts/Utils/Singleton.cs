@@ -9,33 +9,30 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         {
             if (instance == null)
             {
-                instance = (T)FindObjectOfType(typeof(T));
+                instance = FindObjectOfType<T>();
 
                 if (instance == null)
                 {
-                    GameObject obj = new GameObject(typeof(T).Name, typeof(T));
-                    instance = obj.GetComponent<T>();
+                    GameObject obj = new GameObject(typeof(T).Name);
+                    instance = obj.AddComponent<T>();
                 }
             }
 
             return instance;
         }
-
-        private set
-        {
-            instance = value;
-        }
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
-        if (transform.parent != null)
+        if (instance == null)
         {
-            DontDestroyOnLoad(transform.root.gameObject);
+            instance = this as T;
+            DontDestroyOnLoad(gameObject);
         }
+
         else
         {
-            DontDestroyOnLoad(gameObject);
+            Destroy(gameObject);
         }
     }
 }
