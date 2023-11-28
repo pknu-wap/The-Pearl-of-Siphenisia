@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FlashItem : Item
+public class LampItem : Item
 {
     GameObject lamp;
 

@@ -7,7 +7,7 @@ public class Inventory : MonoBehaviour
 {
     #region 변수
     private Image bg;
-    public List<Slot>[] slots;
+    public Slot[][] slots = new Slot[3][];
     private ItemInfoWindow infoWindow;
     public GameObject[] inventoryTab;
     private int currentTab = 0;
@@ -19,16 +19,20 @@ public class Inventory : MonoBehaviour
         AssignObjects();
         // 처음엔 장비 탭을 열어둔다.
         SwitchInventoryTab(0);
+
+        AddItem(CreateNewItem("Lamp"));
+        LoadInventory();
     }
 
-    /// <summary>
-    /// 변수 할당
-    /// </summary>
-    void AssignObjects()
+    private void Start()
+    {
+        AddEvents();
+    }
+
+    private void AssignObjects()
     {
         bg = GetComponent<Image>();
         infoWindow = GameObject.Find("Item Info Window").GetComponent<ItemInfoWindow>();
-        slots = new List<Slot>[3];
         inventoryTab = new GameObject[3];
 
         // 인벤토리 탭 할당
@@ -39,15 +43,19 @@ public class Inventory : MonoBehaviour
 
         // slots 할당 -> 각 탭의 모든 슬롯을 할당한다.
         for (int i = 0; i < slots.Length; i++) {
-            slots[i] = new();
+            slots[i] = new Slot[30];
+            int j = 0;
             // 자식 오브젝트 slot을 모두 할당
             foreach (Transform slot in transform.GetChild(1).GetChild(i))
             {
-                slots[i].Add(slot.GetComponent<Slot>());
+                slots[i][j++] = slot.GetComponent<Slot>();
             }
         }
+    }
 
-
+    private void AddEvents()
+    {
+        SaveManager.Instance.SaveAll.AddListener(SaveInventory);
     }
     #endregion 초기 설정
 
@@ -61,7 +69,7 @@ public class Inventory : MonoBehaviour
         int i = 0;
 
         // 비어있지 않다면 i를 1 증가
-        while (i < slots[useTag].Count && slots[useTag][i].IsEmpty() == false)
+        while (i < slots[useTag].Length && slots[useTag][i].IsEmpty() == false)
         {
             i++;
         }
@@ -79,7 +87,7 @@ public class Inventory : MonoBehaviour
         int i = 0;
 
         // 비어있지 않다면 i를 1 증가
-        while (i < slots[(int)itemData.useTag].Count && slots[(int)itemData.useTag][i].slotItem == itemData)
+        while (i < slots[(int)itemData.useTag].Length && slots[(int)itemData.useTag][i].slotItem.itemData == itemData)
         {
             i++;
         }
@@ -93,6 +101,11 @@ public class Inventory : MonoBehaviour
     /// <param name="itemData"></param>
     public void AddItem(Item item)
     {
+        if (item == null)
+        {
+            return;
+        }
+
         int i;
 
         // 소비 아이템이라면 이미 존재하는지 검사한다.
@@ -101,7 +114,7 @@ public class Inventory : MonoBehaviour
             i = SearchSlotIndex(item.itemData);
 
             // 아이템이 존재하지 않으면 빈 슬롯을 찾는다.
-            if(i >= slots[(int)item.itemData.useTag].Count)
+            if(i >= slots[(int)item.itemData.useTag].Length)
             {
                 i = SearchFirstEmptySlot((int)item.itemData.useTag);
             }
@@ -112,7 +125,7 @@ public class Inventory : MonoBehaviour
         }
 
         // 슬롯이 모두 찼다면 종료
-        if(i == slots[(int)item.itemData.useTag].Count)
+        if(i == slots[(int)item.itemData.useTag].Length)
         {
             Debug.Log("슬롯이 모두 찼습니다.");
             return;
@@ -154,9 +167,9 @@ public class Inventory : MonoBehaviour
     {
         // 첫번째 공백 찾기
         int i = -1;
-        while (++i < slots[index].Count && slots[index][i].slotItem != null) ;
+        while (++i < slots[index].Length && slots[index][i].slotItem != null) ;
 
-        if(i == slots[index].Count)
+        if(i == slots[index].Length)
         {
             // 마지막 슬롯의 번호 반환
             return i - 1;
@@ -166,9 +179,9 @@ public class Inventory : MonoBehaviour
         while (true)
         {
             // 공백이 아닌 칸까지 j를 전진시킨다.
-            while (++j < slots[index].Count && slots[index][j].slotItem == null) ;
+            while (++j < slots[index].Length && slots[index][j].slotItem == null) ;
 
-            if (j == slots[index].Count)
+            if (j == slots[index].Length)
             {
                 // 마지막 아이템의 번호 반환
                 return i - 1;
@@ -210,7 +223,7 @@ public class Inventory : MonoBehaviour
         items = items.OrderBy(x => x.itemData.priority).ToList();
 
         // 슬롯에 정렬된 아이템을 덮어씌운다.
-        for(int i = 0; i < slots[index].Count; i++)
+        for(int i = 0; i < slots[index].Length; i++)
         {
             if(i <= n)
             {
@@ -219,12 +232,7 @@ public class Inventory : MonoBehaviour
             }
 
             slots[index][i].AddItem(null);
-        }
-
-        // UI 갱신
-        foreach (Slot slot in slots[index])
-        {
-            slot.UpdateSlotUI();
+            slots[index][i].UpdateSlotUI();
         }
     }
     
@@ -235,7 +243,7 @@ public class Inventory : MonoBehaviour
     {
         for(int i = 0; i < slots.Length; i++)
         {
-            for (int j = 0; j < slots[i].Count; j++)
+            for (int j = 0; j < slots[i].Length; j++)
             {
                 // Explore Item에만 동작
                 if (slots[i][j].slotItem == null || slots[i][j].slotItem.itemData.purposeTag != PurposeTag.Explore)
@@ -300,4 +308,37 @@ public class Inventory : MonoBehaviour
         }
     }
     #endregion UI
+
+    #region 저장
+    public Item CreateNewItem(string itemName)
+    {
+        string path = "Prefebs/Items/" + itemName;
+        GameObject obj = (GameObject)Resources.Load(path);
+
+        if(obj == null)
+        {
+            return null;
+        }
+
+        Item item = Instantiate(obj, transform).GetComponent<Item>();
+
+        return item;
+    }
+
+    public void SaveInventory()
+    {
+        SaveManager.Instance.SaveInventory(slots);
+    }
+
+    private void LoadInventory()
+    {
+        string[] itemNames = SaveManager.Instance.LoadInventory();
+
+        for (int i = 0; i < 90; i++)
+        {
+            slots[i / 30][i % 30].AddItem(CreateNewItem(itemNames[i]));
+            slots[i / 30][i % 30].UpdateSlotUI();
+        }
+    }
+    #endregion 저장
 }
