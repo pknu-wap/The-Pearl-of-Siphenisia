@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Soldier : MonoBehaviour
 {
-    Transform playerTransform;
+    public UnityEvent StunEvent;
+    public PlayerCollision player;
+    public GameObject spear;
+    public Transform playerTransform;
     public Rigidbody2D enemyRig2d;
     public SpriteRenderer spriteRenderer;
+    public GameObject Player;
+    public Transform hand;
     public float enemySpeed = 3f;
     public float rotateSpeed = 10f;
     public float enemyDashPower = 2f;
@@ -15,28 +21,50 @@ public class Soldier : MonoBehaviour
     public float minimumDistance = 5f;
     public bool isFacing = false;
     public bool isDashing = false;
-
-    public GameObject Enemy;
+    public bool isShooting = false;
+    public bool isStunned = false;
+    public float stunTime = 3f;
 
     void Awake()
     {
-        playerTransform = GameObject.FindWithTag("Player").transform;
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerCollision>();
+        playerTransform = player.transform;
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         enemyRig2d = GetComponent<Rigidbody2D>();
+        spear = GameObject.Find("Spear");
+        spear.SetActive(false);
+        hand = transform.GetChild(1).transform;
+        StunEvent.AddListener(Stun);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (!isStunned)
         {
-            FollowPlayer();
-            FlipYSprite();
-            NearToPlayer();
-            if (Vector2.Distance(transform.position, playerTransform.position) > minimumDistance + 1)
+            if (collision.gameObject.CompareTag("Player"))
             {
-                shoot();
+                FollowPlayer();
+                FlipYSprite();
+                NearToPlayer();
+                if (Vector2.Distance(transform.position, playerTransform.position) < minimumDistance + 1)
+                {
+                    //Debug.Log("shooting started");
+                    if (!isShooting) { isShooting = true; Shoot(); }
+                }
             }
         }
+    }
+
+    public void Stun()
+    {
+        StartCoroutine(Stunned());
+    }
+
+    private IEnumerator Stunned()
+    {
+        isStunned = true;
+        yield return new WaitForSecondsRealtime(stunTime);
+        isStunned = false;
     }
 
     private void NearToPlayer()
@@ -67,18 +95,24 @@ public class Soldier : MonoBehaviour
         transform.rotation = rotation;
     }
 
-    public void shoot()
+    public void Shoot()
     {
-        Debug.Log(1111);
-        for (int i = 3; i < 0; i++)
-        {
-            Debug.Log(i + "초 후 발사");
-            StartCoroutine(Timer());
-        }
+        StartCoroutine(Timer());
     }
 
     private IEnumerator Timer()
     {
+        for (int i = 3; i > 0; i--)
+        {
+            Debug.Log(i + "초 후 발사");
+            yield return new WaitForSecondsRealtime(1.0f);
+        }
+        Debug.Log("발사");
+        spear.transform.position = hand.position;
+        spear.SetActive(true);
+        
         yield return new WaitForSecondsRealtime(1.0f);
+
+        isShooting = false;
     }
 }

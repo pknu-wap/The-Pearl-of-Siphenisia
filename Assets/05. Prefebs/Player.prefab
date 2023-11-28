@@ -121,12 +121,18 @@ MonoBehaviour:
       m_Calls: []
   isSwimming: 1
   isWalking: 0
-  speed: 30
+  walkingSpeed: 55
+  swimmingSpeed: 30
   gravityScale: 30
+  jumpPower: 500
+  horizontal: 0
+  vertical: 0
   isMovingLeft: 0
   isMovingRight: 0
   isMovingUp: 0
   isMovingDown: 0
+  isJumpAble: 0
+  movingConstant: 0.70710677
   equipedItem: {fileID: 0}
   currentFocusedItem: {fileID: 0}
   currentCollision: {fileID: 0}
@@ -211,13 +217,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2466170004411645701}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 928f86dac6001864096e45ac1b0f41a4, type: 3}
+  m_Script: {fileID: 11500000, guid: 24c647c3c56de364e902307d4a823b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: 11400000, guid: 7fb255f3c4f27eb4fbbd026faa9cb0a6, type: 2}
+  obj: {fileID: 11400000, guid: e82151aef56e10048bd28f423ab7e989, type: 2}
+  player: {fileID: 4592970190887813898}
   gameOver:
     m_PersistentCalls:
       m_Calls: []
+  health: 0
+  armor: 0
   isAttacked: 0
 --- !u!95 &9055449027241140063
 Animator:
