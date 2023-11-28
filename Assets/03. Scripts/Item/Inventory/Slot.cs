@@ -3,17 +3,25 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     #region 변수
+    [Header("아이템")]
     public Item slotItem;
     public Image icon;
+    public bool isEquiped = false;
+
+    [Header("인벤토리")]
     private DragSlot dragSlot;
     private ItemInfoWindow infoWindow;
     private QuickSlot quickSlot;
+
+    [Header("플레이어 정보")]
     private PlayerHand playerHand;
 
+    [Header("이벤트")]
     public UnityEvent[] clickEvent = new UnityEvent[3];
 
     // 현재 슬롯이 장비/장착/소비 슬롯 중 어떤 것인가?
@@ -63,7 +71,6 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
         // 핸드 아이템 사용 시
         clickEvent[(int)UseTag.Hand].AddListener(HideInfo);
-        clickEvent[(int)UseTag.Hand].AddListener(HandItemToPlayer);
         clickEvent[(int)UseTag.Hand].AddListener(ToggleHand);
 
         // 소비 아이템 사용 시
@@ -181,15 +188,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         dragSlot.SetItem(temp);
     }
 
-    /// <summary>
-    /// 아이템 추가
-    /// </summary>
-    /// <param name="item"></param> 
     public void AddItem(Item item)
     {
         if(item == null)
         {
-            slotItem = item;
+            slotItem = null;
             return;
         }
 
@@ -201,8 +204,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         }
 
         // 그 외 슬롯에 새 아이템 추가
-        slotItem = item;
+        slotItem = item;    // Load에 덮어씌워지는 중
         item.transform.parent = transform;
+        item.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -215,11 +219,19 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             return;
         }
 
-        // 소비 아이템이 아니거나, 소비 아이템의 개수를 1 줄인 후 0 이하일 때 비운다.
+        // 소비 아이템이 아니라면 삭제,
+        // 소비 아이템은 개수를 1 줄인 후 0이라면 비운다.
         if(slotItem.itemData.useTag != UseTag.Consume || --slotItem.count <= 0)
         {
             slotItem = null;
         }
+
+        UpdateSlotUI();
+    }
+
+    public void ClearSlot()
+    {
+        slotItem = null;
 
         UpdateSlotUI();
     }
@@ -251,9 +263,6 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         clickEvent[(int)slotItem.itemData.useTag].Invoke();
     }
 
-    /// <summary>
-    /// Equip/Unequip 상태를 토글한다.
-    /// </summary>
     void ToggleEquip()
     {
         if(slotItem == null)
@@ -261,40 +270,33 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             return;
         }
 
-        if(slotItem.isEquiped == true)
+        if(isEquiped == true)
         {
             UnequipItem();
-            slotItem.DeactivateItem();
         }
 
         else
         {
             EquipItem();
-            slotItem.ActivateItem();
         }
     }
 
-    /// <summary>
-    /// 아이템을 장착했음을 표시한다.
-    /// </summary>
     void EquipItem()
     {
         itemStatus.SetActive(true);
-        slotItem.isEquiped = true;
+        isEquiped = true;
+
+        slotItem.ActivateItem();
     }
 
-    /// <summary>
-    /// 아이템을 해제했음을 표시한다.
-    /// </summary>
-    void UnequipItem()
+    public void UnequipItem()
     {
         itemStatus.SetActive(false);
-        slotItem.isEquiped = false;
+        isEquiped = false;
+
+        slotItem.DeactivateItem();
     }
 
-    /// <summary>
-    /// Hand 상태를 토글한다.
-    /// </summary>
     void ToggleHand()
     {
         if (slotItem == null)
@@ -302,7 +304,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             return;
         }
 
-        if (slotItem.isEquiped == true)
+        if (isEquiped == true)
         {
             UnhandItem();
         }
@@ -313,50 +315,46 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         }
     }
 
-    /// <summary>
-    /// 아이템을 퀵슬롯에 등록한다.
-    /// </summary>
     void HandItem()
     {
         itemStatus.SetActive(true);
-        slotItem.isEquiped = true;
+        isEquiped = true;
 
         quickSlot.SetInventorySlot(this);
         quickSlot.SetItem(slotItem);
 
-        // 플레이어 손에 든다.
+        HandItemToPlayer();
     }
     
-    /// <summary>
-    /// 아이템을 퀵슬롯에서 해제한다.
-    /// </summary>
     public void UnhandItem()
     {
         itemStatus.SetActive(false);
-        slotItem.isEquiped = false;
+        isEquiped = false;
+
         quickSlot.ClearQuickSlot();
+
+        ReturnItemToSlot();
     }
 
     private void HandItemToPlayer()
     {
         slotItem.transform.parent = playerHand.transform;
         slotItem.transform.localPosition = Vector3.zero;
+        slotItem.transform.localScale = Vector3.one;
 
         playerHand.HandItem(slotItem);
+        slotItem.gameObject.SetActive(true);
     }
-
 
     private void ReturnItemToSlot()
     {
         slotItem.transform.parent = transform;
+        slotItem.gameObject.SetActive(false);
         slotItem.transform.localPosition = Vector3.zero;
     }
     #endregion 아이템 상호작용
 
     #region UI
-    /// <summary>
-    /// 현재 아이템으로 UI 갱신
-    /// </summary>
     public void UpdateSlotUI()
     {
         if(slotItem == null)
@@ -379,13 +377,10 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         // 그 외 아이템은 장착 여부 최신화
         else
         {
-            itemStatus.SetActive(slotItem.isEquiped);
+            itemStatus.SetActive(isEquiped);
         }
     }
 
-    /// <summary>
-    /// 상세정보 표시
-    /// </summary>
     public void ShowInfo()
     {
         // 아이템이 없다면 띄우지 않는다.
@@ -400,9 +395,6 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         infoWindow.ShowInfoUI();
     }
 
-    /// <summary>
-    /// 상세정보 숨김
-    /// </summary>
     public void HideInfo()
     {
         // 아이템이 없다면 호출하지 않는다.
@@ -415,10 +407,6 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     }
     #endregion UI
 
-    /// <summary>
-    /// 비어 있는 슬롯이라면 true 반환
-    /// </summary>
-    /// <returns></returns>
     public bool IsEmpty()
     {
         return slotItem == null;

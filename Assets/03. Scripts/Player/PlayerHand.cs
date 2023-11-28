@@ -1,25 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHand : MonoBehaviour
 {
-    Item currentItem;
-    SpriteRenderer spriteRenderer;
+    private Item currentItem;
 
     private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+
     }
 
     public void HandItem(Item item)
     {
         currentItem = item;
-        spriteRenderer.sprite = item.itemData.sprite;
-    }
-
-    public void DrawAimLine()
-    {
-
+        item.gameObject.SetActive(true);
     }
 }

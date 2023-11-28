@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class QuickSlot : MonoBehaviour
 {
     private Item currentItem;
-    private Slot currentSlot;
+    public Slot currentSlot;
     private Image itemImage;
 
     private void Awake()
@@ -19,7 +17,7 @@ public class QuickSlot : MonoBehaviour
     // 플레이어로 옮길 예정
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
+        if(Input.GetKeyDown(KeyCode.LeftShift))
         {
             ActivateItem();
         }
@@ -55,6 +53,7 @@ public class QuickSlot : MonoBehaviour
     public void ClearQuickSlot()
     {
         currentItem = null;
+        currentSlot = null;
         itemImage.sprite = null;
         itemImage.gameObject.SetActive(false);
     }

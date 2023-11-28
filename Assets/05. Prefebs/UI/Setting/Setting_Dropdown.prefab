@@ -462,6 +462,7 @@ GameObject:
   - component: {fileID: 3668073423983816924}
   - component: {fileID: 8264775618808111733}
   - component: {fileID: 8457387483516927676}
+  - component: {fileID: 7062427148586543951}
   m_Layer: 5
   m_Name: Dropdown
   m_TagString: Untagged
@@ -587,8 +588,32 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SettingButton, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0
+--- !u!114 &7062427148586543951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727199193481837435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34ac2becce13a3d478bc222c62a0aadf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2063685201604334825
 GameObject:
   m_ObjectHideFlags: 0
