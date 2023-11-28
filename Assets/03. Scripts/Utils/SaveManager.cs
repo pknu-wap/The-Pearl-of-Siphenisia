@@ -1,20 +1,17 @@
 // https://glikmakesworld.tistory.com/14
 // https://gist.github.com/TarasOsiris/9020497
 
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using System.Security.Cryptography;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
 public class SaveManager : Singleton<SaveManager>
 {
     public static SaveData saveData;
 
     private static string privateKey;
-
-    public Inventory inventory;
+    public UnityEvent SaveAll;
 
     protected override void Awake()
     {
@@ -22,31 +19,13 @@ public class SaveManager : Singleton<SaveManager>
 
         privateKey = SystemInfo.deviceUniqueIdentifier.Replace("-", string.Empty);
 
-        AssignObjects();
-
         saveData = Load();
 
         if (saveData == null)
         {
+            Debug.Log("새 saveData 생성");
             saveData = new SaveData();
-            Save();
         }
-
-        SceneManager.activeSceneChanged += OnSceneChanged;
-    }
-
-    private void OnSceneChanged(Scene current, Scene next)
-    {
-        AssignObjects();
-    }
-
-    private void AssignObjects()
-    {
-        try
-        {
-            inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
-        }
-        catch { }
     }
 
     /// <summary>
@@ -54,7 +33,7 @@ public class SaveManager : Singleton<SaveManager>
     /// </summary>
     public void Save()
     {
-        SaveInventory(inventory.slots);
+        SaveAll.Invoke();
 
         string jsonString = DataToJson(saveData);
         string encryptString = Encrypt(jsonString);
@@ -82,10 +61,9 @@ public class SaveManager : Singleton<SaveManager>
     }
 
     #region 데이터 저장
+    #region 인벤토리
     public void SaveInventory(Slot[][] slots)
     {
-        saveData = new SaveData();
-        
         // 저장된 데이터는 2차원 배열을 가로로 펼친 1차원 배열
         for (int i = 0; i < slots.Length; i++)
         {
@@ -106,6 +84,39 @@ public class SaveManager : Singleton<SaveManager>
     {
         return saveData.inventoryItems;
     }
+    #endregion 인벤토리
+
+    #region 설정
+    public void SaveTargetFPS(int targetFPS)
+    {
+        saveData.targetFPS = targetFPS;
+    }
+
+    public int LoadTargetFPS()
+    {
+        return saveData.targetFPS;
+    }
+
+    public void SaveVSyncCount(int vSyncCount)
+    {
+        saveData.vSyncCount = vSyncCount;
+    }
+
+    public int LoadVSyncCount()
+    {
+        return saveData.vSyncCount;
+    }
+
+    public void SaveSoundVolume(float soundVolume)
+    {
+        saveData.soundVolume = soundVolume;
+    }
+
+    public float LoadSoundVolume()
+    {
+        return saveData.soundVolume;
+    }
+    #endregion 설정
 
     public void SaveMapNumber(int currentMap)
     {

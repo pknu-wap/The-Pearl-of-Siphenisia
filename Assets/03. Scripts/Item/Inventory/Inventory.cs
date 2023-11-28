@@ -26,10 +26,10 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-
+        AddEvents();
     }
 
-    void AssignObjects()
+    private void AssignObjects()
     {
         bg = GetComponent<Image>();
         infoWindow = GameObject.Find("Item Info Window").GetComponent<ItemInfoWindow>();
@@ -51,6 +51,11 @@ public class Inventory : MonoBehaviour
                 slots[i][j++] = slot.GetComponent<Slot>();
             }
         }
+    }
+
+    private void AddEvents()
+    {
+        SaveManager.Instance.SaveAll.AddListener(SaveInventory);
     }
     #endregion 초기 설정
 

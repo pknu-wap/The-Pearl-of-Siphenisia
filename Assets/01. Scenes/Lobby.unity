@@ -167,9 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2cd99f035be6224eb73e301df643f15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SaveAll:
-    m_PersistentCalls:
-      m_Calls: []
+  inventory: {fileID: 0}
 --- !u!1 &116041110 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1311851331297561066, guid: e8c4dc2f38ff7cc49a2089aaeb58acd0, type: 3}
@@ -2331,10 +2329,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1913852612}
     m_Modifications:
-    - target: {fileID: 808022042377374043, guid: e8c4dc2f38ff7cc49a2089aaeb58acd0, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1855885163}
     - target: {fileID: 1099834493378230486, guid: e8c4dc2f38ff7cc49a2089aaeb58acd0, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2443,14 +2437,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5415902552487829492, guid: e8c4dc2f38ff7cc49a2089aaeb58acd0, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1855885163}
-    - target: {fileID: 5477963437640909893, guid: e8c4dc2f38ff7cc49a2089aaeb58acd0, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1855885163}
     - target: {fileID: 6498847341098223037, guid: e8c4dc2f38ff7cc49a2089aaeb58acd0, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2519,10 +2505,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.000390625
+    x: 0
     y: 0
-    width: 0.77500004
-    height: 0.3027778
+    width: 1
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60

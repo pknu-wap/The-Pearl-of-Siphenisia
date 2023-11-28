@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 #region еб╠в
 public enum PurposeTag
