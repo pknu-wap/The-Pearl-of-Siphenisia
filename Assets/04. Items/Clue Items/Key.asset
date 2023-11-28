@@ -18,8 +18,6 @@ MonoBehaviour:
   description: "\uC7A0\uAE34 \uBB38\uC744 \uC5F4 \uC218 \uC788\uB294 \uC5F4\uC1E0\uB2E4."
   count: 1
   priority: 0
-  useItemEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  itemTag: 0
+  itemCode: Key
+  purposeTag: 0
   useTag: 1

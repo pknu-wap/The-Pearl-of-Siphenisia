@@ -6,19 +6,23 @@ using System.IO;
 using UnityEngine;
 using System.Security.Cryptography;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class SaveManager : Singleton<SaveManager>
 {
     public static SaveData saveData;
-    public UnityEvent SaveAll;
 
     private static string privateKey;
+
+    public Inventory inventory;
 
     protected override void Awake()
     {
         base.Awake();
 
         privateKey = SystemInfo.deviceUniqueIdentifier.Replace("-", string.Empty);
+
+        AssignObjects();
 
         saveData = Load();
 
@@ -27,6 +31,22 @@ public class SaveManager : Singleton<SaveManager>
             saveData = new SaveData();
             Save();
         }
+
+        SceneManager.activeSceneChanged += OnSceneChanged;
+    }
+
+    private void OnSceneChanged(Scene current, Scene next)
+    {
+        AssignObjects();
+    }
+
+    private void AssignObjects()
+    {
+        try
+        {
+            inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
+        }
+        catch { }
     }
 
     /// <summary>
@@ -34,8 +54,7 @@ public class SaveManager : Singleton<SaveManager>
     /// </summary>
     public void Save()
     {
-        saveData = new SaveData();
-        SaveAll.Invoke();
+        SaveInventory(inventory.slots);
 
         string jsonString = DataToJson(saveData);
         string encryptString = Encrypt(jsonString);
@@ -63,20 +82,29 @@ public class SaveManager : Singleton<SaveManager>
     }
 
     #region 데이터 저장
-    public void SaveInventory(List<Slot>[] slots)
+    public void SaveInventory(Slot[][] slots)
     {
+        saveData = new SaveData();
+        
+        // 저장된 데이터는 2차원 배열을 가로로 펼친 1차원 배열
         for (int i = 0; i < slots.Length; i++)
         {
-            for (int j = 0; j < slots[i].Count; j++)
+            for (int j = 0; j < slots[i].Length; j++)
             {
-                saveData.inventory[i][j] = slots[i][j].slotItem;
+                if (slots[i][j].slotItem == null)
+                {
+                    saveData.inventoryItems[(i * 30 + j)] = null;
+                    continue;
+                }
+
+                saveData.inventoryItems[(i * 30 + j)] = slots[i][j].slotItem.itemData.itemCode;
             }
         }
     }
 
-    public List<Item>[] LoadInventory()
+    public string[] LoadInventory()
     {
-        return saveData.inventory;
+        return saveData.inventoryItems;
     }
 
     public void SaveMapNumber(int currentMap)

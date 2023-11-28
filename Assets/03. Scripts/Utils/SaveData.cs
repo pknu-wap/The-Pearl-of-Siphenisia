@@ -11,17 +11,12 @@ public class SaveData
     public int mapNumber;
     // 최고 스테이지의 종류(랜덤한 후보 중 하나)
     public int mapIndex;
-    public List<Item>[] inventory;
+    public string[] inventoryItems = new string[90];
 
     public SaveData()
     {
         mapNumber = 0;
         mapIndex = 0;
-        inventory = new List<Item>[3];
-
-        for(int i = 0; i < 3; i++)
-        {
-            inventory[i] = new List<Item>(new Item[30]);
-        }
+        inventoryItems = new string[90];
     }
 }

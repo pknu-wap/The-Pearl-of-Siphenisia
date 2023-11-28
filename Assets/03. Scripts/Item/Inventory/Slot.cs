@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
@@ -191,7 +192,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     {
         if(item == null)
         {
-            slotItem = item;
+            slotItem = null;
             return;
         }
 
@@ -203,7 +204,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         }
 
         // 그 외 슬롯에 새 아이템 추가
-        slotItem = item;
+        slotItem = item;    // Load에 덮어씌워지는 중
         item.transform.parent = transform;
         item.gameObject.SetActive(false);
     }
@@ -339,6 +340,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     {
         slotItem.transform.parent = playerHand.transform;
         slotItem.transform.localPosition = Vector3.zero;
+        slotItem.transform.localScale = Vector3.one;
 
         playerHand.HandItem(slotItem);
         slotItem.gameObject.SetActive(true);

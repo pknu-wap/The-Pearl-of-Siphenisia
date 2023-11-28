@@ -46,7 +46,6 @@ public class GameUIManager : Singleton<GameUIManager>
 
     private void AssignObjects()
     {
-        Debug.Log("วาด็");
         try
         {
             inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
