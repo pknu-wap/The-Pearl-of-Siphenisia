@@ -262,6 +262,8 @@ MonoBehaviour:
   onPlayerDamaged:
     m_PersistentCalls:
       m_Calls: []
+  health: 0
+  armor: 0
   isAttacked: 0
 --- !u!95 &8696634522275677545
 Animator:

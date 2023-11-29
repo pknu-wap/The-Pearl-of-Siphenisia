@@ -8,8 +8,8 @@ public class PlayerCollision : MonoBehaviour
     public Player player;
     public UnityEvent gameOver;
 
-    int health;
-    int armor;
+    public int health;
+    public int armor;
 
     public bool isAttacked = false;
 
@@ -25,7 +25,7 @@ public class PlayerCollision : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Enemy"))
             {
-                playerDamaged();
+                PlayerDamaged();
                 StartCoroutine(SetInvincible());
             }
         }
@@ -38,7 +38,7 @@ public class PlayerCollision : MonoBehaviour
         isAttacked = false;
     }
 
-    public void playerDamaged()
+    public void PlayerDamaged()
     {
         if (health == 0 && armor == 0)
         {
@@ -48,13 +48,11 @@ public class PlayerCollision : MonoBehaviour
         {
             Debug.Log("플레이어 체력 1 감소");
             health--;
-            print(health);
         }
         else
         {
             Debug.Log("플레이어 아머 1 감소");
             armor--;
-            print(armor);
         }
     }
 }
