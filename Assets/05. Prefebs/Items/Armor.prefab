@@ -139,7 +139,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: 1f660cbd86dc10648ae829aa5e47a36d, type: 2}
   count: 1
-  isEquiped: 0
 --- !u!212 &6443086432419191636
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -186,7 +185,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.625, y: 0.625}
+  m_Size: {x: 0.12, y: 0.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
