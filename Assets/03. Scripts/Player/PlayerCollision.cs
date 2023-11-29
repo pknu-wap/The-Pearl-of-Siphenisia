@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class PlayerCollision : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class PlayerCollision : MonoBehaviour
     public UnityEvent onGameOver;
     public UnityEvent onPlayerDamaged;
 
-    int health;
+    public int health = 3;
     public bool isArmored;
 
     public LampItem currentLamp;
@@ -17,28 +18,49 @@ public class PlayerCollision : MonoBehaviour
 
     public bool isAttacked = false;
 
+    public Image[] hp = new Image[3];
+
+    public SpriteRenderer spriteRenderer;
+
+    public Color damagedColor = new Color(150, 150, 150);
+
     public void Start()
     {
-        health = playerData.health;
+        //health = playerData.health;
         isArmored = playerData.armor;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        Transform hpBar = GameObject.Find("HP Bar").transform;
+        
+        for (int i = 0; i < hp.Length; i++)
+        {
+            hp[i] = hpBar.GetChild(i).GetComponent<Image>();
+        }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy") && !isAttacked)
         {
-            if (collision.gameObject.CompareTag("Enemy"))
-            {
-                PlayerDamaged();
-                StartCoroutine(SetInvincible());
-            }
+            PlayerDamaged();
+            StartCoroutine(SetInvincible());
         }
     }
 
     private IEnumerator SetInvincible()
     {
         isAttacked = true;
-        yield return new WaitForSecondsRealtime(1.0f);
+        spriteRenderer.color = damagedColor;
+        yield return new WaitForSecondsRealtime(0.4f);
+        spriteRenderer.color = Color.white;
+        yield return new WaitForSecondsRealtime(0.4f);
+        spriteRenderer.color = damagedColor;
+        yield return new WaitForSecondsRealtime(0.4f);
+        spriteRenderer.color = Color.white;
+        yield return new WaitForSecondsRealtime(0.4f);
+        spriteRenderer.color = damagedColor;
+        yield return new WaitForSecondsRealtime(0.4f);
+        spriteRenderer.color = Color.white;
         isAttacked = false;
     }
 
@@ -54,12 +76,31 @@ public class PlayerCollision : MonoBehaviour
         else
         {
             health--;
+            UpdateHPUI();
         }
 
         if (health == 0)
         {
-            Debug.Log("게임 오버");
-            onGameOver.Invoke();
+            GameOver();
         }
+    }
+
+    void UpdateHPUI()
+    {
+        for(int i = 0; i < health; i++)
+        {
+            hp[i].color = Color.white;
+        }
+
+        for(int i = health; i < hp.Length; i++)
+        {
+            hp[i].color = Color.black;
+        }
+    }
+    
+    void GameOver()
+    {
+        Time.timeScale = 0f;
+        GameUIManager.Instance.ShowGameOverUI();
     }
 }

@@ -8,4 +8,9 @@ public class LobbyButton : MonoBehaviour
         GameUIManager.Instance.ResumeGame();
         SceneLoader.Instance.LoadScene("Lobby");
     }
+
+    public void ResumeGame()
+    {
+        GameUIManager.Instance.ResumeGame();
+    }
 }

@@ -19,6 +19,7 @@ public class GameUIManager : Singleton<GameUIManager>
         HideInventoryUI();
         HideInteractionUI();
         HidePausePanelUI();
+        HideGameOverUI();
     }
 
     private void OnSceneChanged(Scene current, Scene next)
@@ -28,6 +29,7 @@ public class GameUIManager : Singleton<GameUIManager>
         HideInventoryUI();
         HideInteractionUI();
         HidePausePanelUI();
+        HideGameOverUI();
     }
 
     private void Update()
@@ -63,7 +65,12 @@ public class GameUIManager : Singleton<GameUIManager>
         catch { }
         try
         {
-            PausePanel = GameObject.Find("Pause Panel");
+            pausePanel = GameObject.Find("Pause Panel");
+        }
+        catch { }
+        try
+        {
+            gameOverPanel = GameObject.Find("GameOver Panel");
         }
         catch { }
     }
@@ -160,12 +167,12 @@ public class GameUIManager : Singleton<GameUIManager>
 
     #region 일시정지
     [Header("일시 정지")]
-    [SerializeField] private GameObject PausePanel;
+    [SerializeField] private GameObject pausePanel;
     [SerializeField] private bool isPaused = false;
 
     public void TogglePauseState()
     {
-        if (PausePanel == null)
+        if (pausePanel == null)
         {
             return;
         }
@@ -183,7 +190,7 @@ public class GameUIManager : Singleton<GameUIManager>
     
     public void PauseGame()
     {
-        if (PausePanel == null)
+        if (pausePanel == null)
         {
             return;
         }
@@ -195,7 +202,7 @@ public class GameUIManager : Singleton<GameUIManager>
 
     public void ResumeGame()
     {
-        if (PausePanel == null)
+        if (pausePanel == null)
         {
             return;
         }
@@ -207,22 +214,46 @@ public class GameUIManager : Singleton<GameUIManager>
 
     public void ShowPausePanelUI()
     {
-        if (PausePanel == null)
+        if (pausePanel == null)
         {
             return;
         }
 
-        PausePanel.SetActive(true);
+        pausePanel.SetActive(true);
     }
 
     public void HidePausePanelUI()
     {
-        if (PausePanel == null)
+        if (pausePanel == null)
         {
             return;
         }
 
-        PausePanel.SetActive(false);
+        pausePanel.SetActive(false);
     }
     #endregion 일시정지
+
+    #region 게임오버
+    [Header("게임 오버")]
+    [SerializeField] private GameObject gameOverPanel;
+    public void ShowGameOverUI()
+    {
+        if (gameOverPanel == null)
+        {
+            return;
+        }
+
+        gameOverPanel.SetActive(true);
+    }
+
+    public void HideGameOverUI()
+    {
+        if (gameOverPanel == null)
+        {
+            return;
+        }
+
+        gameOverPanel.SetActive(false);
+    }
+    #endregion 게임오버
 }
