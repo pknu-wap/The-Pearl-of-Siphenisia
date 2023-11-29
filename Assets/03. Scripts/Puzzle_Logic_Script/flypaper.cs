@@ -6,6 +6,7 @@ using UnityEngine;
 public class flypaper : MonoBehaviour
 {
     float originalSpeed;
+    public float acceleration;
 
     private void Start()
     {
@@ -17,7 +18,7 @@ public class flypaper : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             Debug.Log("끈끈이 발동");
-            GameObject.Find("Player").GetComponent<Player>().swimmingSpeed *= 0.7f;
+            GameObject.Find("Player").GetComponent<Player>().swimmingSpeed *= acceleration;
             // 플레이어 스크립트에서 끈끈이가 붙었을때의 함수 발동
         }
     }

@@ -29,7 +29,7 @@ public class PlayerCollision : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Enemy"))
             {
-                playerDamaged();
+                PlayerDamaged();
                 StartCoroutine(SetInvincible());
             }
         }
@@ -42,7 +42,7 @@ public class PlayerCollision : MonoBehaviour
         isAttacked = false;
     }
 
-    public void playerDamaged()
+    public void PlayerDamaged()
     {
         if (isArmored == true)
         {

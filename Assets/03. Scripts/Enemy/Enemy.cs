@@ -1,10 +1,14 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Events;
+using static Unity.Collections.AllocatorManager;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class Enemy : MonoBehaviour
 {
-    Transform playerTransform;
+    public UnityEvent StunEvent;
+    public Transform playerTransform;
     public Rigidbody2D enemyRig2d;
     public SpriteRenderer spriteRenderer;
     public float enemySpeed = 3f;
@@ -12,8 +16,10 @@ public class Enemy : MonoBehaviour
     public float enemyDashPower = 2f;
     public float enemyDashTime = 1f;
     public float enemyDashCooltime = 3f;
+    public float stunTime = 3f;
     public bool isFacing = false;
     public bool isDashing = false;
+    public bool isStunned = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -21,6 +27,7 @@ public class Enemy : MonoBehaviour
         playerTransform = GameObject.FindWithTag("Player").transform;
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         enemyRig2d = GetComponent<Rigidbody2D>();
+        StunEvent.AddListener(Stun);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -30,26 +37,42 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (!isStunned)
         {
-            Toggle();
-            if (!isDashing)
+            if (collision.gameObject.CompareTag("Player"))
             {
-                FollowPlayer();
-                FlipYSprite();
-                Move();
-            }
-            else
-            {
-                if (!isFacing)
+                Toggle();
+                if (!isDashing)
                 {
                     FollowPlayer();
                     FlipYSprite();
-                    isFacing = true;
+                    Move();
                 }
-                Dash();
+                else
+                {
+                    if (!isFacing)
+                    {
+                        FollowPlayer();
+                        FlipYSprite();
+                        isFacing = true;
+                    }
+                    Dash();
+                }
+                Debug.Log(gameObject);
             }
         }
+    }
+
+    public void Stun()
+    {
+        StartCoroutine(Stunned());
+    }
+
+    private IEnumerator Stunned()
+    {
+        isStunned = true;
+        yield return new WaitForSecondsRealtime(stunTime);
+        isStunned = false;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
