@@ -200,6 +200,12 @@ public class Inventory : MonoBehaviour
     public void SortCurrentTab()
     {
         SortInventory(currentTab);
+
+        // UI 갱신
+        foreach (Slot slot in slots[currentTab])
+        {
+            slot.UpdateSlotUI();
+        }
     }
 
     /// <summary>
@@ -252,7 +258,7 @@ public class Inventory : MonoBehaviour
                 }
 
                 // 장착 중이라면 해제
-                if (slots[i][j].isEquiped)
+                if (slots[i][j].slotItem.isEquiped)
                 {
                     if (slots[i][j].slotItem.itemData.useTag == UseTag.Equip)
                     {

@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class KeyItem : HandItem
 {
-    public override void ActivateItem()
+    public override bool ActivateItem()
     {
-        Debug.Log("Å° »ç¿ë");
+        return true;
     }
 
-    public override void DeactivateItem()
+    public override bool DeactivateItem()
     {
-
+        return true;
     }
 }

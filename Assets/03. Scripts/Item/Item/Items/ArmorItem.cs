@@ -2,24 +2,47 @@ using UnityEngine;
 
 public class ArmorItem : Item
 {
-    private Player player;
+    private PlayerCollision playerCollision;
+    private GameObject barrier;
 
     private void Awake()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        playerCollision = GameObject.FindWithTag("Player").GetComponent<PlayerCollision>();
+        barrier = playerCollision.transform.GetChild(2).gameObject;
     }
 
-    public override void ActivateItem()
+    public override bool ActivateItem()
     {
-        // TODO: 보호막 이펙트를 플레이어에 추가 -> 활성화/비활성화로 조작
-        // player.armor++;, 보호 수준 변경하기
+        if(playerCollision.currentArmor != null)
+        {
+            return false;
+        }
+
+        barrier.SetActive(true);
+        playerCollision.isArmored = true;
+        playerCollision.currentArmor = this;
+
+        return true;
     }
 
 
-    public override void DeactivateItem()
+    public override bool DeactivateItem()
     {
-        // TODO: 보호막 이펙트를 플레이어에 추가 -> 활성화/비활성화로 조작
-        // player.armor--;, 보호 수준 변경하기
-        // 개인적으론 armor는 0 혹은 1로 하고, 대입으로 세팅하는 게 더 좋을 듯
+        if (playerCollision.currentArmor == null)
+        {
+            return false;
+        }
+
+        barrier.SetActive(false);
+        playerCollision.isArmored = false;
+        playerCollision.currentArmor =  null;
+
+        return true;
+    }
+
+    public void DestroyItem()
+    {
+        DeactivateItem();
+        Destroy(gameObject);
     }
 }

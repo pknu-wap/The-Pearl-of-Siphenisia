@@ -11,7 +11,6 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     [Header("아이템")]
     public Item slotItem;
     public Image icon;
-    public bool isEquiped = false;
 
     [Header("인벤토리")]
     private DragSlot dragSlot;
@@ -265,12 +264,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
     void ToggleEquip()
     {
-        if(slotItem == null)
-        {
-            return;
-        }
-
-        if(isEquiped == true)
+        if(slotItem.isEquiped == true)
         {
             UnequipItem();
         }
@@ -283,28 +277,31 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
     void EquipItem()
     {
-        itemStatus.SetActive(true);
-        isEquiped = true;
-
-        slotItem.ActivateItem();
-    }
-
-    public void UnequipItem()
-    {
-        itemStatus.SetActive(false);
-        isEquiped = false;
-
-        slotItem.DeactivateItem();
-    }
-
-    void ToggleHand()
-    {
-        if (slotItem == null)
+        if (slotItem.ActivateItem() == false)
         {
             return;
         }
 
-        if (isEquiped == true)
+        itemStatus.SetActive(true);
+        slotItem.isEquiped = true;
+        UpdateSlotUI();
+    }
+
+    public void UnequipItem()
+    {
+        if (slotItem.DeactivateItem() == false)
+        {
+            return;
+        }
+
+        itemStatus.SetActive(false);
+        slotItem.isEquiped = false;
+        UpdateSlotUI();
+    }
+
+    void ToggleHand()
+    {
+        if (slotItem.isEquiped == true)
         {
             UnhandItem();
         }
@@ -317,21 +314,35 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
     void HandItem()
     {
+        if (slotItem == null)
+        {
+            return;
+        }
+
         itemStatus.SetActive(true);
-        isEquiped = true;
+        slotItem.isEquiped = true;
 
         quickSlot.SetInventorySlot(this);
         quickSlot.SetItem(slotItem);
 
-        HandItemToPlayer();
+        UpdateSlotUI();
+
+        // HandItemToPlayer();
     }
     
     public void UnhandItem()
     {
+        if (slotItem == null)
+        {
+            return;
+        }
+
         itemStatus.SetActive(false);
-        isEquiped = false;
+        slotItem.isEquiped = false;
 
         quickSlot.ClearQuickSlot();
+
+        UpdateSlotUI();
 
         ReturnItemToSlot();
     }
@@ -365,7 +376,6 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         }
 
         icon.sprite = slotItem.itemData.icon;
-        // TODO: 주인공 손에 아이템 스프라이트를 겹친다.
         icon.enabled = true;
 
         // 소비 아이템일 경우 개수도 최신화
@@ -377,7 +387,14 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         // 그 외 아이템은 장착 여부 최신화
         else
         {
-            itemStatus.SetActive(isEquiped);
+            itemStatus.SetActive(slotItem.isEquiped);
+        }
+
+        // 장착된 Hand 아이템이라면 퀵슬롯 정보 최신화
+        if (slotItem.itemData.useTag == UseTag.Hand && slotItem.isEquiped)
+        {
+            quickSlot.currentSlot = this;
+            HandItemToPlayer();
         }
     }
 

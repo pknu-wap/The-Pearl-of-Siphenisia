@@ -3,22 +3,41 @@ using UnityEngine;
 public class LampItem : Item
 {
     GameObject lamp;
+    PlayerCollision playerCollision;
 
-    public override void ActivateItem()
+    private void Awake()
     {
-        if(lamp == null)
+        playerCollision = GameObject.FindWithTag("Player").GetComponent<PlayerCollision>();
+        lamp = playerCollision.transform.GetChild(1).gameObject;
+    }
+
+    public override bool ActivateItem()
+    {
+        if(playerCollision.currentLamp != null)
         {
-            CreateLamp();
+            return false;
         }
         
         LampOn();
+        playerCollision.currentLamp = this;
+
+        return true;
     }
 
-    public override void DeactivateItem()
+    public override bool DeactivateItem()
     {
+        if (playerCollision.currentLamp == null)
+        {
+            return false;
+        }
+
         LampOff();
+        playerCollision.currentLamp = null;
+
+        return true;
     }
 
+    // Legacy
     public void CreateLamp()
     {
         GameObject obj = (GameObject)Resources.Load("Prefebs/Lamp");
@@ -34,6 +53,7 @@ public class LampItem : Item
     {
         lamp.SetActive(true);
     }
+
     public void LampOff()
     {
         lamp.SetActive(false);
