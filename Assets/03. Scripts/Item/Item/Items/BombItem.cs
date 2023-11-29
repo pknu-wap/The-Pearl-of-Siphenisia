@@ -17,14 +17,16 @@ public class BombItem : HandItem
 
     public float speed = 10f;
 
-    public override void ActivateItem()
+    public override bool ActivateItem()
     {
         isHanded = true;
+        return true;
     }
 
-    public override void DeactivateItem()
+    public override bool DeactivateItem()
     {
         isHanded = false;
+        return true;
     }
 
     protected override void Awake()

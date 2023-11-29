@@ -4,19 +4,23 @@ using UnityEngine.Events;
 
 public class PlayerCollision : MonoBehaviour
 {
-    public PlayerData obj;
-    public Player player;
-    public UnityEvent gameOver;
+    public PlayerData playerData;
 
-    public int health;
-    public int armor;
+    public UnityEvent onGameOver;
+    public UnityEvent onPlayerDamaged;
+
+    int health;
+    public bool isArmored;
+
+    public LampItem currentLamp;
+    public ArmorItem currentArmor;
 
     public bool isAttacked = false;
 
     public void Start()
     {
-        health = obj.health;
-        armor = obj.armor;
+        health = playerData.health;
+        isArmored = playerData.armor;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -40,19 +44,22 @@ public class PlayerCollision : MonoBehaviour
 
     public void PlayerDamaged()
     {
-        if (health == 0 && armor == 0)
+        if (isArmored == true)
         {
-            Debug.Log("게임 오버");
+            isArmored = false;
+            onPlayerDamaged.Invoke();
+            return;
         }
-        else if (armor == 0)
-        {
-            Debug.Log("플레이어 체력 1 감소");
-            health--;
-        }
+
         else
         {
-            Debug.Log("플레이어 아머 1 감소");
-            armor--;
+            health--;
+        }
+
+        if (health == 0)
+        {
+            Debug.Log("게임 오버");
+            onGameOver.Invoke();
         }
     }
 }

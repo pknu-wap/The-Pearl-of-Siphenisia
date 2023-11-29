@@ -5,6 +5,7 @@ public class DragSlot : MonoBehaviour
 {
     Image icon;
     public Item dragItem;
+    public bool isItemEquiped;
 
     private void Start()
     {
