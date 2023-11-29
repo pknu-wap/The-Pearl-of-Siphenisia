@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ac4f7b0ebcc36bb41a27df3a58937fda
+guid: 939e747248388cd47828c250100e4abf
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Knight_Swin_Down_0
+      name: Knight_Swim_Left_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 936982c25d3acd246afd188b8c82198c
-      internalID: 1908179862
+      spriteID: a1d6721b5e8001244a6aa752b8dc9f70
+      internalID: -1116776536
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swin_Down_1
+      name: Knight_Swim_Left_1
       rect:
         serializedVersion: 2
         x: 16
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79e62fd934cc48149ae7b7554b99893d
-      internalID: 146184793
+      spriteID: 31b05eb61da5b7f43bf04513ca8426bc
+      internalID: -156250603
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swin_Down_2
+      name: Knight_Swim_Left_2
       rect:
         serializedVersion: 2
         x: 32
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ace4baee8413f049aca192f909b85fb
-      internalID: 350362300
+      spriteID: 50c27e318d1b3ca44907373bb8731cc2
+      internalID: -1737405930
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swin_Down_3
+      name: Knight_Swim_Left_3
       rect:
         serializedVersion: 2
         x: 48
@@ -187,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f526bc2eae315bb4b8c3f2195c716bf1
-      internalID: -379652781
+      spriteID: 5ad23e323f7ee9745a535e146133dc06
+      internalID: -20940139
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swin_Down_4
+      name: Knight_Swim_Left_4
       rect:
         serializedVersion: 2
         x: 64
@@ -208,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f99457054c8a3e544a323e4d84516623
-      internalID: -1333615157
+      spriteID: 79661baf356087242b1174b5fadc6342
+      internalID: 1803839757
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swin_Down_5
+      name: Knight_Swim_Left_5
       rect:
         serializedVersion: 2
         x: 80
@@ -229,14 +229,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 06f2aff7f17ae364c82c25500ef01778
-      internalID: 1628184467
+      spriteID: b24713e751238f141a1865090f9fd9a7
+      internalID: -2026516025
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swin_Down_6
+      name: Knight_Swim_Left_6
       rect:
         serializedVersion: 2
         x: 96
@@ -250,14 +250,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f07f02a7e9dd2e4d9758b152c4c546c
-      internalID: -781718266
+      spriteID: 0333220553a649845982673f8815676d
+      internalID: -63283700
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swin_Down_7
+      name: Knight_Swim_Left_7
       rect:
         serializedVersion: 2
         x: 112
@@ -271,8 +271,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d587ec4db593e0644b96f8f29f10ea6b
-      internalID: -507809777
+      spriteID: 8af7b3f41145a4f48bc538458c189abd
+      internalID: 242274705
       vertices: []
       indices: 
       edges: []
@@ -288,14 +288,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Knight_Swin_Down_0: 1908179862
-      Knight_Swin_Down_1: 146184793
-      Knight_Swin_Down_2: 350362300
-      Knight_Swin_Down_3: -379652781
-      Knight_Swin_Down_4: -1333615157
-      Knight_Swin_Down_5: 1628184467
-      Knight_Swin_Down_6: -781718266
-      Knight_Swin_Down_7: -507809777
+      Knight_Swim_Left_0: -1116776536
+      Knight_Swim_Left_1: -156250603
+      Knight_Swim_Left_2: -1737405930
+      Knight_Swim_Left_3: -20940139
+      Knight_Swim_Left_4: 1803839757
+      Knight_Swim_Left_5: -2026516025
+      Knight_Swim_Left_6: -63283700
+      Knight_Swim_Left_7: 242274705
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

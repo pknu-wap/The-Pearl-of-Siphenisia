@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e66094b6dbc74224f81a6999d60d8a51
+guid: b796ae6ddc8140b409e545cb0a801d51
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Knight_Swim_Up_Left_0
+      name: Knight_Swim_Left_UP_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42aff5a778ff9274cb4eb14ddb835fb2
-      internalID: -1828291662
+      spriteID: 1fb56814f73e45f41b1a66f5a8ea074d
+      internalID: -498242203
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swim_Up_Left_1
+      name: Knight_Swim_Left_UP_1
       rect:
         serializedVersion: 2
         x: 16
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e86afef11e51e548ac2757e56f9b290
-      internalID: 228747849
+      spriteID: de8422976b58f714d92c1f04b58a3525
+      internalID: -718629875
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swim_Up_Left_2
+      name: Knight_Swim_Left_UP_2
       rect:
         serializedVersion: 2
         x: 32
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a57317c0283bb0545972aba2fb69f863
-      internalID: 899409854
+      spriteID: 739e4996163089843b0e605b7fe924ae
+      internalID: 1645903914
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swim_Up_Left_3
+      name: Knight_Swim_Left_UP_3
       rect:
         serializedVersion: 2
         x: 48
@@ -187,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4403a9f1a5a73f04ca0708a26bb45362
-      internalID: 1263641092
+      spriteID: cf1e12677318a5f41979dd8e3f3fa254
+      internalID: -1424263643
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swim_Up_Left_4
+      name: Knight_Swim_Left_UP_4
       rect:
         serializedVersion: 2
         x: 64
@@ -208,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 74ae68dd53c7dfe418fffb47e9ee7a3d
-      internalID: 834369525
+      spriteID: 4df657f244200ac408fa5fa1a695934f
+      internalID: -370803350
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swim_Up_Left_5
+      name: Knight_Swim_Left_UP_5
       rect:
         serializedVersion: 2
         x: 80
@@ -229,14 +229,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8677cb06ee22ffb4393ea1b41c2cbc46
-      internalID: -836366696
+      spriteID: dcb1c24e159587d468a110f67ae266e9
+      internalID: -2029280543
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swim_Up_Left_6
+      name: Knight_Swim_Left_UP_6
       rect:
         serializedVersion: 2
         x: 96
@@ -250,14 +250,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 779f3fbe50e4e1d42ae77f03a5806129
-      internalID: -983357730
+      spriteID: 4562f6221943eae42a3e7e2a361e7267
+      internalID: 2118996148
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight_Swim_Up_Left_7
+      name: Knight_Swim_Left_UP_7
       rect:
         serializedVersion: 2
         x: 112
@@ -271,8 +271,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f8e1e00221110e24389324d312b26fdb
-      internalID: 530934567
+      spriteID: a4d9f37743839764b8ec584475dbb00f
+      internalID: -1680928602
       vertices: []
       indices: 
       edges: []
@@ -288,14 +288,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Knight_Swim_Up_Left_0: -1828291662
-      Knight_Swim_Up_Left_1: 228747849
-      Knight_Swim_Up_Left_2: 899409854
-      Knight_Swim_Up_Left_3: 1263641092
-      Knight_Swim_Up_Left_4: 834369525
-      Knight_Swim_Up_Left_5: -836366696
-      Knight_Swim_Up_Left_6: -983357730
-      Knight_Swim_Up_Left_7: 530934567
+      Knight_Swim_Left_UP_0: -498242203
+      Knight_Swim_Left_UP_1: -718629875
+      Knight_Swim_Left_UP_2: 1645903914
+      Knight_Swim_Left_UP_3: -1424263643
+      Knight_Swim_Left_UP_4: -370803350
+      Knight_Swim_Left_UP_5: -2029280543
+      Knight_Swim_Left_UP_6: 2118996148
+      Knight_Swim_Left_UP_7: -1680928602
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
