@@ -6,20 +6,19 @@ using UnityEngine.UI;
 public class QuickSlot : MonoBehaviour
 {
     private Item currentItem;
-    private Slot currentSlot;
     private Image itemImage;
 
     private void Awake()
     {
         itemImage = transform.GetChild(0).GetComponent<Image>();
 
-        ClearQuickSlot();
+        ClearSlot();
     }
     
     // 플레이어로 옮길 예정
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.LeftShift))
+        if(Input.GetKeyDown(KeyCode.Q))
         {
             ActivateItem();
         }
@@ -35,16 +34,6 @@ public class QuickSlot : MonoBehaviour
         currentItem.ActivateItem();
     }
 
-    public void SetInventorySlot(Slot slot)
-    {
-        if(currentSlot != null)
-        {
-            currentSlot.UnhandItem();
-        }
-
-        currentSlot = slot;
-    }
-
     public void SetItem(Item item)
     {
         currentItem = item;
@@ -52,7 +41,7 @@ public class QuickSlot : MonoBehaviour
         itemImage.gameObject.SetActive(true);
     }
 
-    public void ClearQuickSlot()
+    public void ClearSlot()
     {
         currentItem = null;
         itemImage.sprite = null;
