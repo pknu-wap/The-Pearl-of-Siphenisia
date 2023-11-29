@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7698002019025796351}
   - component: {fileID: 2594465646200151201}
-  - component: {fileID: 2003766445664713525}
   m_Layer: 0
   m_Name: Lamp
   m_TagString: Untagged
@@ -53,7 +52,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000d7f5b9a0af5715a4
+  m_ApplyToSortingLayers: 00000000d7f5b9a0af5715a4a9b3d865
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -83,15 +82,3 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!114 &2003766445664713525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7667324368577671179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67fa6ef1aa836ac4980962e767214e47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

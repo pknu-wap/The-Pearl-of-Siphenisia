@@ -9,18 +9,17 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     #region 변수
     public Item slotItem;
     public Image icon;
-    public DragSlot dragSlot;
-    public ItemInfoWindow infoWindow;
+    private DragSlot dragSlot;
+    private ItemInfoWindow infoWindow;
     private QuickSlot quickSlot;
+    private PlayerHand playerHand;
 
     public UnityEvent[] clickEvent = new UnityEvent[3];
 
     // 현재 슬롯이 장비/장착/소비 슬롯 중 어떤 것인가?
     public UseTag slotTag;
 
-    [SerializeField]
     private GameObject itemStatus;  // E 마크, Q 마크, 숫자 등 상태를 나타내는 오브젝트
-    [SerializeField]
     private TextMeshProUGUI countText;
     #endregion 변수
 
@@ -45,6 +44,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         dragSlot = GameObject.Find("DragSlot").GetComponent<DragSlot>();
         infoWindow = GameObject.Find("Item Info Window").GetComponent<ItemInfoWindow>();
         quickSlot = GameObject.Find("Quick Slot").GetComponent<QuickSlot>();
+        playerHand = GameObject.FindWithTag("Player").transform.GetChild(0).GetComponent<PlayerHand>();
 
         itemStatus = transform.GetChild(1).gameObject;
 
@@ -63,6 +63,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
         // 핸드 아이템 사용 시
         clickEvent[(int)UseTag.Hand].AddListener(HideInfo);
+        clickEvent[(int)UseTag.Hand].AddListener(HandItemToPlayer);
         clickEvent[(int)UseTag.Hand].AddListener(ToggleHand);
 
         // 소비 아이템 사용 시
@@ -319,19 +320,36 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     {
         itemStatus.SetActive(true);
         slotItem.isEquiped = true;
-        // TODO: 퀵슬롯에 등록한다.
+
+        quickSlot.SetInventorySlot(this);
         quickSlot.SetItem(slotItem);
+
+        // 플레이어 손에 든다.
     }
     
     /// <summary>
     /// 아이템을 퀵슬롯에서 해제한다.
     /// </summary>
-    void UnhandItem()
+    public void UnhandItem()
     {
         itemStatus.SetActive(false);
         slotItem.isEquiped = false;
-        // TODO: 퀵슬롯에서 해제한다.
-        quickSlot.ClearSlot();
+        quickSlot.ClearQuickSlot();
+    }
+
+    private void HandItemToPlayer()
+    {
+        slotItem.transform.parent = playerHand.transform;
+        slotItem.transform.localPosition = Vector3.zero;
+
+        playerHand.HandItem(slotItem);
+    }
+
+
+    private void ReturnItemToSlot()
+    {
+        slotItem.transform.parent = transform;
+        slotItem.transform.localPosition = Vector3.zero;
     }
     #endregion 아이템 상호작용
 
