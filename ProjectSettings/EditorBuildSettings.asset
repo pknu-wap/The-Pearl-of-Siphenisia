@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/01. Scenes/Lobby.unity
     guid: 01806552fa1703d4e8fa6fe3e59d062e
   - enabled: 1
+    path: Assets/01. Scenes/Tutorial.unity
+    guid: 317f868107b5f844ea8b193f179160e2
+  - enabled: 1
     path: Assets/01. Scenes/Map/Stage1/Stage1-0.unity
     guid: 55f370f7e2ccc31418e2b8666bf41299
+  - enabled: 0
+    path: Assets/01. Scenes/Presentation.unity
+    guid: 0b14db985fe96f549a7ff468eb4206ba
   m_configObjects: {}
