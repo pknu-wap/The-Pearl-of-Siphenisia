@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4e55fc32d608ba4c94506da450094ba, type: 3}
+  m_Name: Cubic_Emerald
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: dda0b4ef837acbf4090f36686b2ffa69, type: 3}
+  sprite: {fileID: 21300000, guid: dda0b4ef837acbf4090f36686b2ffa69, type: 3}
+  itemName: "\uC5D0\uBA54\uB784\uB4DC"
+  description: "\uCD08\uB85D\uBE5B\uC73C\uB85C \uBE5B\uB098\uB294 \uD76C\uADC0\uD55C
+    \uBCF4\uC11D\uC774\uB2E4. \uC5B4\uB514\uC120\uAC00 \uBE44\uC2B7\uD55C \uAC78
+    \uBCF8 \uAC83\uB9CC \uAC19\uB2E4."
+  count: 1
+  priority: 0
+  itemCode: Cubic_Emerald
+  purposeTag: 0
+  useTag: 1

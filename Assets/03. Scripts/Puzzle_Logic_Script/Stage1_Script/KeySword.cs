@@ -10,9 +10,16 @@ public enum Cubic
 public class KeySword : MonoBehaviour
 {
     public Cubic cubic;
+    private GameManager gameManager;
+
+    private void Awake()
+    {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
 
     public void DestroyKeySword()
     {
+        gameManager.Count();
         Destroy(gameObject);
     }
 }
