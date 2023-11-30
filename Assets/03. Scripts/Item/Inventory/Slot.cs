@@ -351,7 +351,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     {
         slotItem.transform.parent = playerHand.transform;
         slotItem.transform.localPosition = Vector3.zero;
-        slotItem.transform.localScale = Vector3.one;
+        slotItem.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
 
         playerHand.HandItem(slotItem);
         slotItem.gameObject.SetActive(true);

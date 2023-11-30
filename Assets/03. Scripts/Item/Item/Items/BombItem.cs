@@ -41,11 +41,9 @@ public class BombItem : HandItem
 
         EraseAimLine();
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.name);
-
         if (collision.gameObject.CompareTag("Ground")
             || collision.gameObject.CompareTag("Land")
             || collision.gameObject.CompareTag("Enemy"))

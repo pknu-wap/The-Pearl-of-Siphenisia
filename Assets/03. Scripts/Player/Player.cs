@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
     public bool isJumpAble = false;
     public float movingConstant = (float)(Math.Sqrt(2) / 2);
 
+    private Vector3 flipedRotation = new Vector3(0, 180, 0);
+
     // Start is called before the first frame update
     void Start()
     {
@@ -66,8 +68,8 @@ public class Player : MonoBehaviour
         animator.SetBool("isMoving", isMovingLeft || isMovingRight);
         rig2d.gravityScale = gravityScale;
 
-        if (isMovingLeft) { spriteRenderer.flipX = false; }
-        if (isMovingRight) { spriteRenderer.flipX = true; }
+        if (isMovingLeft) { /*spriteRenderer.flipX = false;*/ transform.rotation = Quaternion.Euler(Vector3.zero); }
+        if (isMovingRight) { /*spriteRenderer.flipX = true;*/ transform.rotation = Quaternion.Euler(flipedRotation); }
     }
 
     void Swim()
@@ -82,7 +84,7 @@ public class Player : MonoBehaviour
         animator.SetBool("isMoving", isMovingLeft || isMovingRight || isMovingUp || isMovingDown);
         rig2d.gravityScale = 0;
 
-        if (isMovingRight) { spriteRenderer.flipX = true; }
-        else { spriteRenderer.flipX = false; }
+        if (isMovingRight) { /*spriteRenderer.flipX = true;*/ transform.rotation = Quaternion.Euler(flipedRotation); }
+        else { /*spriteRenderer.flipX = false;*/ transform.rotation = Quaternion.Euler(Vector3.zero); }
     }
 }

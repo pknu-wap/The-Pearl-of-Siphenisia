@@ -114,7 +114,7 @@ MonoBehaviour:
   isWalking: 0
   walkingSpeed: 55
   swimmingSpeed: 30
-  gravityScale: 2
+  gravityScale: 5
   jumpPower: 500
   horizontal: 0
   vertical: 0
