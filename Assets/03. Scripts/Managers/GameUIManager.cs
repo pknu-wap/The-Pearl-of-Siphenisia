@@ -1,3 +1,6 @@
+using System.Collections;
+using TMPro;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,6 +23,7 @@ public class GameUIManager : Singleton<GameUIManager>
         HideInteractionUI();
         HidePausePanelUI();
         HideGameOverUI();
+        HideAlertMessage();
     }
 
     private void OnSceneChanged(Scene current, Scene next)
@@ -30,6 +34,7 @@ public class GameUIManager : Singleton<GameUIManager>
         HideInteractionUI();
         HidePausePanelUI();
         HideGameOverUI();
+        HideAlertMessage();
     }
 
     private void Update()
@@ -73,11 +78,12 @@ public class GameUIManager : Singleton<GameUIManager>
             gameOverPanel = GameObject.Find("GameOver Panel");
         }
         catch { }
-    }
-
-    public void SetInventoryObject(Inventory inventory)
-    {
-        this.inventory = inventory;
+        try
+        {
+            alertMessagePanel = GameObject.Find("Alert Panel");
+            alertMessage = alertMessagePanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        }
+        catch { }
     }
     #endregion 초기 설정
 
@@ -126,6 +132,10 @@ public class GameUIManager : Singleton<GameUIManager>
         inventory.HideInventoryUI();
         itemInfoWindow.HideInfoUI();
     }
+    public void SetInventoryObject(Inventory inventory)
+    {
+        this.inventory = inventory;
+    }
     #endregion Inventory
 
     #region Interaction UI
@@ -154,7 +164,7 @@ public class GameUIManager : Singleton<GameUIManager>
         interactionUIObj.SetActive(false);
     }
 
-    public void MoveInteractionUI(Transform targetTransform)
+    private void MoveInteractionUI(Transform targetTransform)
     {
         if (interactionUIObj == null)
         {
@@ -254,6 +264,54 @@ public class GameUIManager : Singleton<GameUIManager>
         }
 
         gameOverPanel.SetActive(false);
+    }
+    #endregion 게임오버
+
+    #region 알림 메시지
+    [Header("알림 메시지")]
+    [SerializeField] private GameObject alertMessagePanel;
+    [SerializeField] private TextMeshProUGUI alertMessage;
+
+    [SerializeField] private Coroutine alertCoroutine;
+
+    public void AlertMessage(string message)
+    {
+        if(alertCoroutine != null)
+        {
+            StopCoroutine(alertCoroutine);
+        }
+
+        alertCoroutine = StartCoroutine(AlertMessageCoroutine(message));
+    }
+
+    public IEnumerator AlertMessageCoroutine(string message)
+    {
+        alertMessage.text = message;
+        ShowAlertMessage();
+
+        yield return new WaitForSeconds(3.0f);
+
+        HideAlertMessage();
+    }
+
+    public void ShowAlertMessage()
+    {
+        if (alertMessage == null)
+        {
+            return;
+        }
+
+        alertMessagePanel.SetActive(true);
+    }
+
+    public void HideAlertMessage()
+    {
+        if (alertMessage == null)
+        {
+            return;
+        }
+
+        alertMessagePanel.SetActive(false);
     }
     #endregion 게임오버
 }

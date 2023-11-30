@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+public enum Cubic
+{
+    Ruby,
+    Emerald,
+    Topaz
+}
 
 public class KeySword : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Cubic cubic;
 
-    // Update is called once per frame
-    void Update()
+    public void DestroyKeySword()
     {
-        
+        Destroy(gameObject);
     }
 }

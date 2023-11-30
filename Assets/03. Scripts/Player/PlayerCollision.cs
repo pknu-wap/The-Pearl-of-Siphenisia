@@ -17,16 +17,13 @@ public class PlayerCollision : MonoBehaviour
     [Header("현재 인식된 정보")]
     public LampItem currentLamp;
     public ArmorItem currentArmor;
-    public Item equipedItem = null;
-    public ItemTrigger currentFocusedItem = null;
-    public Collider2D currentCollision = null;
+    [SerializeField] ItemTrigger currentFocusedItem = null;
     public KeySword currentKeySword = null;
 
+    [Header("기타")]
     public bool isAttacked = false;
-
-    public Image[] hp = new Image[3];
+    private Image[] hp = new Image[3];
     private SpriteRenderer spriteRenderer;
-
     public Color damagedColor;
 
     public void Start()
@@ -70,6 +67,7 @@ public class PlayerCollision : MonoBehaviour
         if (collision.gameObject.CompareTag("KeySword"))
         {
             currentKeySword = collision.GetComponent<KeySword>();
+            GameUIManager.Instance.ShowInteractionUI(transform);
         }
     }
 
@@ -84,6 +82,7 @@ public class PlayerCollision : MonoBehaviour
         if (collision.gameObject.CompareTag("KeySword"))
         {
             currentKeySword = null;
+            GameUIManager.Instance.HideInteractionUI();
         }
     }
 
@@ -137,6 +136,11 @@ public class PlayerCollision : MonoBehaviour
 
         currentFocusedItem.GetItem();
         currentFocusedItem = null;
+    }
+
+    public void DestroyKeySword()
+    {
+        currentKeySword.DestroyKeySword();
     }
 
     void UpdateHPUI()
