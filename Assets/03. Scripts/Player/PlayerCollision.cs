@@ -33,11 +33,15 @@ public class PlayerCollision : MonoBehaviour
 
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        Transform hpBar = GameObject.Find("HP Bar").transform;
-        for (int i = 0; i < hp.Length; i++)
+        try
         {
-            hp[i] = hpBar.GetChild(i).GetComponent<Image>();
+            Transform hpBar = GameObject.Find("HP Bar").transform;
+            for (int i = 0; i < hp.Length; i++)
+            {
+                hp[i] = hpBar.GetChild(i).GetComponent<Image>();
+            }
         }
+        catch { }
     }
 
     private void Update()

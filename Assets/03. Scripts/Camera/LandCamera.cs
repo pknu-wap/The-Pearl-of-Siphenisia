@@ -13,6 +13,8 @@ public class LandCamera : MonoBehaviour
     [SerializeField] float minY;
     [SerializeField] float maxX;
     [SerializeField] float maxY;
+    float height;
+    float width;
 
     private void Start()
     {
@@ -20,10 +22,13 @@ public class LandCamera : MonoBehaviour
         BG = GameObject.FindWithTag("BG").transform;
         targetPos = new(0f, 0f, transform.position.z);
 
-        minX = BG.position.x - (BG.localScale.x / 2);
-        minY = BG.position.y - (BG.localScale.y / 2);
-        maxX = BG.position.x + (BG.localScale.x / 2);
-        maxY = BG.position.y + (BG.localScale.y / 2);
+        height = 2 * Camera.main.orthographicSize;
+        width = height * Camera.main.aspect;
+
+        minX = BG.position.x - (BG.localScale.x / 2) + (width / 2);
+        minY = BG.position.y - (BG.localScale.y / 2) + (height / 2);
+        maxX = BG.position.x + (BG.localScale.x / 2) - (width / 2);
+        maxY = BG.position.y + (BG.localScale.y / 2) - (height / 2);
     }
 
     private void LateUpdate()

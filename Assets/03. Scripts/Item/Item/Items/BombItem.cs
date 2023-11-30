@@ -42,11 +42,12 @@ public class BombItem : HandItem
         EraseAimLine();
     }
     
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ground")
             || collision.gameObject.CompareTag("Land")
-            || collision.gameObject.CompareTag("Enemy"))
+            || collision.gameObject.CompareTag("Enemy")
+            || collision.gameObject.CompareTag("Wall"))
         {
             isCrashed = true;
         }
@@ -92,6 +93,7 @@ public class BombItem : HandItem
     private IEnumerator ThrowBomb()
     {
         transform.SetParent(null);
+        transform.rotation = Quaternion.Euler(Vector3.zero);
         bombBody.enabled = true;
 
         Vector2 direction = endPosition - startPosition;
@@ -107,6 +109,7 @@ public class BombItem : HandItem
 
     private IEnumerator Bomb()
     {
+        Debug.Log("Bomb");
         bombRange.enabled = true;
 
         // 충돌 감지를 위한 1프레임 대기

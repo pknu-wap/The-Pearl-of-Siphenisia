@@ -36,9 +36,9 @@ public class Player : MonoBehaviour
         animator.SetBool("isWalking", false);
     }
 
-    void OnTriggerEnter2D(Collider2D collision) { if (collision.gameObject.CompareTag("Ground")) { animator.SetBool("isWalking", true); } }
+    void OnTriggerEnter2D(Collider2D collision) { if (collision.gameObject.CompareTag("WalkArea")) { animator.SetBool("isWalking", true); } }
 
-    void OnTriggerExit2D(Collider2D collision) { if (collision.gameObject.CompareTag("Ground")) { animator.SetBool("isWalking", false); } }
+    void OnTriggerExit2D(Collider2D collision) { if (collision.gameObject.CompareTag("WalkArea")) { animator.SetBool("isWalking", false); } }
 
     void OnCollisionEnter2D(Collision2D collision) { if (collision.gameObject.CompareTag("Land")) { isJumpAble = true; } }
 

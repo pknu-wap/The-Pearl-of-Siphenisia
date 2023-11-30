@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SettingPanelUI : MonoBehaviour
 {
-    #region UI
+        #region UI
     private void Start()
     {
         HideSettingPanel();
