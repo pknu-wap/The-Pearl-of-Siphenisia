@@ -6,6 +6,7 @@ public class LobbyButton : MonoBehaviour
     {
         SaveManager.Instance.Save();
         GameUIManager.Instance.ResumeGame();
+        GameUIManager.Instance.HideGameClearUI();
         SceneLoader.Instance.LoadScene("Lobby");
     }
 

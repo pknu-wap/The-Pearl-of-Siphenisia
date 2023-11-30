@@ -15,6 +15,11 @@ public class CubicItem : HandItem
 
     public override bool ActivateItem()
     {
+        if(player.currentKeySword == null)
+        {
+            return false;
+        }
+
         if (cubic == player.currentKeySword.cubic)
         {
             player.DestroyKeySword();

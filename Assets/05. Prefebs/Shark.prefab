@@ -226,9 +226,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a33fa3396f13de44af6cbcb4fb4b40d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StunEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  playerTransform: {fileID: 0}
+  enemyRig2d: {fileID: 0}
   spriteRenderer: {fileID: 0}
   enemySpeed: 3
   rotateSpeed: 10
+  enemyDashPower: 2
+  enemyDashTime: 1
+  enemyDashCooltime: 3
+  stunTime: 3
+  isFacing: 0
+  isDashing: 0
+  isStunned: 0
 --- !u!58 &2601108546463679844
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -263,4 +275,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 15

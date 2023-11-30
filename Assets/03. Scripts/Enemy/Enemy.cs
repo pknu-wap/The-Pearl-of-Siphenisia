@@ -50,12 +50,12 @@ public class Enemy : MonoBehaviour
                 }
                 else
                 {
-                    if (!isFacing)
+/*                    if (!isFacing)
                     {
                         FollowPlayer();
                         FlipYSprite();
                         isFacing = true;
-                    }
+                    }*/
                     Dash();
                 }
                 Debug.Log(gameObject);

@@ -24,6 +24,7 @@ public class GameUIManager : Singleton<GameUIManager>
         HidePausePanelUI();
         HideGameOverUI();
         HideAlertMessage();
+        HideGameClearUI();
     }
 
     private void OnSceneChanged(Scene current, Scene next)
@@ -35,6 +36,7 @@ public class GameUIManager : Singleton<GameUIManager>
         HidePausePanelUI();
         HideGameOverUI();
         HideAlertMessage();
+        HideGameClearUI();
     }
 
     private void Update()
@@ -85,6 +87,12 @@ public class GameUIManager : Singleton<GameUIManager>
             alertMessage = alertMessagePanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         }
         catch { }
+        try
+        {
+            gameClearPanel = GameObject.Find("Game Clear Panel");
+        }
+        catch { }
+
     }
     #endregion 초기 설정
 
@@ -269,6 +277,31 @@ public class GameUIManager : Singleton<GameUIManager>
         gameOverPanel.SetActive(false);
     }
     #endregion 게임오버
+
+    #region 게임 클리어
+    [Header("게임 클리어")]
+    [SerializeField] private GameObject gameClearPanel;
+
+    public void ShowGameClearUI()
+    {
+        if (gameClearPanel == null)
+        {
+            return;
+        }
+
+        gameClearPanel.SetActive(true);
+    }
+
+    public void HideGameClearUI()
+    {
+        if (gameClearPanel == null)
+        {
+            return;
+        }
+
+        gameClearPanel.SetActive(false);
+    }
+    #endregion 게임 클리어
 
     #region 알림 메시지
     [Header("알림 메시지")]

@@ -124,9 +124,6 @@ MonoBehaviour:
   isMovingDown: 0
   isJumpAble: 0
   movingConstant: 0.70710677
-  equipedItem: {fileID: 0}
-  currentFocusedItem: {fileID: 0}
-  currentCollision: {fileID: 0}
 --- !u!61 &2344658480793479511
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -212,22 +209,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: e82151aef56e10048bd28f423ab7e989, type: 2}
+  health: 3
+  isArmored: 0
   onGameOver:
     m_PersistentCalls:
       m_Calls: []
   onPlayerDamaged:
     m_PersistentCalls:
       m_Calls: []
-  health: 3
-  isArmored: 0
   currentLamp: {fileID: 0}
   currentArmor: {fileID: 0}
+  currentFocusedItem: {fileID: 0}
+  currentKeySword: {fileID: 0}
   isAttacked: 0
-  hp:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  spriteRenderer: {fileID: 0}
   damagedColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
 --- !u!95 &7506937565926736642
 Animator:
@@ -425,12 +419,12 @@ MonoBehaviour:
   m_ComponentVersion: 1
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.126
+  m_FalloffIntensity: 0.125
   m_Color: {r: 1, g: 1, b: 0.7294118, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000d7f5b9a0af5715a4a9b3d865
+  m_ApplyToSortingLayers: 00000000d7f5b9a0af5715a4a9b3d86559bd5b76
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0

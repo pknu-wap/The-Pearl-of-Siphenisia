@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
     public int swordCount = 0;
     private GameObject tree;
+
+    public UnityEvent onGameClear;
 
     private void Awake()
     {
@@ -25,4 +28,10 @@ public class GameManager : MonoBehaviour
     {
         Destroy(tree);
     } 
+
+    public void ClearGame()
+    {
+        GameUIManager.Instance.ShowGameClearUI();
+        Time.timeScale = 0f;
+    }
 }
