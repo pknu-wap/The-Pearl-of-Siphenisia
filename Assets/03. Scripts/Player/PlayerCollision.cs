@@ -5,36 +5,48 @@ using UnityEngine.UI;
 
 public class PlayerCollision : MonoBehaviour
 {
+    [Header("플레이어 정보")]
     public PlayerData playerData;
+    public int health;
+    public bool isArmored;
 
+    [Header("이벤트")]
     public UnityEvent onGameOver;
     public UnityEvent onPlayerDamaged;
 
-    public int health = 3;
-    public bool isArmored;
-
+    [Header("현재 인식된 정보")]
     public LampItem currentLamp;
     public ArmorItem currentArmor;
+    public Item equipedItem = null;
+    public ItemTrigger currentFocusedItem = null;
+    public Collider2D currentCollision = null;
 
     public bool isAttacked = false;
 
     public Image[] hp = new Image[3];
+    private SpriteRenderer spriteRenderer;
 
-    public SpriteRenderer spriteRenderer;
-
-    public Color damagedColor = new Color(150, 150, 150);
+    public Color damagedColor;
 
     public void Start()
     {
-        //health = playerData.health;
+        health = playerData.health;
         isArmored = playerData.armor;
+
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         Transform hpBar = GameObject.Find("HP Bar").transform;
-        
         for (int i = 0; i < hp.Length; i++)
         {
             hp[i] = hpBar.GetChild(i).GetComponent<Image>();
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            GetItem();
         }
     }
 
@@ -44,6 +56,14 @@ public class PlayerCollision : MonoBehaviour
         {
             PlayerDamaged();
             StartCoroutine(SetInvincible());
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            currentFocusedItem = collision.GetComponent<ItemTrigger>();
         }
     }
 
@@ -83,6 +103,20 @@ public class PlayerCollision : MonoBehaviour
         {
             GameOver();
         }
+    }
+
+    /// <summary>
+    /// currentFocusedItem을 획득한다.
+    /// </summary>
+    private void GetItem()
+    {
+        if (currentFocusedItem == null)
+        {
+            return;
+        }
+
+        currentFocusedItem.GetItem();
+        currentFocusedItem = null;
     }
 
     void UpdateHPUI()
