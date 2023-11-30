@@ -67,7 +67,7 @@ public class PlayerCollision : MonoBehaviour
         if (collision.gameObject.CompareTag("KeySword"))
         {
             currentKeySword = collision.GetComponent<KeySword>();
-            GameUIManager.Instance.ShowInteractionUI(transform);
+            GameUIManager.Instance.ShowInteractionUI(transform, "Shift");
         }
     }
 

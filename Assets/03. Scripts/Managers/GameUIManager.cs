@@ -61,6 +61,7 @@ public class GameUIManager : Singleton<GameUIManager>
         try
         {
             interactionUIObj = GameObject.Find("Interaction Button");
+            interactionText = interactionUIObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         }
         catch { }
         try
@@ -141,15 +142,17 @@ public class GameUIManager : Singleton<GameUIManager>
     #region Interaction UI
     [Header("상호 작용")]
     [SerializeField] private GameObject interactionUIObj;
+    [SerializeField] private TextMeshProUGUI interactionText;
     [SerializeField] private Vector3 interactOffset = new(0f, 1f, 0f);
 
-    public void ShowInteractionUI(Transform targetTransform)
+    public void ShowInteractionUI(Transform targetTransform, string key)
     {
         if(interactionUIObj == null)
         {
             return;
         }
 
+        interactionText.text = key;
         MoveInteractionUI(targetTransform);
         interactionUIObj.SetActive(true);
     }
