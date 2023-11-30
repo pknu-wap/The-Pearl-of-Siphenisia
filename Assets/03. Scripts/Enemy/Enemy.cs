@@ -1,9 +1,6 @@
 using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
-using static Unity.Collections.AllocatorManager;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class Enemy : MonoBehaviour
 {
@@ -58,7 +55,6 @@ public class Enemy : MonoBehaviour
                     }*/
                     Dash();
                 }
-                Debug.Log(gameObject);
             }
         }
     }
