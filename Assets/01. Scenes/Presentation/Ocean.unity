@@ -108409,6 +108409,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameOver Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 7606397045275716860, guid: 6f2f68eee25999241ad5eab1bfe44b63, type: 3}
+      propertyPath: lobby
+      value: Lobby Presentation
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -108884,6 +108888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d0769fb3eb2e9438a116fc96d92bf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lobby: Lobby Presentation
 --- !u!114 &1275392961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117738,6 +117743,10 @@ PrefabInstance:
     - target: {fileID: 350098527632488588, guid: 3aee07ac789fd7943b7422d436f7729b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7763616121634881139, guid: 3aee07ac789fd7943b7422d436f7729b, type: 3}
+      propertyPath: lobby
+      value: Lobby Presentation
       objectReference: {fileID: 0}
     - target: {fileID: 8731908945563789444, guid: 3aee07ac789fd7943b7422d436f7729b, type: 3}
       propertyPath: m_Name
