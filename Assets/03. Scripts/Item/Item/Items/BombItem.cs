@@ -109,7 +109,6 @@ public class BombItem : HandItem
 
     private IEnumerator Bomb()
     {
-        Debug.Log("Bomb");
         bombRange.enabled = true;
 
         // 충돌 감지를 위한 1프레임 대기
