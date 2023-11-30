@@ -177,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followSpeed: 0.5
   offset: {x: 0, y: 0, z: 0}
-  minX: -30
-  minY: -89.37
-  maxX: 30
-  maxY: -0.625
+  minX: 0
+  minY: 0
+  maxX: 0
+  maxY: 0
