@@ -20,6 +20,7 @@ public class PlayerCollision : MonoBehaviour
     public Item equipedItem = null;
     public ItemTrigger currentFocusedItem = null;
     public Collider2D currentCollision = null;
+    public KeySword currentKeySword = null;
 
     public bool isAttacked = false;
 
@@ -64,6 +65,25 @@ public class PlayerCollision : MonoBehaviour
         if (collision.gameObject.CompareTag("Item"))
         {
             currentFocusedItem = collision.GetComponent<ItemTrigger>();
+        }
+
+        if (collision.gameObject.CompareTag("KeySword"))
+        {
+            currentKeySword = collision.GetComponent<KeySword>();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        // 거리를 충분히 벌릴 것
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            currentFocusedItem = null;
+        }
+
+        if (collision.gameObject.CompareTag("KeySword"))
+        {
+            currentKeySword = null;
         }
     }
 
