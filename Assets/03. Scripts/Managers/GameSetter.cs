@@ -1,34 +1,66 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameSetter : MonoBehaviour
+public class GameSetter : Singleton<GameSetter>
 {
+    #region 변수
     [Header("그래픽")]
     [SerializeField] private int targetFPS = 60;
     [SerializeField] private int vSyncCount = 0;
 
     [Header("소리")]
-    [SerializeField] private float soundVolume = 1;
-    [SerializeField]  private Slider volumeSlider;
-    [SerializeField] AudioSource audioSource;
+    [SerializeField] private float masterValue = 1;
+    [SerializeField] private float bgmValue = 1;
+    [SerializeField] private float sfxValue = 1;
+
+    public Slider masterSlider;
+    public Slider bgmSlider;
+    public Slider sfxSlider;
 
     Dictionary<int, int> frameDict;
+    #endregion 변수
 
-    private void Awake()
+    #region 초기 설정
+    protected override void Awake()
     {
+        base.Awake();
+
         AssignObjects();
 
-        // TODO: SaveManager로부터 저장된 설정값 받아오기
+    }
+
+    private void Start()
+    {
         SetDictionaries();
-        SetDefaultValues();
+
+        SceneManager.activeSceneChanged += OnSceneChanged;
+        LoadSetting();
+        SetAllValues();
+        AddEvents();
+    }
+
+    private void OnSceneChanged(Scene current, Scene next)
+    {
+        AssignObjects();
+        //SetDictionaries();
+        //LoadSetting();
+        SetAllValues();
     }
 
     private void AssignObjects()
     {
-        volumeSlider = GameObject.Find("Volume Slider").GetComponent <Slider>();
-        audioSource = GameObject.Find("BGM").GetComponent<AudioSource>();
+        masterSlider = GameObject.Find("Master Volume Slider").GetComponent<Slider>();
+        bgmSlider = GameObject.Find("BGM Volume Slider").GetComponent<Slider>();
+        sfxSlider = GameObject.Find("SFX Volume Slider").GetComponent<Slider>();
     }
+
+    private void AddEvents()
+    {
+        SaveManager.Instance.SaveAll.AddListener(SaveSetting);
+    }
+    #endregion 초기 설정
 
     #region 값 설정
     void SetDictionaries()
@@ -40,29 +72,66 @@ public class GameSetter : MonoBehaviour
         };
     }
 
-    private void SetDefaultValues()
+    private void SetAllValues()
     {
         Application.targetFrameRate = targetFPS;
-        audioSource.volume = 0;
         QualitySettings.vSyncCount = vSyncCount;
+        masterSlider.value = masterValue;
+        bgmSlider.value = bgmValue;
+        sfxSlider.value = sfxValue;
+        SaveSetting();
     }
 
     public void SetFrameRate(int value)
     {
         targetFPS = frameDict[value];
         Application.targetFrameRate = targetFPS;
+        SaveSetting();
     }
 
     public void SetVSyncCount(int value)
     {
         vSyncCount = value;
         QualitySettings.vSyncCount = vSyncCount;
+        SaveSetting();
     }
 
-    public void SetVolume()
+    public void SetMasterVolume(float master)
     {
-        soundVolume = (float)volumeSlider.value / volumeSlider.maxValue;
-        audioSource.volume = soundVolume;
+        masterValue = master;
+        SaveSetting();
+    }
+
+    public void SetBGMVolume(float bgm)
+    {
+        bgmValue = bgm;
+        SaveSetting();
+    }
+
+    public void SetSFXVolume(float sfx)
+    {
+        sfxValue = sfx;
+        SaveSetting();
     }
     #endregion 값 설정
+
+    #region 저장
+    public void SaveSetting()
+    {
+        SaveManager.instance.SaveTargetFPS(targetFPS);
+        SaveManager.instance.SaveVSyncCount(vSyncCount);
+        SaveManager.instance.SaveMasterValue(masterValue);
+        SaveManager.instance.SaveBGMValue(bgmValue);
+        SaveManager.instance.SaveSFXValue(sfxValue);
+    }
+
+    public void LoadSetting()
+    {
+        targetFPS = SaveManager.instance.LoadTargetFPS();
+        vSyncCount = SaveManager.instance.LoadVSyncCount();
+        masterValue = SaveManager.instance.LoadMasterValue();
+        bgmValue = SaveManager.instance.LoadBGMValue();
+        sfxValue = SaveManager.instance.LoadSFXValue();
+    }
+    #endregion 저장
 }

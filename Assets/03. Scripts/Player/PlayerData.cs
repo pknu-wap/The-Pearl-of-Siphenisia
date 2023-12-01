@@ -6,5 +6,5 @@ using UnityEngine;
 public class PlayerData : ScriptableObject
 {
     public int health;
-    public int armor;
+    public bool armor;
 }

@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4e55fc32d608ba4c94506da450094ba, type: 3}
   m_Name: Bomb
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 0fcc61782c62eee4f913e24b742d315b, type: 3}
-  sprite: {fileID: 21300000, guid: 0fcc61782c62eee4f913e24b742d315b, type: 3}
+  icon: {fileID: 21300000, guid: e567d0e3a3767ac4bb49865424218774, type: 3}
+  sprite: {fileID: 21300000, guid: e567d0e3a3767ac4bb49865424218774, type: 3}
   itemName: "\uD3ED\uD0C4"
   description: "\uC57D\uD55C \uBCBD\uC744 \uBD80\uC218\uAC70\uB098 \uC801\uC744 \uAE30\uC808\uC2DC\uD0AC
     \uC218 \uC788\uB2E4."
   count: 1
   priority: 3
-  itemTag: 1
+  itemCode: Bomb
+  purposeTag: 1
   useTag: 1

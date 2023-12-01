@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 #region 태그
 public enum PurposeTag
@@ -30,8 +29,9 @@ public class ItemData : ScriptableObject
     public int count = 1;
     // 정렬 우선 순위
     public int priority = 0;
+    public string itemCode = "영어 이름 작성";
 
     [Header("아이템 분류")]
-    public PurposeTag itemTag;
+    public PurposeTag purposeTag;
     public UseTag useTag;
 }

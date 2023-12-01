@@ -1,15 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Tilemaps;
 
 // 벽의 부속들이 사용할 함수, event를 공부 후 로직 수정 에정
 public class bombWall : MonoBehaviour
 {
     Rigidbody2D rb;
-    Color color;
     Renderer wallRenderer;
     public UnityEvent onBombed;
     public float power;
@@ -19,7 +15,6 @@ public class bombWall : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        color = GetComponent<bombWall>().color;
         wallRenderer = GetComponent<Renderer>();
 
         onBombed.AddListener(wallBreakDown);

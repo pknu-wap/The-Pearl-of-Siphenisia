@@ -6,22 +6,22 @@ public class Item : MonoBehaviour
     public ItemData itemData;
     // 변하는 정보들 (각 아이템마다 적용)
     public int count = 1;
-    public bool isEquiped = false;
+    public bool isEquiped;
 
     /// <summary>
     /// 아이템을 사용한다.
     /// </summary>
-    public virtual void ActivateItem()
+    public virtual bool ActivateItem()
     {
-
+        return true;
     }
 
 
     /// <summary>
     /// 아이템을 해제한다. (Equip, Hand에서 사용)
     /// </summary>
-    public virtual void DeactivateItem()
+    public virtual bool DeactivateItem()
     {
-
+        return true;
     }
 }

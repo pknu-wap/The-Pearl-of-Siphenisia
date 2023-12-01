@@ -11,7 +11,13 @@ TagManager:
   - RotatingTerrain
   - Land
   - Item
+  - Soldier
   - Bomb
+  - KeySword
+  - BG
+  - Wall
+  - WalkArea
+  - Portal
   layers:
   - Default
   - TransparentFX
@@ -48,6 +54,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BG
+    uniqueID: 1985723737
     locked: 0
   - name: Player
     uniqueID: 2696541655

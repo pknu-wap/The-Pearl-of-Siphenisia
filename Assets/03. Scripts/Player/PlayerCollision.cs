@@ -1,60 +1,179 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class PlayerCollision : MonoBehaviour
 {
-    public PlayerData obj;
-    public Player player;
-    public UnityEvent gameOver;
+    [Header("«√∑π¿ÃæÓ ¡§∫∏")]
+    public PlayerData playerData;
+    public PlayerAudio playerAudio;
+    public int health;
+    public bool isArmored = false;
 
-    int health;
-    int armor;
+    [Header("¿Ã∫•∆Æ")]
+    public UnityEvent onGameOver;
+    public UnityEvent onPlayerDamaged;
 
+    [Header("«ˆ¿Á ¿ŒΩƒµ» ¡§∫∏")]
+    public LampItem currentLamp;
+    public ArmorItem currentArmor;
+    [SerializeField] ItemTrigger currentFocusedItem = null;
+    public KeySword currentKeySword = null;
+
+    [Header("±‚≈∏")]
     public bool isAttacked = false;
+    private Image[] hp = new Image[3];
+    private SpriteRenderer spriteRenderer;
+    public Color damagedColor;
 
     public void Start()
     {
-        health = obj.health;
-        armor = obj.armor;
+        health = playerData.health;
+        isArmored = playerData.armor;
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        playerAudio = transform.GetChild(3).GetComponent<PlayerAudio>();
+
+        try
+        {
+            Transform hpBar = GameObject.Find("HP Bar").transform;
+            for (int i = 0; i < hp.Length; i++)
+            {
+                hp[i] = hpBar.GetChild(i).GetComponent<Image>();
+            }
+        }
+        catch { }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            GetItem();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Portal"))
+        {
+            playerAudio.PlayPortalSound();
+        }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy") && !isAttacked)
         {
-            if (collision.gameObject.CompareTag("Enemy"))
-            {
-                playerDamaged();
-                StartCoroutine(SetInvincible());
-            }
+            PlayerDamaged();
+            StartCoroutine(SetInvincible());
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            currentFocusedItem = collision.GetComponent<ItemTrigger>();
+        }
+
+        if (collision.gameObject.CompareTag("KeySword"))
+        {
+            currentKeySword = collision.GetComponent<KeySword>();
+            GameUIManager.Instance.ShowInteractionUI(transform, "Shift");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        // ∞≈∏Æ∏¶ √Ê∫–»˜ π˙∏± ∞Õ
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            currentFocusedItem = null;
+        }
+
+        if (collision.gameObject.CompareTag("KeySword"))
+        {
+            currentKeySword = null;
+            GameUIManager.Instance.HideInteractionUI();
         }
     }
 
     private IEnumerator SetInvincible()
     {
         isAttacked = true;
-        yield return new WaitForSecondsRealtime(1.0f);
+        spriteRenderer.color = damagedColor;
+        yield return new WaitForSecondsRealtime(0.4f);
+        spriteRenderer.color = Color.white;
+        yield return new WaitForSecondsRealtime(0.4f);
+        spriteRenderer.color = damagedColor;
+        yield return new WaitForSecondsRealtime(0.4f);
+        spriteRenderer.color = Color.white;
+        yield return new WaitForSecondsRealtime(0.4f);
+        spriteRenderer.color = damagedColor;
+        yield return new WaitForSecondsRealtime(0.4f);
+        spriteRenderer.color = Color.white;
         isAttacked = false;
     }
 
-    public void playerDamaged()
+    public void PlayerDamaged()
     {
-        if (health == 0 && armor == 0)
+        if (isArmored == true)
         {
-            Debug.Log("Í≤åÏûÑ Ïò§Î≤Ñ");
+            playerAudio.PlayBreakSound();
+            isArmored = false;
+            onPlayerDamaged.Invoke();
+            return;
         }
-        else if (armor == 0)
-        {
-            Debug.Log("ÌîåÎ†àÏù¥Ïñ¥ Ï≤¥Î†• 1 Í∞êÏÜå");
-            health--;
-            print(health);
-        }
+
         else
         {
-            Debug.Log("ÌîåÎ†àÏù¥Ïñ¥ ÏïÑÎ®∏ 1 Í∞êÏÜå");
-            armor--;
-            print(armor);
+            health--;
+            UpdateHPUI();
         }
+
+        if (health == 0)
+        {
+            GameOver();
+        }
+    }
+
+    /// <summary>
+    /// currentFocusedItem¿ª »πµÊ«—¥Ÿ.
+    /// </summary>
+    private void GetItem()
+    {
+        if (currentFocusedItem == null)
+        {
+            return;
+        }
+
+        currentFocusedItem.GetItem();
+        currentFocusedItem = null;
+    }
+
+    public void DestroyKeySword()
+    {
+        currentKeySword.DestroyKeySword();
+    }
+
+    void UpdateHPUI()
+    {
+        for(int i = 0; i < health; i++)
+        {
+            hp[i].color = Color.white;
+        }
+
+        for(int i = health; i < hp.Length; i++)
+        {
+            hp[i].color = Color.black;
+        }
+    }
+    
+    void GameOver()
+    {
+        Time.timeScale = 0f;
+        GameUIManager.Instance.ShowGameOverUI();
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +5,7 @@ public class DragSlot : MonoBehaviour
 {
     Image icon;
     public Item dragItem;
+    public bool isItemEquiped;
 
     private void Start()
     {

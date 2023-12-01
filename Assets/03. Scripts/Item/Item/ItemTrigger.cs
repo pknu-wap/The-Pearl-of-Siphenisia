@@ -17,7 +17,7 @@ public class ItemTrigger : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             // 플레이어가 범위 내에 들어오면 자신의 위에 인터렉션 버튼 UI를 띄운다.
-            gameUIManager.ShowInteractionUI(transform);
+            gameUIManager.ShowInteractionUI(transform, "E");
         }
     }
 

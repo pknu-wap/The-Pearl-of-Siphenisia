@@ -3,12 +3,10 @@ using UnityEngine;
 
 public class Stage1_BombTile : MonoBehaviour
 {
-    Color color;
     Renderer wallRenderer;
 
     void Start()
     {
-        color = GetComponent<Stage1_BombTile>().color;
         wallRenderer = GetComponent<Renderer>();
     }
 

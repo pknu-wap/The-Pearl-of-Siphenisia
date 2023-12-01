@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,29 +10,27 @@ public class SceneLoader : Singleton<SceneLoader>
     private string loadSceneName;
     float fadeTime = 2f;
     private GameObject fadeObject;
+    private GameObject loadingUI;
+    private Image progressBar;
     
     [SerializeField]
     private Image fadeBG;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (transform.parent != null)
-        {
-            DontDestroyOnLoad(transform.root.gameObject);
-        }
-        else
-        {
-            DontDestroyOnLoad(gameObject);
-        }
+        base.Awake();
 
         AssignObjects();
         fadeObject.SetActive(false);
+        loadingUI.SetActive(false);
     }
 
     void AssignObjects()
     {
         fadeObject = transform.GetChild(0).gameObject;
         fadeBG = fadeObject.GetComponent<Image>();
+        loadingUI = transform.GetChild(1).gameObject;
+        progressBar = loadingUI.transform.GetChild(1).GetComponent<Image>();
     }
 
     public void LoadScene(string sceneName)
@@ -51,11 +48,18 @@ public class SceneLoader : Singleton<SceneLoader>
         operation.allowSceneActivation = false;
 
         float timer = 0f;
+        progressBar.fillAmount = 0f;
 
         while (!operation.isDone)
         {
             yield return null;
             timer += Time.unscaledDeltaTime;
+            progressBar.fillAmount = operation.progress;
+
+            if(timer < 1f)
+            {
+                continue;
+            }
 
             if (operation.progress > 0.4f)
             {
@@ -77,6 +81,7 @@ public class SceneLoader : Singleton<SceneLoader>
     public IEnumerator FadeIn(float seconds)
     {
         fadeObject.SetActive(true);
+        loadingUI.SetActive(false);
 
         fadeBG.color = new(0, 0, 0, 1);
 
@@ -94,5 +99,7 @@ public class SceneLoader : Singleton<SceneLoader>
 
         var tween = fadeBG.DOFade(1.0f, seconds);
         yield return tween.WaitForCompletion();
+
+        loadingUI.SetActive(true);
     }
 }
