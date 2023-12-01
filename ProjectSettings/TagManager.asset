@@ -17,6 +17,7 @@ TagManager:
   - BG
   - Wall
   - WalkArea
+  - Portal
   layers:
   - Default
   - TransparentFX

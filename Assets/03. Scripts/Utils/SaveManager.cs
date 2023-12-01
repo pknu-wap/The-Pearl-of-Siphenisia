@@ -107,14 +107,34 @@ public class SaveManager : Singleton<SaveManager>
         return saveData.vSyncCount;
     }
 
-    public void SaveSoundVolume(float soundVolume)
+    public void SaveMasterValue(float masterValue)
     {
-        saveData.soundVolume = soundVolume;
+        saveData.masterValue = masterValue;
     }
 
-    public float LoadSoundVolume()
+    public float LoadMasterValue()
     {
-        return saveData.soundVolume;
+        return saveData.masterValue;
+    }
+
+    public void SaveBGMValue(float masterValue)
+    {
+        saveData.bgmValue = masterValue;
+    }
+
+    public float LoadBGMValue()
+    {
+        return saveData.bgmValue;
+    }
+
+    public void SaveSFXValue(float masterValue)
+    {
+        saveData.sfxValue = masterValue;
+    }
+
+    public float LoadSFXValue()
+    {
+        return saveData.sfxValue;
     }
     #endregion ¼³Á¤
 

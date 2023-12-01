@@ -7,6 +7,7 @@ public class PlayerCollision : MonoBehaviour
 {
     [Header("플레이어 정보")]
     public PlayerData playerData;
+    public PlayerAudio playerAudio;
     public int health;
     public bool isArmored = false;
 
@@ -32,6 +33,7 @@ public class PlayerCollision : MonoBehaviour
         isArmored = playerData.armor;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+        playerAudio = transform.GetChild(3).GetComponent<PlayerAudio>();
 
         try
         {
@@ -49,6 +51,14 @@ public class PlayerCollision : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             GetItem();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Portal"))
+        {
+            playerAudio.PlayPortalSound();
         }
     }
 
@@ -111,6 +121,7 @@ public class PlayerCollision : MonoBehaviour
     {
         if (isArmored == true)
         {
+            playerAudio.PlayBreakSound();
             isArmored = false;
             onPlayerDamaged.Invoke();
             return;

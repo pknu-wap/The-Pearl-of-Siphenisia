@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public Rigidbody2D rig2d;
     public Animator animator;
     public SpriteRenderer spriteRenderer;
+    public PlayerAudio playerAudio;
 
     public UnityEvent gameOver;
     
@@ -33,6 +34,7 @@ public class Player : MonoBehaviour
         rig2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        playerAudio = transform.GetChild(3).GetComponent<PlayerAudio>();
         animator.SetBool("isWalking", false);
     }
 
@@ -61,7 +63,23 @@ public class Player : MonoBehaviour
     void Walk()
     {
         if (horizontal != 0) { rig2d.AddForce(new Vector2(horizontal * walkingSpeed, 0), ForceMode2D.Force); }
-        if (vertical == 1 && isJumpAble) { rig2d.AddForce(new Vector2(0, jumpPower), ForceMode2D.Force); }
+
+        if (isJumpAble == true && playerAudio.isWalkSoundPlayed == false)
+        {
+            playerAudio.PlayWalkSound();
+        }
+
+        if(horizontal == 0)
+        {
+            playerAudio.StopWalkSound();
+        }
+
+        if (vertical == 1 && isJumpAble)
+        {
+            playerAudio.StopWalkSound();
+            playerAudio.PlayJumpSound();
+            rig2d.AddForce(new Vector2(0, jumpPower), ForceMode2D.Force);
+        }
 
         animator.SetBool("isMovingLeft", isMovingLeft);
         animator.SetBool("isMovingRight", isMovingRight);

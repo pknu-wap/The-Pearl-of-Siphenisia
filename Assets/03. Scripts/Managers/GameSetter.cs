@@ -11,9 +11,13 @@ public class GameSetter : Singleton<GameSetter>
     [SerializeField] private int vSyncCount = 0;
 
     [Header("소리")]
-    [SerializeField] private float soundVolume = 1;
-    [SerializeField] private Slider volumeSlider;
-    [SerializeField] AudioSource audioSource;
+    [SerializeField] private float masterValue = 1;
+    [SerializeField] private float bgmValue = 1;
+    [SerializeField] private float sfxValue = 1;
+
+    public Slider masterSlider;
+    public Slider bgmSlider;
+    public Slider sfxSlider;
 
     Dictionary<int, int> frameDict;
     #endregion 변수
@@ -47,8 +51,9 @@ public class GameSetter : Singleton<GameSetter>
 
     private void AssignObjects()
     {
-        volumeSlider = GameObject.Find("Volume Slider").GetComponent <Slider>();
-        audioSource = GameObject.Find("BGM").GetComponent<AudioSource>();
+        masterSlider = GameObject.Find("Master Volume Slider").GetComponent<Slider>();
+        bgmSlider = GameObject.Find("BGM Volume Slider").GetComponent<Slider>();
+        sfxSlider = GameObject.Find("SFX Volume Slider").GetComponent<Slider>();
     }
 
     private void AddEvents()
@@ -70,8 +75,10 @@ public class GameSetter : Singleton<GameSetter>
     private void SetAllValues()
     {
         Application.targetFrameRate = targetFPS;
-        audioSource.volume = soundVolume;
         QualitySettings.vSyncCount = vSyncCount;
+        masterSlider.value = masterValue;
+        bgmSlider.value = bgmValue;
+        sfxSlider.value = sfxValue;
         SaveSetting();
     }
 
@@ -89,10 +96,21 @@ public class GameSetter : Singleton<GameSetter>
         SaveSetting();
     }
 
-    public void SetVolume()
+    public void SetMasterVolume(float master)
     {
-        soundVolume = (float)volumeSlider.value / volumeSlider.maxValue;
-        audioSource.volume = soundVolume;
+        masterValue = master;
+        SaveSetting();
+    }
+
+    public void SetBGMVolume(float bgm)
+    {
+        bgmValue = bgm;
+        SaveSetting();
+    }
+
+    public void SetSFXVolume(float sfx)
+    {
+        sfxValue = sfx;
         SaveSetting();
     }
     #endregion 값 설정
@@ -102,14 +120,18 @@ public class GameSetter : Singleton<GameSetter>
     {
         SaveManager.instance.SaveTargetFPS(targetFPS);
         SaveManager.instance.SaveVSyncCount(vSyncCount);
-        SaveManager.instance.SaveSoundVolume(soundVolume);
+        SaveManager.instance.SaveMasterValue(masterValue);
+        SaveManager.instance.SaveBGMValue(bgmValue);
+        SaveManager.instance.SaveSFXValue(sfxValue);
     }
 
     public void LoadSetting()
     {
         targetFPS = SaveManager.instance.LoadTargetFPS();
         vSyncCount = SaveManager.instance.LoadVSyncCount();
-        soundVolume = SaveManager.instance.LoadSoundVolume();
+        masterValue = SaveManager.instance.LoadMasterValue();
+        bgmValue = SaveManager.instance.LoadBGMValue();
+        sfxValue = SaveManager.instance.LoadSFXValue();
     }
     #endregion 저장
 }

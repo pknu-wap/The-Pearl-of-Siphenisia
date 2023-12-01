@@ -18,7 +18,9 @@ public class SaveData
     [Header("¼³Á¤")]
     public int targetFPS;
     public int vSyncCount;
-    public float soundVolume;
+    public float masterValue;
+    public float bgmValue;
+    public float sfxValue;
 
     public SaveData()
     {
@@ -28,6 +30,8 @@ public class SaveData
 
         targetFPS = 60;
         vSyncCount = 0;
-        soundVolume = 1;
-    }
+        masterValue = 0;
+        bgmValue = 0;
+        sfxValue = 0;
+}
 }

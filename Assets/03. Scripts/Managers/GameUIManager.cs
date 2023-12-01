@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameUIManager : Singleton<GameUIManager>
 {
+    PlayerAudio playerAudio; 
     #region 초기 설정
 
     protected override void Awake()
@@ -92,7 +93,11 @@ public class GameUIManager : Singleton<GameUIManager>
             gameClearPanel = GameObject.Find("Game Clear Panel");
         }
         catch { }
-
+        try
+        {
+            playerAudio = GameObject.FindWithTag("Player").transform.GetChild(3).GetComponent<PlayerAudio>();
+        }
+        catch { }
     }
     #endregion 초기 설정
 
@@ -217,6 +222,7 @@ public class GameUIManager : Singleton<GameUIManager>
         }
 
         Time.timeScale = 0f;
+        playerAudio.StopWalkSound();
         ShowPausePanelUI();
         isPaused = true;
     }

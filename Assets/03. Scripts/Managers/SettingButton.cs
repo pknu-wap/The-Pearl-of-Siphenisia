@@ -12,8 +12,18 @@ public class SettingButton : MonoBehaviour
         GameSetter.Instance.SetVSyncCount(value);
     }
 
-    public void SetVolume()
+    public void SetMasterVolume(float value)
     {
-        GameSetter.Instance.SetVolume();
+        SoundManager.Instance.SetMasterVolume(value);
+    }
+
+    public void SetBGMVolume(float value)
+    {
+        SoundManager.Instance.SetBGMVolume(value);
+    }
+
+    public void SetSFXVolume(float value)
+    {
+        SoundManager.Instance.SetSFXVolume(value);
     }
 }
