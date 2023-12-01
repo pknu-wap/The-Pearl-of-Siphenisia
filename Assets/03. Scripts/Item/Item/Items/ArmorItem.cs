@@ -22,6 +22,8 @@ public class ArmorItem : Item
         playerCollision.isArmored = true;
         playerCollision.currentArmor = this;
 
+        playerCollision.onPlayerDamaged.AddListener(DestroyItem);
+
         return true;
     }
 
@@ -37,12 +39,22 @@ public class ArmorItem : Item
         playerCollision.isArmored = false;
         playerCollision.currentArmor =  null;
 
+        playerCollision.onPlayerDamaged.RemoveListener(DestroyItem);
+
         return true;
     }
 
     public void DestroyItem()
     {
         DeactivateItem();
+        ClearSlot();
         Destroy(gameObject);
+    }
+
+    void ClearSlot()
+    {
+        Slot slot = transform.parent.GetComponent<Slot>();
+
+        slot.ClearSlot();
     }
 }

@@ -8,7 +8,7 @@ public class PlayerCollision : MonoBehaviour
     [Header("플레이어 정보")]
     public PlayerData playerData;
     public int health;
-    public bool isArmored;
+    public bool isArmored = false;
 
     [Header("이벤트")]
     public UnityEvent onGameOver;
