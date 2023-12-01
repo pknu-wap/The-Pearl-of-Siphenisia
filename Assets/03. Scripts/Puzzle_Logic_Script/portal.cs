@@ -7,7 +7,10 @@ public class portal : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        TeleportObject(other.gameObject);
+        if(other.gameObject.CompareTag("Player"))
+        {
+            TeleportObject(other.gameObject);
+        }
     }
 
     void TeleportObject(GameObject _objact)  // 텔레포트 함수

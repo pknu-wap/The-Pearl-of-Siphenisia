@@ -232,7 +232,7 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   enemyRig2d: {fileID: 0}
   spriteRenderer: {fileID: 0}
-  enemySpeed: 3
+  enemySpeed: 5
   rotateSpeed: 10
   enemyDashPower: 2
   enemyDashTime: 1

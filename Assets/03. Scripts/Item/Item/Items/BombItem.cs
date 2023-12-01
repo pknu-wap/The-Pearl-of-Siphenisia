@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -41,15 +42,20 @@ public class BombItem : HandItem
 
         EraseAimLine();
     }
-    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ground")
             || collision.gameObject.CompareTag("Land")
-            || collision.gameObject.CompareTag("Enemy")
             || collision.gameObject.CompareTag("Wall"))
         {
             isCrashed = true;
+        }
+
+        if (collision.gameObject.CompareTag("Enemy") && collision.GetType() == typeof(BoxCollider2D))
+        {
+            isCrashed = true;
+            collision.GetComponent<Enemy>().Stun();
         }
     }
 
@@ -94,6 +100,7 @@ public class BombItem : HandItem
     {
         transform.SetParent(null);
         transform.rotation = Quaternion.Euler(Vector3.zero);
+
         bombBody.enabled = true;
 
         Vector2 direction = endPosition - startPosition;
@@ -113,6 +120,7 @@ public class BombItem : HandItem
 
         // 충돌 감지를 위한 1프레임 대기
         yield return null;
+
         // TODO: 폭발 이펙트
         DestroyItem();
     }
