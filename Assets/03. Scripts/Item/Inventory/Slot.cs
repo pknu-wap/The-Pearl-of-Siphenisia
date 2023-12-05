@@ -27,6 +27,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 
     private GameObject itemStatus;  // E 마크, Q 마크, 숫자 등 상태를 나타내는 오브젝트
     private TextMeshProUGUI countText;
+    private RectTransform rectTransform;
+    private RectTransform canvasRect;
     #endregion 변수
 
     #region 초기 설정
@@ -51,6 +53,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         infoWindow = GameObject.Find("Item Info Window").GetComponent<ItemInfoWindow>();
         quickSlot = GameObject.Find("Quick Slot").GetComponent<QuickSlot>();
         playerHand = GameObject.FindWithTag("Player").transform.GetChild(0).GetComponent<PlayerHand>();
+        rectTransform = GetComponent<RectTransform>();
+        canvasRect = transform.root.GetComponent<RectTransform>();
 
         itemStatus = transform.GetChild(1).gameObject;
 
@@ -406,9 +410,20 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         }
 
         // 자신의 위치로 상세정보창을 이동
-        infoWindow.ChangePosition(transform.position);
+        
+        infoWindow.ChangePosition(GetPositionInCanvas());
         infoWindow.UpdateInfo(slotItem.itemData);
         infoWindow.ShowInfoUI();
+    }
+
+    // With Chat-GPT
+    Vector2 GetPositionInCanvas()
+    {
+        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, rectTransform.position);
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPoint, Camera.main, out Vector2 localPoint);
+
+        return localPoint;
     }
 
     public void HideInfo()

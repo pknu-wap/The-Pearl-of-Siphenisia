@@ -55,7 +55,7 @@ public class BombItem : HandItem
         if (collision.gameObject.CompareTag("Enemy") && collision.GetType() == typeof(BoxCollider2D))
         {
             isCrashed = true;
-            collision.GetComponent<Enemy>().Stun();
+            collision.GetComponent<Enemy>().StunEvent.Invoke();
         }
     }
 
