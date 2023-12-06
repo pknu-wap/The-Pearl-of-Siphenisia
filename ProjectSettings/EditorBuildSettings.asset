@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01. Scenes/Lobby.unity
     guid: 01806552fa1703d4e8fa6fe3e59d062e
-  - enabled: 0
+  - enabled: 1
     path: Assets/01. Scenes/Tutorial.unity
     guid: 877cffca18557f940872c62e723caed3
   - enabled: 1

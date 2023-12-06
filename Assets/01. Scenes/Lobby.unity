@@ -217,7 +217,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Stage1-0
+          m_StringArgument: Tutorial
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &141911044
@@ -2348,7 +2348,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2107870269077593121, guid: e8c4dc2f38ff7cc49a2089aaeb58acd0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00031411133
+      value: -0.0007736851
       objectReference: {fileID: 0}
     - target: {fileID: 3749770804259137195, guid: e8c4dc2f38ff7cc49a2089aaeb58acd0, type: 3}
       propertyPath: m_Pivot.x
@@ -2440,7 +2440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5766073353788292345, guid: e8c4dc2f38ff7cc49a2089aaeb58acd0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0006855459
+      value: -0.00043271398
       objectReference: {fileID: 0}
     - target: {fileID: 6149507403300107695, guid: e8c4dc2f38ff7cc49a2089aaeb58acd0, type: 3}
       propertyPath: m_Size

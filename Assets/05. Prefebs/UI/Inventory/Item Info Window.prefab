@@ -170,9 +170,9 @@ RectTransform:
   - {fileID: 272995494170507610}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 51, y: -51.6}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1229, y: 668.4}
   m_SizeDelta: {x: 128, y: 64}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &2732614223231261568
@@ -222,7 +222,7 @@ SortingGroup:
   m_GameObject: {fileID: 2364654282905255667}
   m_Enabled: 1
   m_SortingLayerID: -1542105169
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 2
   m_SortAtRoot: 0
 --- !u!114 &1357068264748774236
@@ -237,6 +237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca14ab06727dd2f45b3110996d5bfd51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clampX: 0
+  clampY: 0
 --- !u!1 &7427491607444932880
 GameObject:
   m_ObjectHideFlags: 0
