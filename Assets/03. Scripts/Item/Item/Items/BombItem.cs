@@ -47,7 +47,8 @@ public class BombItem : HandItem
     {
         if (collision.gameObject.CompareTag("Ground")
             || collision.gameObject.CompareTag("Land")
-            || collision.gameObject.CompareTag("Wall"))
+            || collision.gameObject.CompareTag("Wall")
+            || collision.gameObject.CompareTag("KeySword"))
         {
             isCrashed = true;
         }
@@ -55,7 +56,7 @@ public class BombItem : HandItem
         if (collision.gameObject.CompareTag("Enemy") && collision.GetType() == typeof(BoxCollider2D))
         {
             isCrashed = true;
-            collision.GetComponent<Enemy>().Stun();
+            collision.GetComponent<Enemy>().StunEvent.Invoke();
         }
     }
 
@@ -96,13 +97,16 @@ public class BombItem : HandItem
         DrawAimLine();
     }
 
+    // BombItem.cs
     private IEnumerator ThrowBomb()
     {
         transform.SetParent(null);
         transform.rotation = Quaternion.Euler(Vector3.zero);
 
+        // 폭탄 몸체의 충돌 트리거를 켠다.
         bombBody.enabled = true;
 
+        // 날아갈 방향 설정 -> 현재 폭탄 위치에서 마우스 포인터 위치까지
         Vector2 direction = endPosition - startPosition;
 
         while(isCrashed == false && Vector3.Magnitude(transform.position - startPosition) < distance)
@@ -116,12 +120,13 @@ public class BombItem : HandItem
 
     private IEnumerator Bomb()
     {
+        // 폭발 범위의 충돌 트리거를 켠다.
         bombRange.enabled = true;
 
-        // 충돌 감지를 위한 1프레임 대기
+        // 충돌 감지를 위한 2프레임 대기
+        yield return null;
         yield return null;
 
-        // TODO: 폭발 이펙트
         DestroyItem();
     }
 

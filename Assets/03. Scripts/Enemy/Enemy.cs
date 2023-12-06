@@ -8,17 +8,18 @@ public class Enemy : MonoBehaviour
     public Transform playerTransform;
     public Rigidbody2D enemyRig2d;
     public SpriteRenderer spriteRenderer;
-    public float enemySpeed = 3f;
+
+    public float moveSpeed = 3f;
     public float rotateSpeed = 10f;
-    public float enemyDashPower = 2f;
-    public float enemyDashTime = 1f;
-    public float enemyDashCooltime = 3f;
+    public float dashPower = 2f;
+    public float dashTime = 1f;
+    public float dashCooltime = 3f;
     public float stunTime = 3f;
-    public bool isFacing = false;
     public bool isDashing = false;
     public bool isStunned = false;
 
-    // Start is called before the first frame update
+    private Coroutine dashCoroutine;
+
     void Awake()
     {
         playerTransform = GameObject.FindWithTag("Player").transform;
@@ -29,39 +30,57 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        isDashing = false;
+        // 플레이어가 범위 내에 들어오면 노멀 모드 실행
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            dashCoroutine = StartCoroutine(NormalMode());
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (!isStunned)
+        // 스턴 상태일 시 아무 일도 하지 않는다.
+        if(isStunned)
         {
-            if (collision.gameObject.CompareTag("Player"))
+            return;
+        }
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            // 대시 중이면 Dash 실행
+            if (isDashing)
             {
-                Toggle();
-                if (!isDashing)
-                {
-                    FollowPlayer();
-                    FlipYSprite();
-                    Move();
-                }
-                else
-                {
-                    if (!isFacing)
-                    {
-                        FollowPlayer();
-                        FlipYSprite();
-                        isFacing = true;
-                    }
-                    Dash();
-                }
+                Dash();
             }
+
+            // 대시 중이 아니라면 플레이어 추적
+            else
+            {
+                LookAtPlayer();
+                Move();
+                BlockFlipedSprite();
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        // 플레이어가 범위를 벗어나면 코루틴 종료
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            StopCoroutine(dashCoroutine);
         }
     }
 
     public void Stun()
     {
-        StartCoroutine(Stunned());
+        // 노멀 모드나 대시 모드가 실행 중이라면 종료한다.
+        if(dashCoroutine != null)
+        {
+            StopCoroutine(dashCoroutine);
+        }
+
+        dashCoroutine = StartCoroutine(Stunned());
     }
 
     private IEnumerator Stunned()
@@ -69,14 +88,12 @@ public class Enemy : MonoBehaviour
         isStunned = true;
         yield return new WaitForSecondsRealtime(stunTime);
         isStunned = false;
+        // 스턴이 끝나면 노멀 모드로 실행
+        dashCoroutine = StartCoroutine(NormalMode());
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        isDashing = false;
-    }
-
-    public void FollowPlayer()
+    // 플레이어를 바라본다.
+    public void LookAtPlayer()
     {
         // https://unitybeginner.tistory.com/50 에서 가져옴
         Vector2 direction = new(
@@ -92,10 +109,11 @@ public class Enemy : MonoBehaviour
 
     private void Move()
     {
-        transform.Translate(enemySpeed * Time.deltaTime * Vector2.down, Space.Self);
+        transform.Translate(moveSpeed * Time.deltaTime * Vector2.down, Space.Self);
     }
 
-    private void FlipYSprite()
+    // 오브젝트가 뒤집어지는 현상을 방지한다.
+    private void BlockFlipedSprite()
     {
         if (transform.rotation.z > 0) { spriteRenderer.flipY = true; }
         else { spriteRenderer.flipY = false; }
@@ -103,35 +121,24 @@ public class Enemy : MonoBehaviour
 
     public void Dash()
     {
-        //float dashX = 0, dashY = 0;
-        //if (!setCoord)
-        //{
-        //    dashX = (playerTransform.position.x - transform.position.x) / 10;
-        //    dashY = (playerTransform.position.y - transform.position.y) / 10;
-        //    setCoord = true;
-        //}
-        //transform.Translate(new Vector2(dashX, dashY) * enemyDashPower * enemySpeed * Time.deltaTime);
-        transform.Translate(enemyDashPower * enemySpeed * Time.deltaTime * Vector2.down, Space.Self);
-    }
-
-    public void Toggle()
-    {
-        if (isDashing) { StartCoroutine(DashMode()); }
-        else { StartCoroutine(NormalMode()); }
+        transform.Translate(dashPower * moveSpeed * Time.deltaTime * Vector2.down, Space.Self);
     }
 
     private IEnumerator NormalMode()
     {
         isDashing = false;
-        yield return new WaitForSecondsRealtime(enemyDashCooltime);
+        yield return new WaitForSecondsRealtime(dashCooltime);
         isDashing = true;
+        // 노멀 모드가 끝나면 대시 모드로 스위칭
+        dashCoroutine = StartCoroutine(DashMode());
     }
 
     private IEnumerator DashMode()
     {
         isDashing = true;
-        yield return new WaitForSecondsRealtime(enemyDashTime);
+        yield return new WaitForSecondsRealtime(dashTime);
         isDashing = false;
-        isFacing = false;
+        // 대시 모드가 끝나면 노멀 모드로 스위칭
+        dashCoroutine = StartCoroutine(NormalMode());
     }
 }
