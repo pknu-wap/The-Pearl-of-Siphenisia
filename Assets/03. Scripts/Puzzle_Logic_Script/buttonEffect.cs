@@ -6,6 +6,11 @@ public class buttonEffect : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D other)
     {
+        if (bridge == null)
+        {
+            return;
+        }
+
         if (other.gameObject.tag == "Player")
         {
             bridge.DestroyBridge();
